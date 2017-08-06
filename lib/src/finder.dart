@@ -1,18 +1,16 @@
 part of where;
 
-/// Value indicating whether the current platform is Windows.
-bool _isWindows = Platform.isWindows ?
-  true :
-  Platform.environment['OSTYPE'] == 'cygwin' || Platform.environment['OSTYPE'] == 'msys';
-
 /// Finds the instances of an executable in the system path.
 class Finder {
 
   /// Value indicating whether the current platform is Windows.
   static final bool isWindows = _isWindows;
 
-  /// Creates a new finder.
-  Finder([List<String> path = null, List<String> extensions = null, this.pathSeparator = '']): path = path ?? [], extensions = extensions ?? [] {
+  /// Creates a new finder from the following parameters:
+  /// - [paths]: the list of system paths.
+  /// - [pathExtensions]: the list of executable file extensions.
+  /// - [pathSeparator]: the character used to separate paths in the system path.
+  Finder({List<String> paths, List<String> pathExtensions, this.pathSeparator = ''}): path = paths ?? [], extensions = pathExtensions ?? [] {
     if (pathSeparator.isEmpty) pathSeparator = isWindows ? ';' : Platform.pathSeparator;
 
     if (path.isEmpty && Platform.environment.containsKey('PATH')) {
@@ -22,7 +20,8 @@ class Finder {
 
     if (extensions.isEmpty && isWindows) {
       var pathExt = Platform.environment.containsKey('PATHEXT') ? Platform.environment['PATHEXT'] : '';
-      extensions.addAll(pathExt.isNotEmpty ? pathExt.split(pathSeparator) : ['.EXE', '.CMD', '.BAT', '.COM']);
+      var fileExtensions = pathExt.isNotEmpty ? pathExt.split(pathSeparator) : ['.exe', '.cmd', '.bat', '.com'];
+      extensions.addAll(fileExtensions.map((extension) => extension.toUpperCase()));
     }
   }
 
@@ -37,9 +36,13 @@ class Finder {
 
   /// Finds the instances of the specified [command] in the system path.
   /// An [all] value indicates whether to return all the instances found, or only the first one.
-  Future<List<String>> find(String command, {bool all: true}) async {
+  Future<List<String>> find(String command, {bool all = true}) async {
     var paths = [];
-    for (var directory in path) paths.addAll(await _findExecutables(directory, command));
+    for (var directory in path) {
+      paths.addAll(await _findExecutables(directory, command, all: all));
+      if (!all) break;
+    }
+
     return paths;
   }
 
@@ -74,12 +77,16 @@ class Finder {
     return perms & (syscall.FileModes.EXECUTE_BY_OWNER | syscall.FileModes.EXECUTE_BY_GROUP) != 0 ? uid == 0 : false;
   }
 
-  /// Finds all the instances of a [command] in the specified [directory].
-  Future<List<String>> _findExecutables(String directory, String command) async {
+  /// Finds the instances of a [command] in the specified [directory].
+  /// An [all] value indicates whether to return all the instances found, or only the first one.
+  Future<List<String>> _findExecutables(String directory, String command, {bool all = true}) async {
     var paths = [];
     for (var extension in ['']..addAll(extensions)) {
       var resolvedPath = p.canonicalize('${p.join(directory, command)}${extension.toLowerCase()}');
-      if (await isExecutable(resolvedPath)) paths.add(resolvedPath);
+      if (await isExecutable(resolvedPath)) {
+        paths.add(resolvedPath);
+        if (!all) break;
+      }
     }
 
     return paths;
