@@ -23,7 +23,7 @@ class FileStat {
     if (Platform.isWindows) throw new UnsupportedError('Not supported on Windows platform.');
 
     var args = Platform.isMacOS ? ['-f', '"%g:%u:%p"', '-L'] : ['--dereference', '--format="%u:%g:%a"'];
-    var result = await Process.run('stat', args..add(file));
+    var result = await Process.run('stat', args..add(file), runInShell: true);
     if (result.exitCode != 0) throw new ProcessException('stat', args);
 
     var parts = result.stdout.trim().split(':');
@@ -38,5 +38,5 @@ class FileStat {
 
   /// Returns a string representation of this object.
   @override
-  String toString() => '$runtimeType {uid: $uid, gid: $gid, mode: ${mode.toRadixString(8)}';
+  String toString() => '$runtimeType {uid: $uid, gid: $gid, mode: ${mode.toRadixString(8)}}';
 }
