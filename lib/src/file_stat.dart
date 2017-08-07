@@ -22,11 +22,11 @@ class FileStat {
   static Future<FileStat> stat(String file) async {
     if (Platform.isWindows) throw new UnsupportedError('Not supported on Windows platform.');
 
-    var args = Platform.isMacOS ? ['-f', "'%g:%u:%p'", '-L'] : ['--dereference', "--format='%u:%g:%a'"];
+    var args = Platform.isMacOS ? ['-f', '%g:%u:%p', '-L'] : ['--dereference', '--format=%u:%g:%a'];
     var result = await Process.run('stat', args..add(file), runInShell: true);
     if (result.exitCode != 0) throw new ProcessException('stat', args);
 
-    var parts = result.stdout.trim().split(':'); // TODO ?  ;.replaceAll(new RegExp(r'^"+|"+$'), '')
+    var parts = result.stdout.trim().split(':');
     print('stat: $parts');
     print('stat.first: ${parts.first}');
     print('stat[1]: ${parts[1]}');
