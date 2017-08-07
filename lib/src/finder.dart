@@ -58,6 +58,7 @@ class Finder {
   /// Gets a value indicating whether the specified [file] is executable.
   Future<bool> isExecutable(String file) async {
     if (!await FileSystemEntity.isFile(file)) return false;
+    print('isExecutable: "$file"');
     return isWindows ? _checkFileExtension(file) : _checkFilePermissions(await FileStat.stat(file));
   }
 
@@ -67,6 +68,8 @@ class Finder {
 
   /// Checks that the file referenced by the specified [fileStats] is executable according to its permissions.
   Future<bool> _checkFilePermissions(FileStat fileStats) async {
+    print('fileStats: $fileStats');
+
     // Others.
     var perms = fileStats.mode;
     if (perms & int.parse('001', radix: 8) != 0) return true;

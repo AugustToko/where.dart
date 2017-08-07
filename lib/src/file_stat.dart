@@ -35,4 +35,8 @@ class FileStat {
       mode: int.parse(parts.last, radix: 8, onError: (_) => 0)
     );
   }
+
+  /// Returns a string representation of this object.
+  @override
+  String toString() => '$runtimeType {uid: $uid, gid: $gid, mode: ${mode.toRadixString(8)}';
 }
