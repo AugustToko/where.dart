@@ -27,6 +27,7 @@ class FileStat {
     if (result.exitCode != 0) throw new ProcessException('stat', args);
 
     var parts = result.stdout.trim().split(':');
+    print('stat: $parts');
     if (parts.length != 3) throw new ProcessException('stat', args);
 
     return new FileStat(

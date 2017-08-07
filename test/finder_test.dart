@@ -64,7 +64,7 @@ void main() => group('Finder', () {
     });
 
     test('should return `false` for a POSIX executable, when test is run on Windows', () async {
-      expect(await new Finder().isExecutable('test/fixtures/executable.sh'), isNot(equals(Finder.isWindows)));
+      expect(await new Finder().isExecutable('test/fixtures/executable.sh'), equals(!Finder.isWindows));
     });
 
     test('should return `false` for a Windows executable, when test is run on POSIX', () async {
