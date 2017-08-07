@@ -23,14 +23,10 @@ class FileStat {
     if (Platform.isWindows) throw new UnsupportedError('Not supported on Windows platform.');
 
     var args = Platform.isMacOS ? ['-f', '%g:%u:%p', '-L'] : ['--dereference', '--format=%u:%g:%a'];
-    var result = await Process.run('stat', args..add(file), runInShell: true);
+    var result = await Process.run('stat', args..add(file));
     if (result.exitCode != 0) throw new ProcessException('stat', args);
 
     var parts = result.stdout.trim().split(':');
-    print('stat: $parts');
-    print('stat.first: ${parts.first}');
-    print('stat[1]: ${parts[1]}');
-    print('stat.last: ${parts.last}');
     if (parts.length != 3) throw new ProcessException('stat', args);
 
     return new FileStat(

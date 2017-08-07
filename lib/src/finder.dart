@@ -68,8 +68,6 @@ class Finder {
 
   /// Checks that the file referenced by the specified [fileStats] is executable according to its permissions.
   Future<bool> _checkFilePermissions(FileStat fileStats) async {
-    print('fileStats: $fileStats');
-
     // Others.
     var perms = fileStats.mode;
     if (perms & int.parse('001', radix: 8) != 0) return true;
@@ -77,15 +75,11 @@ class Finder {
     // Group.
     var execByGroup = int.parse('010', radix: 8);
     if (_processGid < 0) _processGid = await _getProcessGid();
-
-    print('_processGid: $_processGid');
     if (perms & execByGroup != 0) return _processGid == fileStats.gid;
 
     // Owner.
     var execByOwner = int.parse('100', radix: 8);
     if (_processUid < 0) _processUid = await _getProcessUid();
-
-    print('_processUid: $_processUid');
     if (perms & execByOwner != 0) return _processUid == fileStats.uid;
 
     // Root.
@@ -111,7 +105,7 @@ class Finder {
   Future<int> _getProcessGid() async {
     if (isWindows) return -1;
 
-    var result = await Process.run('id', ['-g'], runInShell: true);
+    var result = await Process.run('id', ['-g']);
     return result.exitCode != 0 ? -1 : int.parse(result.stdout.trim(), radix: 10, onError: (_) => -1);
   }
 
@@ -119,7 +113,7 @@ class Finder {
   Future<int> _getProcessUid() async {
     if (isWindows) return -1;
 
-    var result = await Process.run('id', ['-u'], runInShell: true);
+    var result = await Process.run('id', ['-u']);
     return result.exitCode != 0 ? -1 : int.parse(result.stdout.trim(), radix: 10, onError: (_) => -1);
   }
 }
