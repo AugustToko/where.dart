@@ -28,13 +28,15 @@ class FileStat {
 
     var parts = result.stdout.trim().split(':');
     print('stat: $parts');
-    print('stat: ${parts.length}');
+    print('stat.first: ${parts.first}');
+    print('stat[1]: ${parts[1]}');
+    print('stat.last: ${parts.last}');
     if (parts.length != 3) throw new ProcessException('stat', args);
 
     return new FileStat(
-      int.parse(parts.first, radix: 10, onError: (_) => -1),
-      int.parse(parts[1], radix: 10, onError: (_) => -1),
-      mode: int.parse(parts.last, radix: 8, onError: (_) => 0)
+      int.parse(parts.first, radix: 10),
+      int.parse(parts[1], radix: 10),
+      mode: int.parse(parts.last, radix: 8)
     );
   }
 
