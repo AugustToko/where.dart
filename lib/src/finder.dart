@@ -37,28 +37,20 @@ class Finder {
   /// The character used to separate paths in the system path.
   String pathSeparator;
 
-  /// TODO
+  /// The numeric identity of the process's group.
   int _processGid = -1;
 
-  /// TODO
+  /// The numeric identity of the process's owner.
   int _processUid = -1;
 
-  /// Finds the instances of the specified [command] in the system path.
-  /// An [all] value indicates whether to return all the instances found, or only the first one.
-  Future<List<String>> find(String command, {bool all = true}) async {
-    var paths = [];
-    for (var directory in path) {
-      paths.addAll(await _findExecutables(directory, command, all: all));
-      if (!all) break;
-    }
-
-    return paths;
+  /// Finds all the instances of the specified [command] in the system path.
+  Stream<String> find(String command, {bool all = true}) async* {
+    for (var directory in path) yield* _findExecutables(directory, command);
   }
 
   /// Gets a value indicating whether the specified [file] is executable.
   Future<bool> isExecutable(String file) async {
     if (!await FileSystemEntity.isFile(file)) return false;
-    print('isExecutable: "$file"');
     return isWindows ? _checkFileExtension(file) : _checkFilePermissions(await FileStat.stat(file));
   }
 
@@ -86,25 +78,17 @@ class Finder {
     return perms & (execByOwner | execByGroup) != 0 ? _processUid == 0 : false;
   }
 
-  /// Finds the instances of a [command] in the specified [directory].
-  /// An [all] value indicates whether to return all the instances found, or only the first one.
-  Future<List<String>> _findExecutables(String directory, String command, {bool all = true}) async {
-    var paths = [];
+  /// Finds all the instances of a [command] in the specified [directory].
+  Stream<String> _findExecutables(String directory, String command, {bool all = true}) async* {
     for (var extension in ['']..addAll(extensions)) {
       var resolvedPath = p.canonicalize('${p.join(directory, command)}${extension.toLowerCase()}');
-      if (await isExecutable(resolvedPath)) {
-        paths.add(resolvedPath);
-        if (!all) break;
-      }
+      if (await isExecutable(resolvedPath)) yield resolvedPath;
     }
-
-    return paths;
   }
 
   /// Returns the numeric identity of the process's group, or `-1` if an error occurred.
   Future<int> _getProcessGid() async {
     if (isWindows) return -1;
-
     var result = await Process.run('id', ['-g']);
     return result.exitCode != 0 ? -1 : int.parse(result.stdout.trim(), radix: 10, onError: (_) => -1);
   }
@@ -112,7 +96,6 @@ class Finder {
   /// Returns the numeric identity of the process's owner, or `-1` if an error occurred.
   Future<int> _getProcessUid() async {
     if (isWindows) return -1;
-
     var result = await Process.run('id', ['-u']);
     return result.exitCode != 0 ? -1 : int.parse(result.stdout.trim(), radix: 10, onError: (_) => -1);
   }

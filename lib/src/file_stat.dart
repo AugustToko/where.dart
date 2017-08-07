@@ -4,7 +4,7 @@ part of where;
 class FileStat {
 
   /// Creates a new file status.
-  FileStat(this.uid, this.gid, {this.mode = 0});
+  FileStat([this.uid = -1, this.gid = -1, this.mode = 0]);
 
   /// The numeric identity of the file's group.
   final int gid;
@@ -32,11 +32,11 @@ class FileStat {
     return new FileStat(
       int.parse(parts.first, radix: 10, onError: (_) => -1),
       int.parse(parts[1], radix: 10, onError: (_) => -1),
-      mode: int.parse(parts.last, radix: 8, onError: (_) => 0)
+      int.parse(parts.last, radix: 8, onError: (_) => 0)
     );
   }
 
   /// Returns a string representation of this object.
   @override
-  String toString() => '$runtimeType {uid: $uid, gid: $gid, mode: ${mode.toRadixString(8)}}';
+  String toString() => '$runtimeType {uid: $uid, gid: $gid, mode: 0${mode.toRadixString(8)}}';
 }

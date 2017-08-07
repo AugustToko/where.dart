@@ -41,22 +41,19 @@ void main() => group('Finder', () {
     });
   });*/
 
-  /*
   group('.find()', () {
-    test('should return the path of the `executable.cmd` file on Windows', () {
-      new Finder('test/fixtures').find('executable').toArray();executables => {
-        expect(executables).to.be.an('array').and.have.lengthOf(Finder.isWindows ? 1 : 0);
-        if (Finder.isWindows) expect(executables[0].endsWith('\\test\\fixtures\\executable.cmd')).to.be.true;
-      }, done, done);
+    test('should return the path of the `executable.cmd` file on Windows', () async {
+      var executables = await new Finder(path: ['test/fixtures']).find('executable').toList();
+      expect(executables.length, equals(Finder.isWindows ? 1 : 0));
+      if (Finder.isWindows) expect(executables.first, endsWith(r'\test\fixtures\executable.cmd'));
     });
 
-    test('should return the path of the `executable.sh` file on POSIX', () {
-      new Finder('test/fixtures').find('executable.sh').toArray();executables => {
-        expect(executables).to.be.an('array').and.have.lengthOf(Finder.isWindows ? 0 : 1);
-        if (!Finder.isWindows) expect(executables[0].endsWith('/test/fixtures/executable.sh')).to.be.true;
-      }, done, done);
+    test('should return the path of the `executable.sh` file on POSIX', () async {
+      var executables = await new Finder(path: ['test/fixtures']).find('executable.sh').toList();
+      expect(executables.length, equals(Finder.isWindows ? 0 : 1));
+      if (!Finder.isWindows) expect(executables.first, endsWith('/test/fixtures/executable.sh'));
     });
-  });*/
+  });
 
   group('.isExecutable()', () {
     test('should return `false` for a non-executable file', () async {
@@ -64,7 +61,7 @@ void main() => group('Finder', () {
     });
 
     test('should return `false` for a POSIX executable, when test is run on Windows', () async {
-      expect(await new Finder().isExecutable('test/fixtures/executable.sh'), equals(!Finder.isWindows));
+      expect(await new Finder().isExecutable('test/fixtures/executable.sh'), isNot(equals(Finder.isWindows)));
     });
 
     test('should return `false` for a Windows executable, when test is run on POSIX', () async {
