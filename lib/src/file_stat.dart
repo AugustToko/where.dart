@@ -28,6 +28,7 @@ class FileStat {
 
     var parts = result.stdout.trim().split(':');
     print('stat: $parts');
+    print('stat: ${parts.length}');
     if (parts.length != 3) throw new ProcessException('stat', args);
 
     return new FileStat(
