@@ -17,9 +17,8 @@ class FileStat {
 
   /// Returns the status of the specified [file].
   ///
-  /// Throws the following exceptions on error:
-  /// - [ProcessException]: an error occurred while running the underlying `stat` process.
-  /// - [UnsupportedError]: this method is not supported on Windows platforms.
+  /// Throws a [ProcessException] if an error occurred while running the underlying `stat` process.
+  /// Always throws an [UnsupportedError] on Windows platforms.
   static Future<FileStat> stat(String file) async {
     if (Platform.isWindows) throw new UnsupportedError('Not supported on Windows platform.');
 
