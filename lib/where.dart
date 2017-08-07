@@ -2,11 +2,10 @@
 library where;
 
 import 'dart:async';
-import 'dart:io';
+import 'dart:io' hide FileStat;
 import 'package:path/path.dart' as p;
-import 'package:syscall/syscall.dart' deferred as syscall;
 
-// TODO: part 'src/application.dart';
+part 'src/file_stat.dart';
 part 'src/finder.dart';
 part 'src/where.dart';
 
