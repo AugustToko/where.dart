@@ -3,9 +3,6 @@ part of where;
 /// Finds the instances of an executable in the system path.
 class Finder {
 
-  /// Value indicating whether the current platform is Windows.
-  static final bool isWindows = _isWindows;
-
   /// Creates a new finder from the following parameters:
   /// - [paths]: the list of system paths.
   /// - [pathExtensions]: the list of executable file extensions.
@@ -27,6 +24,12 @@ class Finder {
 
   /// The list of executable file extensions.
   final List<String> extensions;
+
+  /// Value indicating whether the current platform is Windows.
+  static bool get isWindows {
+    if (Platform.isWindows) return true;
+    return Platform.environment['OSTYPE'] == 'cygwin' || Platform.environment['OSTYPE'] == 'msys';
+  }
 
   /// The list of system paths.
   final List<String> path;
