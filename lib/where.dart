@@ -3,6 +3,7 @@ library where;
 
 import 'dart:async';
 import 'dart:io' hide FileStat;
+import 'package:meta/meta.dart';
 import 'package:path/path.dart' as p;
 
 part 'src/file_stat.dart';

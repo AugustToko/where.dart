@@ -11,7 +11,7 @@ environment:
 
 dependencies:
   args: '>=0.13.7'
-  async: ^1.13.3
+  meta: ^1.1.1
   path: ^1.4.2
 
 dev_dependencies:

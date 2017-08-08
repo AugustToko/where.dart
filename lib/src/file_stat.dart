@@ -1,6 +1,7 @@
 part of where;
 
 /// Provides information about the status of a file system entity.
+@visibleForTesting
 class FileStat {
 
   /// Creates a new file status.
@@ -18,9 +19,9 @@ class FileStat {
   /// Returns the status of the specified [file].
   ///
   /// Throws a [ProcessException] if an error occurred while running the underlying `stat` process.
-  /// Always throws an [UnsupportedError] on Windows platforms.
+  /// Always throws an [UnsupportedError] on the Windows platform.
   static Future<FileStat> stat(String file) async {
-    if (Platform.isWindows) throw new UnsupportedError('Not supported on Windows platform.');
+    if (Platform.isWindows) throw new UnsupportedError('Not supported on the Windows platform.');
 
     var args = Platform.isMacOS ? ['-f', '%g:%u:%p', '-L'] : ['--dereference', '--format=%u:%g:%a'];
     var result = await Process.run('stat', args..add(file));

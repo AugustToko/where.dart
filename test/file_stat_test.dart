@@ -1,5 +1,3 @@
-@TestOn('posix')
-
 import 'package:test/test.dart';
 import 'package:where/where.dart';
 
@@ -20,6 +18,8 @@ void main() => group('FileStat', () {
       var fileStats = await FileStat.stat('test/file_stat_test.dart');
       expect(fileStats.mode, greaterThan(0));
     });
+  }, onPlatform: {
+    'windows': const Skip('Not supported on the Windows platform.')
   });
 
   group('.toString()', () {
@@ -35,4 +35,4 @@ void main() => group('FileStat', () {
       expect(data, contains('mode: 0755'));
     });
   });
-}, skip: true);
+});
