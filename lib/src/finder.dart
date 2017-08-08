@@ -4,10 +4,10 @@ part of where;
 class Finder {
 
   /// Creates a new finder from the following parameters:
-  /// - [path]: the list of system paths.
-  /// - [extensions]: the list of executable file extensions.
-  /// - [pathSeparator]: the character used to separate paths in the system path.
-  Finder([List<String> path, List<String> extensions, this.pathSeparator = '']): path = path ?? [], extensions = extensions ?? [] {
+  /// - [path]: The list of system paths. Defaults to the `PATH` environment variable.
+  /// - [extensions]: The list of executable file extensions. Defaults to the `PATHEXT` environment variable.
+  /// - [pathSeparator]: The character used to separate paths in the system path. Defaults to the platform path separator.
+  Finder([path = '', extensions = '', this.pathSeparator = '']) {
     if (pathSeparator.isEmpty) pathSeparator = isWindows ? ';' : ':';
 
     if (path is! List<String>) path = path.toString().split(pathSeparator)..retainWhere((item) => item.isNotEmpty);

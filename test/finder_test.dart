@@ -34,8 +34,7 @@ void main() => group('Finder', () {
     });
 
     test('should properly set the path separator', () {
-      var finder = new Finder('', '', '#');
-      expect(finder.pathSeparator, equals('#'));
+      expect(new Finder('', '', '#').pathSeparator, equals('#'));
     });
   });
 
