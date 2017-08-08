@@ -7,8 +7,8 @@ class Finder {
   /// - [path]: the list of system paths.
   /// - [extensions]: the list of executable file extensions.
   /// - [pathSeparator]: the character used to separate paths in the system path.
-  Finder({List<String> path, List<String> extensions, this.pathSeparator = ''}): path = path ?? [], extensions = extensions ?? [] {
-    if (pathSeparator.isEmpty) pathSeparator = isWindows ? ';' : Platform.pathSeparator;
+  Finder([List<String> path, List<String> extensions, this.pathSeparator = '']): path = path ?? [], extensions = extensions ?? [] {
+    if (pathSeparator.isEmpty) pathSeparator = isWindows ? ';' : ':';
 
     if (this.path.isEmpty && Platform.environment.containsKey('PATH')) {
       var pathEnv = Platform.environment['PATH'];

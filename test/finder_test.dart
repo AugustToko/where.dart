@@ -5,51 +5,51 @@ import 'package:where/where.dart';
 
 /// Tests the features of the [Finder] class.
 void main() => group('Finder', () {
-  /*
+  var delimiter = Finder.isWindows ? ';' : ':';
+
   group('constructor', () {
     test('should set the `path` property to the value of the `PATH` environment variable by default', () {
       var pathEnv = Platform.environment.containsKey('PATH') ? Platform.environment['PATH'] : '';
-      var paths = pathEnv.isEmpty ? [] : pathEnv.split(Platform.pathSeparator);
-      expect(new Finder().path).to.have.ordered.members(paths);
+      var path = pathEnv.isEmpty ? [] : pathEnv.split(delimiter);
+      expect(new Finder().path, orderedEquals(path));
     });
 
     test('should split the input path using the path separator', () {
-      var paths = ['/usr/local/bin', '/usr/bin'];
-      var finder = new Finder(paths.join(Platform.pathSeparator));
-      expect(finder.path).to.have.ordered.members(paths);
+      var path = ['/usr/local/bin', '/usr/bin'];
+      expect(new Finder(path).path, orderedEquals(path));
     });
 
     test('should set the `extensions` property to the value of the `PATHEXT` environment variable by default', () {
       var pathExt = Platform.environment.containsKey('PATHEXT') ? Platform.environment['PATHEXT'] : '';
-      var extensions = pathExt.length ? pathExt.split(Platform.pathSeparator) : [];
-      expect(new Finder().extensions).to.have.ordered.members(extensions);
+      var extensions = pathExt.isEmpty ? [] : pathExt.split(delimiter);
+      expect(new Finder().extensions, orderedEquals(extensions));
     });
 
     test('should split the extension list using the path separator', () {
       var extensions = ['.EXE', '.CMD', '.BAT'];
-      var finder = new Finder('', extensions.join(Platform.pathSeparator));
-      expect(finder.extensions).to.have.ordered.members(extensions);
+      var finder = new Finder([], extensions);
+      expect(finder.extensions, orderedEquals(extensions));
     });
 
-    test('should set the `pathSeparator` property to the value of the `Platform.pathSeparator` constant by default', () {
-      expect(new Finder().pathSeparator).to.equal(Platform.pathSeparator);
+    test('should set the `pathSeparator` property to the value of the platform path separator by default', () {
+      expect(new Finder().pathSeparator, equals(delimiter));
     });
 
     test('should properly set the path separator', () {
-      var finder = new Finder('', '', '#');
-      expect(finder.pathSeparator).to.equal('#');
+      var finder = new Finder([], [], '#');
+      expect(finder.pathSeparator, equals('#'));
     });
-  });*/
+  });
 
   group('.find()', () {
     test('should return the path of the `executable.cmd` file on Windows', () async {
-      var executables = await new Finder(path: ['test/fixtures']).find('executable').toList();
+      var executables = await new Finder(['test/fixtures']).find('executable').toList();
       expect(executables.length, equals(Finder.isWindows ? 1 : 0));
       if (Finder.isWindows) expect(executables.first, endsWith(r'\test\fixtures\executable.cmd'));
     });
 
     test('should return the path of the `executable.sh` file on POSIX', () async {
-      var executables = await new Finder(path: ['test/fixtures']).find('executable.sh').toList();
+      var executables = await new Finder(['test/fixtures']).find('executable.sh').toList();
       expect(executables.length, equals(Finder.isWindows ? 0 : 1));
       if (!Finder.isWindows) expect(executables.first, endsWith('/test/fixtures/executable.sh'));
     });
