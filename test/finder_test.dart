@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:io';
 import 'package:test/test.dart';
 import 'package:where/where.dart';
@@ -16,7 +15,7 @@ void main() => group('Finder', () {
 
     test('should split the input path using the path separator', () {
       var path = ['/usr/local/bin', '/usr/bin'];
-      expect(new Finder(path).path, orderedEquals(path));
+      expect(new Finder(path.join(delimiter)).path, orderedEquals(path));
     });
 
     test('should set the `extensions` property to the value of the `PATHEXT` environment variable by default', () {
@@ -27,8 +26,7 @@ void main() => group('Finder', () {
 
     test('should split the extension list using the path separator', () {
       var extensions = ['.EXE', '.CMD', '.BAT'];
-      var finder = new Finder([], extensions);
-      expect(finder.extensions, orderedEquals(extensions));
+      expect(new Finder('', extensions.join(delimiter)).extensions, orderedEquals(extensions));
     });
 
     test('should set the `pathSeparator` property to the value of the platform path separator by default', () {
@@ -36,20 +34,20 @@ void main() => group('Finder', () {
     });
 
     test('should properly set the path separator', () {
-      var finder = new Finder([], [], '#');
+      var finder = new Finder('', '', '#');
       expect(finder.pathSeparator, equals('#'));
     });
   });
 
   group('.find()', () {
     test('should return the path of the `executable.cmd` file on Windows', () async {
-      var executables = await new Finder(['test/fixtures']).find('executable').toList();
+      var executables = await new Finder('test/fixtures').find('executable').toList();
       expect(executables.length, equals(Finder.isWindows ? 1 : 0));
       if (Finder.isWindows) expect(executables.first, endsWith(r'\test\fixtures\executable.cmd'));
     });
 
     test('should return the path of the `executable.sh` file on POSIX', () async {
-      var executables = await new Finder(['test/fixtures']).find('executable.sh').toList();
+      var executables = await new Finder('test/fixtures').find('executable.sh').toList();
       expect(executables.length, equals(Finder.isWindows ? 0 : 1));
       if (!Finder.isWindows) expect(executables.first, endsWith('/test/fixtures/executable.sh'));
     });

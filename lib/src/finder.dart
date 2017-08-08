@@ -10,20 +10,24 @@ class Finder {
   Finder([List<String> path, List<String> extensions, this.pathSeparator = '']): path = path ?? [], extensions = extensions ?? [] {
     if (pathSeparator.isEmpty) pathSeparator = isWindows ? ';' : ':';
 
-    if (this.path.isEmpty && Platform.environment.containsKey('PATH')) {
-      var pathEnv = Platform.environment['PATH'];
-      if (pathEnv.isNotEmpty) this.path.addAll(pathEnv.split(pathSeparator).map((directory) => directory.replaceAll(new RegExp(r'^"+|"+$'), '')));
+    if (path is! List<String>) path = path.toString().split(pathSeparator)..retainWhere((item) => item.isNotEmpty);
+    if (path.isEmpty) {
+      var pathEnv = Platform.environment.containsKey('PATH') ? Platform.environment['PATH'] : '';
+      if (pathEnv.isNotEmpty) path = pathEnv.split(pathSeparator);
     }
 
-    if (this.extensions.isEmpty && isWindows) {
+    if (extensions is! List<String>) extensions = extensions.toString().split(pathSeparator)..retainWhere((item) => item.isNotEmpty);
+    if (extensions.isEmpty && isWindows) {
       var pathExt = Platform.environment.containsKey('PATHEXT') ? Platform.environment['PATHEXT'] : '';
-      var fileExtensions = pathExt.isNotEmpty ? pathExt.split(pathSeparator) : ['.exe', '.cmd', '.bat', '.com'];
-      this.extensions.addAll(fileExtensions.map((extension) => extension.toUpperCase()));
+      extensions = pathExt.isNotEmpty ? pathExt.split(pathSeparator) : ['.exe', '.cmd', '.bat', '.com'];
     }
+
+    this.extensions.addAll(extensions.map((extension) => extension.toUpperCase()));
+    this.path.addAll(path.map((directory) => directory.replaceAll(new RegExp(r'^"+|"+$'), '')));
   }
 
   /// The list of executable file extensions.
-  final List<String> extensions;
+  final List<String> extensions = [];
 
   /// Value indicating whether the current platform is Windows.
   static bool get isWindows {
@@ -32,7 +36,7 @@ class Finder {
   }
 
   /// The list of system paths.
-  final List<String> path;
+  final List<String> path = [];
 
   /// The character used to separate paths in the system path.
   String pathSeparator;

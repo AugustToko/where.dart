@@ -1,7 +1,7 @@
 part of where;
 
 ///
-Future where(String command, {bool all = true, extensions = '', path = '', String pathSeparator = ''}) async {
+Future where(String command, {bool all = true, path = '', extensions = '', String pathSeparator = ''}) async {
   var finder = new Finder(pathSeparator: pathSeparator);
   if (path is String && path.isNotEmpty) {
 
