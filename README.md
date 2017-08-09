@@ -28,11 +28,76 @@ $ pub get
 Now in your [Dart](https://www.dartlang.org) code, you can use:
 
 ```dart
-import 'package:where/where.dart';
+import 'package:where/where.dart' show where;
 ```
 
 ## Usage
-TODO
+This package provides a single function, `where()`, allowing to locate a command in the system path:
+
+```dart
+try {
+  // "path" is the absolute path to the executable.
+  var path = await where('foobar');
+  print('The "foobar" command is located at: $path');
+}
+
+on FileSystemException {
+  // The command was not found on the system path.
+  print('The "foobar" command is not found.');
+}
+```
+
+The `where()` function returns a [`Future<String>`](https://api.dartlang.org/stable/dart-async/Future-class.html) specifying the path of the first instance of the executables found. If the command could not be located, a [`FileSystemException`](https://api.dartlang.org/stable/dart-io/FileSystemException-class.html) is thrown.
+
+## Options
+The behavior of the `where()` function can be customized using the following optional named parameters.
+
+### `bool all = false`
+A value indicating whether to return all executables found, instead of just the first one.
+
+If you pass `true` as parameter value, the function will return a `Future<List<String>>` providing all paths found, instead of a `Future<String>`:
+
+```dart
+var paths = await where('foobar', all: true);
+
+print('The "foobar" command was found at these locations:');
+for (var path in paths) print(path);
+```
+
+### `dynamic onError(String command) = null`
+By default, when the specified command cannot be located, a `FileSystemException` is thrown. You can disable this exception by providing your own error handler:
+
+```dart
+var path = await where('foobar', onError: (_) => '');
+
+if (path.isEmpty) print('The "foobar" command is not found.');
+else print('The "foobar" command is located at: $path');
+```
+
+When an `onError` handler is provided, it is called with the command as argument, and its return value is used instead. This is preferable to to throwing and then immediately catching the `FileSystemException`.
+
+### `String|List<String> path = ""`
+The system path, provided as a string or a list of directories. Defaults to the list of paths provided by the `PATH` environment variable.
+
+```dart
+where('foobar', path: ['/usr/local/bin', '/usr/bin']);
+```
+
+### `String|List<String> extensions = ""`
+The executable file extensions, provided as a string or a list of file extensions. Defaults to the list of extensions provided by the `PATHEXT` environment variable.
+
+The `extensions` option is only meaningful on the Windows platform, where the executability of a file is determined from its extension:
+
+```dart
+where('foobar', extensions: '.FOO;.EXE;.CMD');
+```
+
+### `String|List<String> pathSeparator = ""`
+The character used to separate paths in the system path. Defaults to the platform path separator (e.g. `";"` on Windows, `":"` on other platforms).
+
+```dart
+where('foobar', pathSeparator: '#');
+```
 
 ## See also
 - [API reference](https://cedx.github.io/where.dart)
