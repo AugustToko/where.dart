@@ -61,4 +61,15 @@ void main() => group('where()', () {
       else expect(err, const isInstanceOf<FileSystemException>());
     }
   });
+
+  test('should return the value of the `onError` handler', () async {
+    var executable = await where('executable', all: false, path: 'test/fixtures', onError: (_) => 'foo');
+    if (!Finder.isWindows) expect(executable, equals('foo'));
+
+    var executables = await where('executable.sh', all: true, path: 'test/fixtures', onError: (_) => ['foo']);
+    if (Finder.isWindows) {
+      expect(executables, allOf(isList, hasLength(1)));
+      expect(executables.first, equals('foo'));
+    }
+  });
 });
