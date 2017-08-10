@@ -74,7 +74,7 @@ if (path.isEmpty) print('The "foobar" command is not found.');
 else print('The "foobar" command is located at: $path');
 ```
 
-When an `onError` handler is provided, it is called with the command as argument, and its return value is used instead. This is preferable to to throwing and then immediately catching the `FileSystemException`.
+When an `onError` handler is provided, it is called with the command as argument, and its return value is used instead. This is preferable to throwing and then immediately catching the `FileSystemException`.
 
 ### `String|List<String> path = ""`
 The system path, provided as a string or a list of directories. Defaults to the list of paths provided by the `PATH` environment variable.
