@@ -23,7 +23,7 @@ class FileStat {
   static Future<FileStat> stat(String file) async {
     if (Platform.isWindows) throw new UnsupportedError('Not supported on the Windows platform.');
 
-    var args = Platform.isMacOS ? ['-f', '%g:%u:%p', '-L'] : ['--dereference', '--format=%u:%g:%a'];
+    var args = Platform.isMacOS ? ['-f', '%u:%g:%p', '-L'] : ['--dereference', '--format=%u:%g:%a'];
     var result = await Process.run('stat', args..add(file));
     if (result.exitCode != 0) throw new ProcessException('stat', args);
 
