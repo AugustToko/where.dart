@@ -92,11 +92,43 @@ The `extensions` option is only meaningful on the Windows platform, where the ex
 where('foobar', extensions: '.FOO;.EXE;.CMD');
 ```
 
-### `String|List<String> pathSeparator = ""`
+### `String pathSeparator = ""`
 The character used to separate paths in the system path. Defaults to the platform path separator (e.g. `";"` on Windows, `":"` on other platforms).
 
 ```dart
 where('foobar', pathSeparator: '#');
+```
+
+## Command line interface
+From a command prompt, install the `where` executable:
+
+```shell
+$ pub global activate where
+```
+
+> Consider adding the [`pub global`](https://www.dartlang.org/tools/pub/cmd/pub-global) executables directory to your system path.
+
+Then use it to find the instances of an executable:
+
+```shell
+$ where --help
+
+Find the instances of an executable in the system path.
+
+Usage:
+pub global run where [options] <command>
+
+Options:
+-a, --all        list all instances of executables found (instead of just the first one)
+-s, --silent     silence the output, just return the exit code (0 if any executable is found, otherwise 1)
+-h, --help       output usage information
+-v, --version    output the version number
+```
+
+For example:
+
+```shell
+$ where --all dart
 ```
 
 ## See also
