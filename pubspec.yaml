@@ -9,8 +9,11 @@ homepage: https://github.com/cedx/where.dart
 environment:
   sdk: '>=1.24.0'
 
+executables:
+  where: cli
+
 dependencies:
-  args: '>=0.13.7'
+  args: '>=0.13.7 <2.0.0'
   meta: ^1.1.1
   path: ^1.4.2
 
