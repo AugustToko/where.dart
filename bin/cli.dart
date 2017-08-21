@@ -16,6 +16,6 @@ Future main(List<String> arguments) async {
 
   on Exception catch (error) {
     print(error);
-    exit(3);
+    exit(2);
   }
 }
