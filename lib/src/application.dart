@@ -37,7 +37,7 @@ class Application {
 
     if (results.rest.isEmpty) {
       print(usage);
-      return 2;
+      return 64;
     }
 
     var paths = await where(results.rest.first, all: results['all']);
