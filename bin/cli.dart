@@ -14,8 +14,8 @@ Future main(List<String> arguments) async {
     exit(1);
   }
 
-  on Exception catch (error) {
-    print(error);
+  on Exception catch (err) {
+    print(err);
     exit(2);
   }
 }
