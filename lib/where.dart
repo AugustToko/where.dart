@@ -13,4 +13,4 @@ part 'src/finder.dart';
 part 'src/where.dart';
 
 /// The version number of this package.
-const String version = '1.0.0';
+const String version = '1.1.0';
