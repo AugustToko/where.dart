@@ -47,7 +47,7 @@ on FileSystemException {
 }
 ```
 
-The `where()` function returns a [`Future<String>`](https://api.dartlang.org/stable/dart-async/Future-class.html) specifying the path of the first instance of the executables found. If the command could not be located, a [`FileSystemException`](https://api.dartlang.org/stable/dart-io/FileSystemException-class.html) is thrown.
+The function returns a [`Future<String>`](https://api.dartlang.org/stable/dart-async/Future-class.html) specifying the path of the first instance of the executables found. If the command could not be located, a [`FileSystemException`](https://api.dartlang.org/stable/dart-io/FileSystemException-class.html) is thrown.
 
 ## Options
 The behavior of the `where()` function can be customized using the following optional named parameters.
