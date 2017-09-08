@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'package:file/testing.dart';
 import 'package:test/test.dart';
 import 'package:where/where.dart';
 
@@ -13,7 +13,7 @@ void main() => group('where()', () {
 
     on Exception catch (err) {
       if (Finder.isWindows) fail('Exception should not be thrown.');
-      else expect(err, const isInstanceOf<FileSystemException>());
+      else expect(err, isFileSystemException());
     }
   });
 
@@ -29,7 +29,7 @@ void main() => group('where()', () {
 
     on Exception catch (err) {
       if (Finder.isWindows) fail('Exception should not be thrown.');
-      else expect(err, const isInstanceOf<FileSystemException>());
+      else expect(err, isFileSystemException());
     }
   });
 
@@ -42,7 +42,7 @@ void main() => group('where()', () {
 
     on Exception catch (err) {
       if (!Finder.isWindows) fail('Exception should not be thrown.');
-      else expect(err, const isInstanceOf<FileSystemException>());
+      else expect(err, isFileSystemException());
     }
   });
 
@@ -58,7 +58,7 @@ void main() => group('where()', () {
 
     on Exception catch (err) {
       if (!Finder.isWindows) fail('Exception should not be thrown.');
-      else expect(err, const isInstanceOf<FileSystemException>());
+      else expect(err, isFileSystemException());
     }
   });
 
