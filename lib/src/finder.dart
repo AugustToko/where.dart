@@ -47,7 +47,7 @@ class Finder {
   /// The numeric identity of the process's owner.
   int _processUid = -1;
 
-  /// Finds all the instances of the specified [command] in the system path.
+  /// Finds the instances of the specified [command] in the system path.
   Stream<String> find(String command) async* {
     for (var directory in path) yield* _findExecutables(directory, command);
   }
@@ -82,7 +82,7 @@ class Finder {
     return perms & (execByOwner | execByGroup) != 0 ? _processUid == 0 : false;
   }
 
-  /// Finds all the instances of a [command] in the specified [directory].
+  /// Finds the instances of a [command] in the specified [directory].
   Stream<String> _findExecutables(String directory, String command) async* {
     for (var extension in ['']..addAll(extensions)) {
       var resolvedPath = p.canonicalize('${p.join(directory, command)}${extension.toLowerCase()}');
