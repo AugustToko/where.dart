@@ -3,6 +3,7 @@ This file contains highlights of what changes on each version of the [Where.dart
 
 ## Version 2.0.0
 - Breaking change: removed the `Application` class.
+- Breaking change: the `version` property is now private.
 - Updated the package dependencies.
 
 ## Version 1.1.0

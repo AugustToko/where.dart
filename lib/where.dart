@@ -9,6 +9,3 @@ import 'package:path/path.dart' as p;
 part 'src/file_stat.dart';
 part 'src/finder.dart';
 part 'src/where.dart';
-
-/// The version number of this package.
-const String version = '1.1.0';
