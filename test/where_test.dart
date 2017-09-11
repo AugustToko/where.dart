@@ -63,10 +63,10 @@ void main() => group('where()', () {
   });
 
   test('should return the value of the `onError` handler', () async {
-    var executable = await where('executable', all: false, path: 'test/fixtures', onError: (_) => 'foo');
+    var executable = await where('executable', all: false, onError: (_) => 'foo', path: 'test/fixtures');
     if (!Finder.isWindows) expect(executable, equals('foo'));
 
-    var executables = await where('executable.sh', all: true, path: 'test/fixtures', onError: (_) => ['foo']);
+    var executables = await where('executable.sh', all: true, onError: (_) => ['foo'], path: 'test/fixtures');
     if (Finder.isWindows) {
       expect(executables, allOf(isList, hasLength(1)));
       expect(executables.first, equals('foo'));

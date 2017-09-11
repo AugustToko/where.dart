@@ -64,7 +64,16 @@ print('The "foobar" command was found at these locations:');
 for (var path in paths) print(path);
 ```
 
-### `dynamic onError(String command) = null`
+### `String|List<String> extensions = ""`
+The executable file extensions, provided as a string or a list of file extensions. Defaults to the list of extensions provided by the `PATHEXT` environment variable.
+
+The `extensions` option is only meaningful on the Windows platform, where the executability of a file is determined from its extension:
+
+```dart
+where('foobar', extensions: '.FOO;.EXE;.CMD');
+```
+
+### `dynamic onError(String command)`
 By default, when the specified command cannot be located, a `FileSystemException` is thrown. You can disable this exception by providing your own error handler:
 
 ```dart
@@ -81,15 +90,6 @@ The system path, provided as a string or a list of directories. Defaults to the 
 
 ```dart
 where('foobar', path: ['/usr/local/bin', '/usr/bin']);
-```
-
-### `String|List<String> extensions = ""`
-The executable file extensions, provided as a string or a list of file extensions. Defaults to the list of extensions provided by the `PATHEXT` environment variable.
-
-The `extensions` option is only meaningful on the Windows platform, where the executability of a file is determined from its extension:
-
-```dart
-where('foobar', extensions: '.FOO;.EXE;.CMD');
 ```
 
 ### `String pathSeparator = ""`

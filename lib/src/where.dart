@@ -10,9 +10,11 @@ part of where;
 /// - [path]: A string, or a list of strings, specifying the system path. Defaults to the `PATH` environment variable.
 /// - [extensions]: A string, or a list of strings, specifying the executable file extensions. Defaults to the `PATHEXT` environment variable.
 /// - [pathSeparator]: The character used to separate paths in the system path. Defaults to the platform path separator.
-Future where(String command, {bool all = true, extensions = '', onError(String command), path = '', String pathSeparator = ''}) async {
+Future where(String command, {bool all = false, extensions = '', onError(String command), path = '', String pathSeparator = ''}) async {
+  var finder = new Finder(extensions: extensions, path: path, pathSeparator: pathSeparator);
   var list = [];
-  await for (var executable in new Finder(path, extensions, pathSeparator).find(command)) {
+
+  await for (var executable in finder.find(command)) {
     if (!all) return executable;
     list.add(executable);
   }
