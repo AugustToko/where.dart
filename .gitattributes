@@ -6,7 +6,6 @@
 .travis.yml text
 
 *.dart text
-*.info text
 *.md text
 *.txt text
 *.yaml text

@@ -5,7 +5,7 @@ part of where;
 class FileStat {
 
   /// Creates a new file status.
-  FileStat([this.uid = -1, this.gid = -1, this.mode = 0]);
+  const FileStat([this.uid = -1, this.gid = -1, this.mode = 0]);
 
   /// The numeric identity of the file's group.
   final int gid;
