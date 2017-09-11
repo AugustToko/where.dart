@@ -23,7 +23,7 @@ void main() => group('FileStat', () {
   });
 
   group('.toString()', () {
-    var data = new FileStat(2000, 1000, int.parse('755', radix: 8)).toString();
+    var data = new FileStat(uid: 2000, gid: 1000, mode: int.parse('755', radix: 8)).toString();
 
     test('should start with the class name', () {
       expect(data, contains('FileStat {'));

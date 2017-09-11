@@ -5,7 +5,7 @@ part of where;
 class FileStat {
 
   /// Creates a new file status.
-  const FileStat([this.uid = -1, this.gid = -1, this.mode = 0]);
+  const FileStat({this.uid = -1, this.gid = -1, this.mode = 0});
 
   /// The numeric identity of the file's group.
   final int gid;
@@ -31,9 +31,9 @@ class FileStat {
     if (parts.length != 3) throw new ProcessException('stat', args);
 
     return new FileStat(
-      int.parse(parts.first, radix: 10, onError: (_) => -1),
-      int.parse(parts[1], radix: 10, onError: (_) => -1),
-      int.parse(parts.last, radix: 8, onError: (_) => 0)
+      uid: int.parse(parts.first, radix: 10, onError: (_) => -1),
+      gid: int.parse(parts[1], radix: 10, onError: (_) => -1),
+      mode: int.parse(parts.last, radix: 8, onError: (_) => 0)
     );
   }
 
