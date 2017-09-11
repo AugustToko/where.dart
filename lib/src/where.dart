@@ -3,7 +3,7 @@ part of where;
 /// Finds the first instance of a [command] in the system path.
 /// An [all] value indicates whether to return a list of all executables found, instead of just the first one.
 ///
-/// Throws a [FileSystemException] if the command was not found on the system path.
+/// Throws a [FileSystemException] if the specified command was not found on the system path.
 /// If an [onError] handler is provided, it is called with the [command] as argument, and its return value is used instead.
 ///
 /// Optional parameters allow to customize the function behavior:

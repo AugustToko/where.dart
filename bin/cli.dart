@@ -28,10 +28,21 @@ final String usage = (new StringBuffer()
 
 /// Application entry point.
 Future main(List<String> arguments) async {
+  // Parse the command line arguments.
   ArgResults results;
 
   try {
     results = _parser.parse(arguments);
+    if (results['help']) {
+      print(usage);
+      exit(0);
+    }
+
+    if (results['version']) {
+      print(version);
+      exit(0);
+    }
+
     if (results.rest.isEmpty) throw new ArgParserException('A command must be specified.');
   }
 
@@ -40,20 +51,11 @@ Future main(List<String> arguments) async {
     exit(64);
   }
 
-  if (results['help']) {
-    print(usage);
-    exit(0);
-  }
-
-  if (results['version']) {
-    print(version);
-    exit(0);
-  }
-
-  var paths = await where(results.rest.first, all: results['all'], onError: (_) => exit(1));
+  // Run the program.
+  var executables = await where(results.rest.first, all: results['all'], onError: (_) => exit(1));
   if (!results['silent']) {
-    if (paths is! List<String>) paths = [paths];
-    paths.forEach(print);
+    if (executables is! List<String>) executables = [executables];
+    executables.forEach(print);
   }
 
   exit(0);
