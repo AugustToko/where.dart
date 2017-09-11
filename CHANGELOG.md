@@ -1,6 +1,10 @@
 # Changelog
 This file contains highlights of what changes on each version of the [Where.dart](https://github.com/cedx/where.dart) project.
 
+## Version 2.0.0
+- Breaking change: removed the `Application` class.
+- Updated the package dependencies.
+
 ## Version 1.1.0
 - Changed licensing for the [MIT License](https://opensource.org/licenses/MIT).
 
