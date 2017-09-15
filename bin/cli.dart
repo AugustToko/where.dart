@@ -15,7 +15,7 @@ final ArgParser _parser = new ArgParser()
   ..addFlag('help', abbr: 'h', help: 'output usage information', negatable: false)
   ..addFlag('version', abbr: 'v', help: 'output the version number', negatable: false);
 
-/// Prints the usage information.
+/// The usage information.
 final String usage = (new StringBuffer()
   ..writeln('Find the instances of an executable in the system path.')
   ..writeln()
@@ -43,7 +43,7 @@ Future main(List<String> arguments) async {
       exit(0);
     }
 
-    if (results.rest.isEmpty) throw new ArgParserException('A command must be specified.');
+    if (results.rest.isEmpty) throw new ArgParserException('A command must be provided.');
   }
 
   on ArgParserException {
@@ -52,11 +52,18 @@ Future main(List<String> arguments) async {
   }
 
   // Run the program.
-  var executables = await where(results.rest.first, all: results['all'], onError: (_) => exit(1));
-  if (!results['silent']) {
-    if (executables is! List<String>) executables = [executables];
-    executables.forEach(print);
+  try {
+    var executables = await where(results.rest.first, all: results['all'], onError: (_) => exit(1));
+    if (!results['silent']) {
+      if (executables is! List<String>) executables = [executables];
+      executables.forEach(print);
+    }
+
+    exit(0);
   }
 
-  exit(0);
+  on Exception catch (err) {
+    print(err);
+    exit(2);
+  }
 }
