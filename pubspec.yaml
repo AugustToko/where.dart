@@ -1,5 +1,5 @@
 name: where
-version: 2.1.0
+version: 2.1.1
 
 author: Cédric Belin <cedric@belin.io>
 description: Find the instances of an executable in the system path.
@@ -10,7 +10,7 @@ environment:
   sdk: '>=1.24.0'
 
 executables:
-  where: cli
+  where: where
 
 dependencies:
   args: '>=0.13.7 <2.0.0'

@@ -1,6 +1,9 @@
 # Changelog
 This file contains highlights of what changes on each version of the [Where.dart](https://github.com/cedx/where.dart) project.
 
+## Version 2.1.1
+- Fixed a bug: the CLI script doesn't run when using the `pub global run` command.
+
 ## Version 2.1.0
 - Changed the signature of the `FileStat` class constructor.
 
