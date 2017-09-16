@@ -18,9 +18,7 @@ void main() => group('FileStat', () {
       var fileStats = await FileStat.stat('test/file_stat_test.dart');
       expect(fileStats.mode, greaterThan(0));
     });
-  }, onPlatform: {
-    'windows': const Skip('Not supported on the Windows platform.')
-  });
+  }, testOn: 'posix');
 
   group('.toString()', () {
     var data = new FileStat(uid: 2000, gid: 1000, mode: int.parse('755', radix: 8)).toString();
