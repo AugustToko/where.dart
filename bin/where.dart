@@ -27,12 +27,12 @@ final String usage = (new StringBuffer()
   .toString();
 
 /// Application entry point.
-Future main(List<String> arguments) async {
+Future main(List<String> args) async {
   // Parse the command line arguments.
   ArgResults results;
 
   try {
-    results = _parser.parse(arguments);
+    results = _parser.parse(args);
     if (results['help']) {
       print(usage);
       exit(0);
