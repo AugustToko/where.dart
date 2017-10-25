@@ -8,7 +8,7 @@ void main() => group('Finder', () {
 
   group('constructor', () {
     test('should set the `path` property to the value of the `PATH` environment variable by default', () {
-      var pathEnv = Platform.environment.containsKey('PATH') ? Platform.environment['PATH'] : '';
+      var pathEnv = Platform.environment['PATH'] ?? '';
       var path = pathEnv.isEmpty ? [] : pathEnv.split(delimiter);
       expect(new Finder().path, orderedEquals(path));
     });
@@ -19,7 +19,7 @@ void main() => group('Finder', () {
     });
 
     test('should set the `extensions` property to the value of the `PATHEXT` environment variable by default', () {
-      var pathExt = Platform.environment.containsKey('PATHEXT') ? Platform.environment['PATHEXT'] : '';
+      var pathExt = Platform.environment['PATHEXT'] ?? '';
       var extensions = pathExt.isEmpty ? [] : pathExt.split(delimiter);
       expect(new Finder().extensions, orderedEquals(extensions));
     });

@@ -12,13 +12,13 @@ class Finder {
 
     if (path is! List<String>) path = path.toString().split(pathSeparator)..retainWhere((item) => item.isNotEmpty);
     if (path.isEmpty) {
-      var pathEnv = Platform.environment.containsKey('PATH') ? Platform.environment['PATH'] : '';
+      var pathEnv = Platform.environment['PATH'] ?? '';
       if (pathEnv.isNotEmpty) path = pathEnv.split(pathSeparator);
     }
 
     if (extensions is! List<String>) extensions = extensions.toString().split(pathSeparator)..retainWhere((item) => item.isNotEmpty);
     if (extensions.isEmpty && isWindows) {
-      var pathExt = Platform.environment.containsKey('PATHEXT') ? Platform.environment['PATHEXT'] : '';
+      var pathExt = Platform.environment['PATHEXT'] ?? '';
       extensions = pathExt.isNotEmpty ? pathExt.split(pathSeparator) : ['.exe', '.cmd', '.bat', '.com'];
     }
 
