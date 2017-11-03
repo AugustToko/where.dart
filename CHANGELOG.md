@@ -1,6 +1,8 @@
 # Changelog
 This file contains highlights of what changes on each version of the [Where.dart](https://github.com/cedx/where.dart) project.
 
+## Version [2.2.0](https://github.com/cedx/where.dart/compare/v2.1.1...v2.2.0)
+
 ## Version [2.1.1](https://github.com/cedx/where.dart/compare/v2.1.0...v2.1.1)
 - Fixed a bug: the CLI script doesn't run when using the `pub global run` command.
 
