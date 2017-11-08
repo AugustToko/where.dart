@@ -15,7 +15,7 @@ executables:
 dependencies:
   args: '>=0.13.7 <2.0.0'
   meta: ^1.1.2
-  path: ^1.4.2
+  path: ^1.5.0
 
 dev_dependencies:
   coverage: ^0.9.3
