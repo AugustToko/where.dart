@@ -2,11 +2,10 @@
 
 import 'dart:async';
 import 'dart:io';
+import 'dart:isolate';
 import 'package:args/args.dart';
 import 'package:where/where.dart';
-
-/// The version number of this package.
-const String version = '2.2.0';
+import 'package:yaml/yaml.dart';
 
 /// The command line argument parser.
 final ArgParser _parser = new ArgParser()
@@ -26,6 +25,13 @@ final String usage = (new StringBuffer()
   ..write(_parser.usage))
   .toString();
 
+/// The version number of this package.
+Future<String> get version async {
+  var uri = (await Isolate.resolvePackageUri(Uri.parse('package:where/'))).resolve('../pubspec.yaml');
+  var pubspec = loadYaml(await new File(uri.toFilePath()).readAsString());
+  return pubspec['version'];
+}
+
 /// Application entry point.
 Future main(List<String> args) async {
   // Parse the command line arguments.
@@ -39,7 +45,7 @@ Future main(List<String> args) async {
     }
 
     if (results['version']) {
-      print(version);
+      print(await version);
       exit(0);
     }
 
