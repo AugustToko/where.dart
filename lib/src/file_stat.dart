@@ -37,7 +37,7 @@ class FileStat {
     );
   }
 
-  /// Returns a string representation of this object.
+  /// Returns a [String] representation of this object.
   @override
-  String toString() => '$runtimeType {uid: $uid, gid: $gid, mode: 0${mode.toRadixString(8)}}';
+  String toString() => 'FileStat {uid: $uid, gid: $gid, mode: 0${mode.toRadixString(8)}}';
 }
