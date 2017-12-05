@@ -1,20 +1,20 @@
 /// Find the instances of an executable in the system path.
 library where;
+// ignore_for_file: directives_ordering
 
 import 'dart:async';
-import 'dart:io' show ProcessException;
-import 'package:file/file.dart';
+import 'package:file/file.dart' show FileSystemException;
+import 'core.dart';
 
-import 'interop.dart'
-  if (dart.library.io) 'src/interop/vm.dart'
-  if (node) 'src/interop/node.dart';
+import 'io.dart'
+  if (dart.library.io) 'src/io/vm.dart'
+  if (node) 'src/io/node.dart';
 
-// ignore: directives_ordering
-export 'interop.dart'
-  if (dart.library.io) 'src/interop/vm.dart'
-  if (node) 'src/interop/node.dart'
-  show arguments, exitCode, fileSystem, platform;
+export 'core.dart';
+export 'io.dart'
+  if (dart.library.io) 'src/io/vm.dart'
+  if (node) 'src/io/node.dart'
+  hide processGid, processUid;
 
-part 'src/file_stat.dart';
 part 'src/finder.dart';
 part 'src/where.dart';

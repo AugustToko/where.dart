@@ -49,7 +49,7 @@ class Finder {
   /// Gets a value indicating whether the specified [file] is executable.
   Future<bool> isExecutable(String file) async {
     if (!await fileSystem.isFile(file)) return false;
-    return isWindows ? _checkFileExtension(file) : _checkFilePermissions(await FileStat.stat(file));
+    return isWindows ? _checkFileExtension(file) : _checkFilePermissions(await getFileStats(file));
   }
 
   /// Checks that the specified [file] is executable according to the executable file extensions.
@@ -57,7 +57,7 @@ class Finder {
     extensions.contains(fileSystem.path.extension(file).toUpperCase()) || extensions.contains(file.toUpperCase());
 
   /// Checks that the file referenced by the specified [fileStats] is executable according to its permissions.
-  Future<bool> _checkFilePermissions(FileStat fileStats) async {
+  Future<bool> _checkFilePermissions(FileStats fileStats) async {
     // Others.
     var perms = fileStats.mode;
     if (perms & int.parse('001', radix: 8) != 0) return true;
