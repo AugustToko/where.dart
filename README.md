@@ -14,6 +14,7 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
+  file: *
   where: *
 ```
 
@@ -28,6 +29,7 @@ $ pub get
 Now in your [Dart](https://www.dartlang.org) code, you can use:
 
 ```dart
+import 'package:file/file.dart' show FileSystemException;
 import 'package:where/where.dart' show where;
 ```
 
@@ -129,6 +131,22 @@ For example:
 
 ```shell
 $ where --all dart
+```
+
+### Node.js support
+This package supports the [Node.js](https://nodejs.org) virtual machine.
+A JavaScript executable can be generated using the [Grinder](http://google.github.io/grinder.dart) command:
+
+```shell
+$ grind
+```
+
+It will build a `where.js` file in the `bin` folder of this package.
+This executable has the same features as the [Dart](https://www.dartlang.org) command line:
+
+```shell
+$ node bin/where.js --help
+$ node bin/where.js --all dart
 ```
 
 ## See also
