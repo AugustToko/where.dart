@@ -134,15 +134,15 @@ $ where --all dart
 ```
 
 ### Node.js support
-This package supports the [Node.js](https://nodejs.org) virtual machine.
-A JavaScript executable can be generated using the [Grinder](http://google.github.io/grinder.dart) command:
+This package supports the [Node.js](https://nodejs.org) platform.
+A JavaScript executable can be generated using the following [Grinder](http://google.github.io/grinder.dart) command:
 
 ```shell
 $ grind
 ```
 
-It will build a `where.js` file in the `bin` folder of this package.
-This executable has the same features as the [Dart](https://www.dartlang.org) command line:
+This command will build a `where.js` file in the `bin` folder of this package.
+The generated executable has the same features as the [Dart](https://www.dartlang.org) command line:
 
 ```shell
 $ node bin/where.js --help

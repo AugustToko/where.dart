@@ -41,12 +41,6 @@ class Finder {
   /// The character used to separate paths in the system path.
   String pathSeparator;
 
-  /// The numeric identity of the process's group.
-  int _processGid = -1;
-
-  /// The numeric identity of the process's owner.
-  int _processUid = -1;
-
   /// Finds the instances of the specified [command] in the system path.
   Stream<String> find(String command) async* {
     for (var directory in path) yield* _findExecutables(directory, command);
@@ -70,16 +64,15 @@ class Finder {
 
     // Group.
     var execByGroup = int.parse('010', radix: 8);
-    if (_processGid < 0) _processGid = await _getProcessGid();
-    if (perms & execByGroup != 0) return _processGid == fileStats.gid;
+    if (perms & execByGroup != 0) return fileStats.gid == await processGid;
 
     // Owner.
     var execByOwner = int.parse('100', radix: 8);
-    if (_processUid < 0) _processUid = await _getProcessUid();
-    if (perms & execByOwner != 0) return _processUid == fileStats.uid;
+    var userId = await processUid;
+    if (perms & execByOwner != 0) return fileStats.uid == userId;
 
     // Root.
-    return perms & (execByOwner | execByGroup) != 0 ? _processUid == 0 : false;
+    return perms & (execByOwner | execByGroup) != 0 ? userId == 0 : false;
   }
 
   /// Finds the instances of a [command] in the specified [directory].
@@ -89,19 +82,5 @@ class Finder {
       var resolvedPath = path.canonicalize('${path.join(directory, command)}${extension.toLowerCase()}');
       if (await isExecutable(resolvedPath)) yield resolvedPath;
     }
-  }
-
-  /// Returns the numeric identity of the process's group, or `-1` if an error occurred.
-  Future<int> _getProcessGid() async {
-    if (isWindows) return -1;
-    var result = await processManager.run(['id', '-g']);
-    return result.exitCode != 0 ? -1 : int.parse(result.stdout.trim(), radix: 10, onError: (_) => -1);
-  }
-
-  /// Returns the numeric identity of the process's owner, or `-1` if an error occurred.
-  Future<int> _getProcessUid() async {
-    if (isWindows) return -1;
-    var result = await processManager.run(['id', '-u']);
-    return result.exitCode != 0 ? -1 : int.parse(result.stdout.trim(), radix: 10, onError: (_) => -1);
   }
 }

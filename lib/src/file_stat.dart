@@ -1,7 +1,6 @@
 part of where;
 
 /// Provides information about the status of a file system entity.
-@visibleForTesting
 class FileStat {
 
   /// Creates a new file status.
