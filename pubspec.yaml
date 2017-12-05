@@ -16,6 +16,7 @@ dependencies:
   args: '>=0.13.7 <2.0.0'
   file: ^2.3.4
   meta: ^1.1.2
+  nodejs_interop: ^0.6.0
   platform: ^2.1.1
   process: ^2.0.6
   yaml: ^2.1.13
@@ -24,6 +25,4 @@ dev_dependencies:
   coverage: ^0.9.3
   grinder: ^0.8.0
   node_preamble: ^1.4.0
-  nodejs_interop: # ^0.6.0
-    path: ../nodejs-interop.dart
   test: ^0.12.28
