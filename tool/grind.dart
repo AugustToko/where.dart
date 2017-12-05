@@ -16,7 +16,9 @@ Future main(List<String> args) => grind(args);
 @DefaultTask('Build the project')
 Future build() async {
   var executable = joinFile(binDir, ['where.js']);
-  Dart2js.compile(joinFile(binDir, ['where.dart']), extraArgs: const ['-Dnode=true'], minify: !_debug, outFile: executable);
+  var args = ['-Dnode=true']..addAll(_debug ? [] : ['--trust-primitives', '--trust-type-annotations']);
+  Dart2js.compile(joinFile(binDir, ['where.dart']), extraArgs: args, minify: !_debug, outFile: executable);
+
   await executable.writeAsString('#!/usr/bin/env node\n${getPreamble(minified: !_debug)}\n${await executable.readAsString()}');
   if (!Platform.isWindows) run('chmod', arguments: ['+x', executable.path]);
   new FileSet.fromDir(binDir, pattern: '*.{deps,map}').files.forEach(delete);
