@@ -24,6 +24,6 @@ dev_dependencies:
   coverage: ^0.9.3
   grinder: ^0.8.0
   node_preamble: ^1.4.0
-  nodejs_interop: # ^0.4.0
+  nodejs_interop: # ^0.6.0
     path: ../nodejs-interop.dart
   test: ^0.12.28

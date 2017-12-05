@@ -18,7 +18,7 @@ final String usage = (new StringBuffer()
   ..writeln('Find the instances of an executable in the system path.')
   ..writeln()
   ..writeln('Usage:')
-  ..writeln('pub global run where [options] <command>')
+  ..writeln('where [options] <command>')
   ..writeln()
   ..writeln('Options:')
   ..write(_parser.usage))
@@ -26,7 +26,8 @@ final String usage = (new StringBuffer()
 
 /// The version number of this package.
 Future<String> get version async {
-  var uri = (await Isolate.resolvePackageUri(Uri.parse('package:where/'))).resolve('../pubspec.yaml');
+  var path = const bool.fromEnvironment('node') ? '../../pubspec.yaml' : '../pubspec.yaml';
+  var uri = (await Isolate.resolvePackageUri(Uri.parse('package:where/'))).resolve(path);
   var pubspec = loadYaml(await fileSystem.file(uri.toFilePath(windows: platform.isWindows)).readAsString());
   return pubspec['version'];
 }

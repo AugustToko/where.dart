@@ -116,7 +116,7 @@ $ where --help
 Find the instances of an executable in the system path.
 
 Usage:
-pub global run where [options] <command>
+where [options] <command>
 
 Options:
 -a, --all        list all instances of executables found (instead of just the first one)
