@@ -1,10 +1,11 @@
-/// Provides interoperability with native APIs.
-library where.interop;
+/// Provides the I/O support.
+library where.io;
 
 import 'dart:async';
 import 'package:file/file.dart';
 import 'package:platform/platform.dart';
 import 'package:process/process.dart';
+import 'core.dart';
 
 /// The command line arguments.
 List<String> get arguments => const [];
@@ -27,3 +28,6 @@ Future<int> get processGid => new Future.value(-1);
 
 /// The numeric user identity of the process.
 Future<int> get processUid => new Future.value(-1);
+
+/// Returns the statistics of the specified [file].
+Future<FileStats> getFileStats(String file) => null;

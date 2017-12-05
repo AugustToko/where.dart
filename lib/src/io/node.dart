@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'dart:js';
 import 'package:nodejs_interop/nodejs_interop.dart';
+import 'package:where/core.dart';
 
 /// The command line arguments.
 List<String> get arguments => process.argv.skip(2).toList();
@@ -22,3 +24,14 @@ Future<int> get processGid => new Future.value(platform.isWindows ? -1 : process
 
 /// The numeric user identity of the process.
 Future<int> get processUid => new Future.value(platform.isWindows ? -1 : process.getuid());
+
+/// Returns the statistics of the specified [file].
+Future<FileStats> getFileStats(String file) {
+  var completer = new Completer<FileStats>();
+  loadLibrary<FSModule>('fs').stat(file, allowInterop((error, [stats]) {
+    if (error != null) completer.completeError(new FileSystemException(error.message, file));
+    else completer.complete(new FileStats(uid: stats.uid, gid: stats.gid, mode: stats.mode));
+  }));
+
+  return completer.future;
+}
