@@ -17,5 +17,6 @@ const Platform platform = null;
 /// A reference to the process manager.
 const ProcessManager processManager = null;
 
-/// Exits the process immediately with the given exit [code].
-void exit([int code = 0]) => null;
+/// The global exit code for the process.
+int get exitCode => 0;
+set exitCode(int value) => null;

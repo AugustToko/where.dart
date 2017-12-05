@@ -3,6 +3,7 @@
 import 'dart:async';
 import 'dart:isolate';
 import 'package:args/args.dart';
+import 'package:file/file.dart';
 import 'package:where/where.dart';
 import 'package:yaml/yaml.dart';
 
@@ -41,12 +42,12 @@ Future main(List<String> args) async {
     results = _parser.parse(const bool.fromEnvironment('node') ? arguments : args);
     if (results['help']) {
       print(usage);
-      exit(0);
+      return;
     }
 
     if (results['version']) {
       print(await version);
-      exit(0);
+      return;
     }
 
     if (results.rest.isEmpty) throw new ArgParserException('A command must be provided.');
@@ -54,22 +55,25 @@ Future main(List<String> args) async {
 
   on ArgParserException {
     print(usage);
-    exit(64);
+    exitCode = 64;
+    return;
   }
 
   // Run the program.
   try {
-    var executables = await where(results.rest.first, all: results['all'], onError: (_) => exit(1));
+    var executables = await where(results.rest.first, all: results['all']);
     if (!results['silent']) {
       if (executables is! List<String>) executables = [executables];
       executables.forEach(print);
     }
+  }
 
-    exit(0);
+  on FileSystemException {
+    exitCode = 1;
   }
 
   on Exception catch (err) {
     print(err);
-    exit(2);
+    exitCode = 2;
   }
 }

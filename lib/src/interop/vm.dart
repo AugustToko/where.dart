@@ -16,5 +16,6 @@ const Platform platform = const LocalPlatform();
 /// A reference to the process manager.
 const ProcessManager processManager = const LocalProcessManager();
 
-/// Exits the process immediately with the given exit [code].
-void exit([int code = 0]) => io.exit(code);
+/// The global exit code for the process.
+int get exitCode => io.exitCode;
+set exitCode(int value) => io.exitCode = value;
