@@ -3,7 +3,11 @@ This file contains highlights of what changes on each version of the [Where.dart
 
 ## Version [3.0.0](https://github.com/cedx/where.dart/compare/v2.2.0...v3.0.0)
 - Added support for [Node.js](https://nodejs.org) virtual machine.
-- Updated the package dependencies.
+- Breaking change: removed the `FileStat.stat()` method.
+- Breaking change: renamed the `FileStat` class to `FileStats`.
+- Added the `fileSystem`, `platform` and `processManager` constants.
+- Added the `getFileStats()` function.
+- Added the `arguments` and `exitCode` properties.
 
 ## Version [2.2.0](https://github.com/cedx/where.dart/compare/v2.1.1...v2.2.0)
 - Updated the package dependencies.
