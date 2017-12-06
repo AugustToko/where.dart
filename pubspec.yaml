@@ -1,5 +1,5 @@
 name: where
-version: 3.0.0
+version: 3.1.0
 
 author: Cédric Belin <cedric@belin.io>
 description: Find the instances of an executable in the system path.
@@ -15,7 +15,7 @@ executables:
 dependencies:
   args: '>=0.13.7 <2.0.0'
   file: ^2.3.4
-  nodejs_interop: ^0.6.0
+  nodejs_interop: ^0.7.0
   platform: ^2.1.1
   process: ^2.0.6
   yaml: ^2.1.13
