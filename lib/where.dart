@@ -5,16 +5,14 @@ library where;
 import 'dart:async';
 import 'package:file/file.dart';
 import 'core.dart';
-
 import 'io.dart'
   if (dart.library.io) 'src/io/vm.dart'
   if (node) 'src/io/node.dart';
 
-export 'core.dart';
 export 'io.dart'
   if (dart.library.io) 'src/io/vm.dart'
   if (node) 'src/io/node.dart'
-  hide processGid, processUid;
+  show arguments, exitCode, fileSystem, platform;
 
 part 'src/finder.dart';
 part 'src/where.dart';

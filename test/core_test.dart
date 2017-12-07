@@ -1,5 +1,5 @@
 import 'package:test/test.dart';
-import 'package:where/where.dart';
+import 'package:where/core.dart';
 
 /// Tests the features of the `where.core` library.
 void main() => group('FileStats', () {
