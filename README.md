@@ -149,6 +149,8 @@ $ node bin/where.js --help
 $ node bin/where.js --all dart
 ```
 
+> Node.js support is provided through the [`nodejs_interop`](https://pub.dartlang.org/packages/nodejs_interop) library.
+
 ## See also
 - [API reference](https://cedx.github.io/where.dart)
 - [Code coverage](https://coveralls.io/github/cedx/where.dart)

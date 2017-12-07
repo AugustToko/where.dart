@@ -3,7 +3,7 @@ library where;
 // ignore_for_file: directives_ordering
 
 import 'dart:async';
-import 'package:file/file.dart' show FileSystemException;
+import 'package:file/file.dart';
 import 'core.dart';
 
 import 'io.dart'
