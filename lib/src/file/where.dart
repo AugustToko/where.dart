@@ -1,4 +1,4 @@
-part of where;
+part of where.file;
 
 /// Finds the first instance of a [command] in the system path.
 /// An [all] value indicates whether to return a [List] of all executables found, instead of just the first one.
@@ -12,7 +12,7 @@ part of where;
 /// - [pathSeparator]: The character used to separate paths in the system path. Defaults to the platform path separator.
 Future where(String command, {bool all = false, extensions = '', onError(String command), path = '', String pathSeparator = ''}) async {
   var finder = new Finder(extensions: extensions, path: path, pathSeparator: pathSeparator);
-  var list = [];
+  var list = <String>[];
 
   await for (var executable in finder.find(command)) {
     if (!all) return executable;

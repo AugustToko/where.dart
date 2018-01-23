@@ -1,5 +1,5 @@
 import 'package:test/test.dart';
-import 'package:where/io.dart';
+import 'package:where/src/io.dart';
 
 /// Tests the features of the `where.io` library.
 void main() => group('getFileStats()', () {
@@ -15,6 +15,6 @@ void main() => group('getFileStats()', () {
 
   test('should return a mode greater than 0 for the file permissions', () async {
     var fileStats = await getFileStats('test/io_test.dart');
-    expect(fileStats.mode, greaterThan(0));
+    expect(fileStats.mode, anyOf(equals(int.parse('664', radix: 8)), equals(int.parse('644', radix: 8))));
   });
 }, testOn: 'posix');

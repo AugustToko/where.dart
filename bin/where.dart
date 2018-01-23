@@ -29,7 +29,7 @@ final String usage = (new StringBuffer()
 Future<String> get version async {
   var path = const bool.fromEnvironment('node') ? '../../pubspec.yaml' : '../pubspec.yaml';
   var uri = (await Isolate.resolvePackageUri(Uri.parse('package:where/'))).resolve(path);
-  var pubspec = loadYaml(await fileSystem.file(uri.toFilePath(windows: platform.isWindows)).readAsString());
+  Map pubspec = loadYaml(await fileSystem.file(uri.toFilePath(windows: platform.isWindows)).readAsString());
   return pubspec['version'];
 }
 
@@ -63,7 +63,7 @@ Future main(List<String> args) async {
   try {
     var executables = await where(results.rest.first, all: results['all']);
     if (!results['silent']) {
-      if (executables is! List<String>) executables = [executables];
+      if (executables is! List<String>) executables = <String>[executables];
       executables.forEach(print);
     }
   }

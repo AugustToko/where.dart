@@ -13,15 +13,19 @@ executables:
   where: where
 
 dependencies:
-  args: '>=0.13.7 <2.0.0'
-  file: ^2.3.4
-  nodejs_interop: ^0.7.0
+  args: ^1.2.0
+  file: ^2.3.5
+  nodejs_interop: ^0.8.0
   platform: ^2.1.1
-  process: ^2.0.6
+  process: ^2.0.7
   yaml: ^2.1.13
 
+dependency_overrides:
+  nodejs_interop:
+    path: ../nodejs-interop.dart
+
 dev_dependencies:
-  coverage: ^0.9.3
-  grinder: ^0.8.0
+  coverage: ^0.10.0
+  grinder: ^0.8.1
   node_preamble: ^1.4.0
-  test: ^0.12.29
+  test: ^0.12.30

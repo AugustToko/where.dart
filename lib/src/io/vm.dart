@@ -4,7 +4,7 @@ import 'package:file/file.dart';
 import 'package:file/local.dart';
 import 'package:platform/platform.dart';
 import 'package:process/process.dart';
-import 'package:where/core.dart';
+import 'package:where/src/core.dart';
 
 /// The command line arguments.
 List<String> get arguments => throw new UnsupportedError('Not supported by the Dart VM.');
@@ -25,14 +25,14 @@ const ProcessManager processManager = const LocalProcessManager();
 /// The numeric group identity of the process.
 Future<int> get processGid async {
   if (platform.isWindows) return -1;
-  var result = await processManager.run(['id', '-g']);
+  var result = await processManager.run(<String>['id', '-g']);
   return result.exitCode != 0 ? -1 : int.parse(result.stdout.trim(), radix: 10, onError: (_) => -1);
 }
 
 /// The numeric user identity of the process.
 Future<int> get processUid async {
   if (platform.isWindows) return -1;
-  var result = await processManager.run(['id', '-u']);
+  var result = await processManager.run(<String>['id', '-u']);
   return result.exitCode != 0 ? -1 : int.parse(result.stdout.trim(), radix: 10, onError: (_) => -1);
 }
 
@@ -41,10 +41,10 @@ Future<FileStats> getFileStats(String file) async {
   if (platform.isWindows) throw new UnsupportedError('Not supported by the Windows platform.');
 
   var args = platform.isMacOS ? ['-f', '%u:%g:%p', '-L'] : ['--dereference', '--format=%u:%g:%a'];
-  var result = await processManager.run(['stat']..addAll(args)..add(file));
+  var result = await processManager.run(<String>['stat']..addAll(args)..add(file));
   if (result.exitCode != 0) throw new io.ProcessException('stat', args);
 
-  var parts = result.stdout.trim().split(':');
+  List<String> parts = result.stdout.trim().split(':');
   if (parts.length != 3) throw new io.ProcessException('stat', args);
 
   return new FileStats(

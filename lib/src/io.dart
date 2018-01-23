@@ -5,7 +5,7 @@ import 'dart:async';
 import 'package:file/file.dart';
 import 'package:platform/platform.dart';
 import 'package:process/process.dart';
-import 'core.dart';
+import 'package:where/src/core.dart';
 
 /// The command line arguments.
 List<String> get arguments => const [];
