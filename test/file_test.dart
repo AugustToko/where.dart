@@ -1,6 +1,6 @@
 import 'package:file/testing.dart';
 import 'package:test/test.dart';
-import 'package:where/where.dart';
+import 'package:where/src/file.dart';
 
 /// Tests the features of the `where` library.
 void main() {
@@ -55,7 +55,7 @@ void main() {
 
     group('.isExecutable()', () {
       test('should return `false` for a non-executable file', () async {
-        expect(await new Finder().isExecutable('test/finder_test.dart'), isFalse);
+        expect(await new Finder().isExecutable('test/where_test.dart'), isFalse);
       });
 
       test('should return `false` for a POSIX executable, when test is run on Windows', () async {

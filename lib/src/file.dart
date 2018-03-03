@@ -3,15 +3,15 @@ library where.file;
 
 import 'dart:async';
 import 'package:file/file.dart';
-import 'package:where/src/core.dart';
-import 'package:where/src/io.dart'
-  if (dart.library.io) 'src/io/vm.dart'
-  if (node) 'src/io/node.dart';
+import 'core.dart';
+import 'io.dart'
+  if (dart.library.io) 'io/vm.dart'
+  if (node) 'io/node.dart';
 
 // ignore: directives_ordering
-export 'package:where/src/io.dart'
-  if (dart.library.io) 'src/io/vm.dart'
-  if (node) 'src/io/node.dart'
+export 'io.dart'
+  if (dart.library.io) 'io/vm.dart'
+  if (node) 'io/node.dart'
   show arguments, exitCode, fileSystem, platform;
 
 part 'file/finder.dart';
