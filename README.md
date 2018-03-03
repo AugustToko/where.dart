@@ -4,13 +4,13 @@
 Find the instances of an executable in the system path, implemented in in [Dart](https://www.dartlang.org).
 
 ## Requirements
-The latest [Dart SDK](https://www.dartlang.org) and [Pub](https://pub.dartlang.org) versions.
+The latest [Dart SDK](https://www.dartlang.org/tools/sdk) and [Pub](https://www.dartlang.org/tools/pub) versions.
 If you plan to play with the sources, you will also need the latest [Grinder](http://google.github.io/grinder.dart) version.
 
-## Installing via [Pub](https://pub.dartlang.org)
+## Installing via Pub package manager
 
 ### 1. Depend on it
-Add this to your package's `pubspec.yaml` file:
+Add this to your project's `pubspec.yaml` file:
 
 ```yaml
 dependencies:

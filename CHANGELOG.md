@@ -1,7 +1,7 @@
 # Changelog
-This file contains highlights of what changes on each version of the [Where.dart](https://github.com/cedx/where.dart) project.
 
-## Version [3.1.0](https://github.com/cedx/where.dart/compare/v3.0.0...v3.1.0)
+## Version [4.0.0](https://github.com/cedx/where.dart/compare/v3.0.0...v4.0.0)
+- Breaking change: starting to use and support the [Dart 2 SDK](https://www.dartlang.org/tools/sdk).
 - Updated the package dependencies.
 
 ## Version [3.0.0](https://github.com/cedx/where.dart/compare/v2.2.0...v3.0.0)
