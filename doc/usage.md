@@ -133,8 +133,8 @@ This command will build a `where.js` file in the `bin` folder of this package.
 The generated executable has the same features as the [Dart](https://www.dartlang.org) command line:
 
 ```shell
-$node bin/where.js --help
-$node bin/where.js --all dart
+node bin/where.js --help
+node bin/where.js --all dart
 ```
 
 !!! info
