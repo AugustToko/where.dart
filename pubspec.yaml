@@ -15,7 +15,7 @@ executables:
 dependencies:
   args: ^1.4.1
   file: ^2.3.7
-  nodejs_interop: ^0.8.0
+  nodejs_interop: ^0.9.0
   platform: ^2.1.2
   process: ^2.0.7
   yaml: ^2.1.13

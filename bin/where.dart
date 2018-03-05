@@ -3,7 +3,6 @@
 import 'dart:async';
 import 'dart:isolate';
 import 'package:args/args.dart';
-import 'package:file/file.dart';
 import 'package:where/where.dart';
 import 'package:yaml/yaml.dart';
 

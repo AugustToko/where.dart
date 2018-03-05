@@ -3,58 +3,34 @@
 
 Find the instances of an executable in the system path, implemented in in [Dart](https://www.dartlang.org).
 
-## Requirements
-The latest [Dart SDK](https://www.dartlang.org/tools/sdk) and [Pub](https://www.dartlang.org/tools/pub) versions.
-If you plan to play with the sources, you will also need the latest [Grinder](http://google.github.io/grinder.dart) version.
-
-## Installing via Pub package manager
-
-### 1. Depend on it
-Add this to your project's `pubspec.yaml` file:
-
-```yaml
-dependencies:
-  file: *
-  where: *
-```
-
-### 2. Install it
-Install this package and its dependencies from a command prompt:
-
-```shell
-$ pub get
-```
-
-### 3. Import it
-Now in your [Dart](https://www.dartlang.org) code, you can use:
-
-```dart
-import 'package:file/file.dart' show FileSystemException;
-import 'package:where/where.dart' show where;
-```
+## Resources
+- [Documentation](https://cedx.github.io/where.dart)
+- [API reference](https://cedx.github.io/where.dart/api)
+- [Pub package](https://pub.dartlang.org/packages/where)
+- [GitHub repository](https://github.com/cedx/where.dart)
 
 ## Usage
 This package provides a single function, `where()`, allowing to locate a command in the system path:
 
 ```dart
 try {
-  // "path" is the absolute path to the executable.
+  // `path` is the absolute path to the executable.
   var path = await where('foobar');
   print('The "foobar" command is located at: $path');
 }
 
-on FileSystemException {
+on FinderException {
   // The command was not found on the system path.
   print('The "foobar" command is not found.');
 }
 ```
 
-The function returns a [`Future<String>`](https://api.dartlang.org/stable/dart-async/Future-class.html) specifying the path of the first instance of the executables found. If the command could not be located, a [`FileSystemException`](https://www.dartdocs.org/documentation/file/latest/file/FileSystemException-class.html) is thrown.
+The function returns a [`Future<String>`](https://api.dartlang.org/stable/dart-async/Future-class.html) specifying the path of the first instance of the executables found. If the command could not be located, a `FinderException` is thrown.
 
 ## Options
 The behavior of the `where()` function can be customized using the following optional named parameters.
 
-### `bool all = false`
+### bool **all** = `false`
 A value indicating whether to return all executables found, instead of just the first one.
 
 If you pass `true` as parameter value, the function will return a `Future<List<String>>` providing all paths found, instead of a `Future<String>`:
@@ -76,7 +52,7 @@ where('foobar', extensions: '.FOO;.EXE;.CMD');
 ```
 
 ### `dynamic onError(String command)`
-By default, when the specified command cannot be located, a `FileSystemException` is thrown. You can disable this exception by providing your own error handler:
+By default, when the specified command cannot be located, a `FinderException` is thrown. You can disable this exception by providing your own error handler:
 
 ```dart
 var path = await where('foobar', onError: (_) => '');
@@ -85,7 +61,7 @@ if (path.isEmpty) print('The "foobar" command is not found.');
 else print('The "foobar" command is located at: $path');
 ```
 
-When an `onError` handler is provided, it is called with the command as argument, and its return value is used instead. This is preferable to throwing and then immediately catching the `FileSystemException`.
+When an `onError` handler is provided, it is called with the command as argument, and its return value is used instead. This is preferable to throwing and then immediately catching the `FinderException`.
 
 ### `String|List<String> path = ""`
 The system path, provided as a string or a list of directories. Defaults to the list of paths provided by the `PATH` environment variable.
@@ -105,15 +81,16 @@ where('foobar', pathSeparator: '#');
 From a command prompt, install the `where` executable:
 
 ```shell
-$ pub global activate where
+pub global activate where
 ```
 
-> Consider adding the [`pub global`](https://www.dartlang.org/tools/pub/cmd/pub-global) executables directory to your system path.
+!!! tip
+    Consider adding the [`pub global`](https://www.dartlang.org/tools/pub/cmd/pub-global) executables directory to your system path.
 
-Then use it to find the instances of an executable:
+Then use it to find the instances of an executable command:
 
 ```shell
-$ where --help
+where --help
 
 Find the instances of an executable in the system path.
 
@@ -130,7 +107,7 @@ Options:
 For example:
 
 ```shell
-$ where --all dart
+where --all dart
 ```
 
 ### Node.js support
@@ -138,15 +115,15 @@ This package supports the [Node.js](https://nodejs.org) platform.
 A JavaScript executable can be generated using the following [Grinder](http://google.github.io/grinder.dart) command:
 
 ```shell
-$ pub run grinder
+pub run grinder
 ```
 
 This command will build a `where.js` file in the `bin` folder of this package.
 The generated executable has the same features as the [Dart](https://www.dartlang.org) command line:
 
 ```shell
-$ node bin/where.js --help
-$ node bin/where.js --all dart
+$node bin/where.js --help
+$node bin/where.js --all dart
 ```
 
 > Node.js support is provided through the [`nodejs_interop`](https://pub.dartlang.org/packages/nodejs_interop) library.
@@ -157,4 +134,4 @@ $ node bin/where.js --all dart
 - [Continuous integration](https://travis-ci.org/cedx/where.dart)
 
 ## License
-[Where.dart](https://github.com/cedx/where.dart) is distributed under the MIT License.
+[Where.dart](https://cedx.github.io/where.dart) is distributed under the MIT License.
