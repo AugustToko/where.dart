@@ -22,7 +22,7 @@ class Finder {
       extensions = pathExt.isNotEmpty ? pathExt.split(pathSeparator) : ['.exe', '.cmd', '.bat', '.com'];
     }
 
-    this.extensions.addAll(extensions.map((extension) => extension.toUpperCase()));
+    this.extensions.addAll(extensions.map((extension) => extension.toLowerCase()));
     this.path.addAll(path.map((directory) => directory.replaceAll(new RegExp(r'^"+|"+$'), '')));
   }
 
@@ -54,7 +54,7 @@ class Finder {
 
   /// Checks that the specified [file] is executable according to the executable file extensions.
   bool _checkFileExtension(String file) =>
-    extensions.contains(fileSystem.path.extension(file).toUpperCase()) || extensions.contains(file.toUpperCase());
+    extensions.contains(fileSystem.path.extension(file).toLowerCase()) || extensions.contains(file.toLowerCase());
 
   /// Checks that the file referenced by the specified [fileStats] is executable according to its permissions.
   Future<bool> _checkFilePermissions(FileStats fileStats) async {
@@ -82,5 +82,31 @@ class Finder {
       var resolvedPath = path.canonicalize('${path.join(directory, command)}${extension.toLowerCase()}');
       if (await isExecutable(resolvedPath)) yield resolvedPath;
     }
+  }
+}
+
+/// An exception caused by a [Finder] in a command lookup.
+class FinderException implements IOException {
+
+  /// Creates a new finder exception.
+  FinderException(this.command, this.finder, [this.message = '']);
+
+  /// The looked up command.
+  final String command;
+
+  /// The finder used to lookup the command.
+  final Finder finder;
+
+  /// A message describing the error.
+  final String message;
+
+  /// Returns a string representation of this object.
+  @override
+  String toString() {
+    var buffer = new StringBuffer('FinderException("$command"');
+    if (finder.path.isNotEmpty) buffer.write(', finder: "${finder.path.join(finder.pathSeparator)}"');
+    if (message.isNotEmpty) buffer.write(', message: "$message"');
+    buffer.write(')');
+    return buffer.toString();
   }
 }

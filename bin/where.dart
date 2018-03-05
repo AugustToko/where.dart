@@ -68,7 +68,7 @@ Future main(List<String> args) async {
     }
   }
 
-  on FileSystemException {
+  on FinderException {
     exitCode = 1;
   }
 

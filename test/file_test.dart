@@ -1,4 +1,3 @@
-import 'package:file/testing.dart';
 import 'package:test/test.dart';
 import 'package:where/src/file.dart';
 
@@ -27,7 +26,7 @@ void main() {
 
       test('should split the extension list using the path separator', () {
         var extensions = const ['.EXE', '.CMD', '.BAT'];
-        expect(new Finder(extensions: extensions.join(delimiter)).extensions, orderedEquals(extensions));
+        expect(new Finder(extensions: extensions.join(delimiter)).extensions, orderedEquals(['.exe', '.cmd', '.bat']));
       });
 
       test('should set the `pathSeparator` property to the value of the platform path separator by default', () {
@@ -78,7 +77,7 @@ void main() {
 
       on Exception catch (err) {
         if (Finder.isWindows) fail('Exception should not be thrown.');
-        else expect(err, isFileSystemException());
+        else expect(err, const isInstanceOf<FinderException>());
       }
     });
 
@@ -94,7 +93,7 @@ void main() {
 
       on Exception catch (err) {
         if (Finder.isWindows) fail('Exception should not be thrown.');
-        else expect(err, isFileSystemException());
+        else expect(err, const isInstanceOf<FinderException>());
       }
     });
 
@@ -107,7 +106,7 @@ void main() {
 
       on Exception catch (err) {
         if (!Finder.isWindows) fail('Exception should not be thrown.');
-        else expect(err, isFileSystemException());
+        else expect(err, const isInstanceOf<FinderException>());
       }
     });
 
@@ -123,7 +122,7 @@ void main() {
 
       on Exception catch (err) {
         if (!Finder.isWindows) fail('Exception should not be thrown.');
-        else expect(err, isFileSystemException());
+        else expect(err, const isInstanceOf<FinderException>());
       }
     });
 

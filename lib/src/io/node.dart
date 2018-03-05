@@ -1,7 +1,7 @@
 import 'dart:async';
+import 'dart:js';
 import 'package:file/file.dart';
 import 'package:nodejs_interop/io.dart' as io;
-import 'package:nodejs_interop/js.dart';
 import 'package:nodejs_interop/node.dart';
 import 'package:platform/platform.dart';
 import 'package:process/process.dart';
@@ -30,13 +30,12 @@ Future<int> get processGid => new Future.value(platform.isWindows ? -1 : process
 Future<int> get processUid => new Future.value(platform.isWindows ? -1 : process.geteuid());
 
 /// Returns the statistics of the specified [file].
-Future<FileStats> getFileStats(String file) async {
-  try {
-    var stats = await fn1cb1ToFuture(loadLibrary<FSModule>('fs').stat, file);
-    return new FileStats(uid: stats.uid, gid: stats.gid, mode: stats.mode);
-  }
+Future<FileStats> getFileStats(String file) {
+  var completer = new Completer<FileStats>();
+  loadLibrary<FSModule>('fs').stat(file, allowInterop((error, [stats]) {
+    if (error == null) completer.complete(new FileStats(uid: stats.uid, gid: stats.gid, mode: stats.mode));
+    else completer.completeError(new FileSystemException(error.message, file));
+  }));
 
-  on JSError catch (error) {
-    throw new FileSystemException(error.message, file);
-  }
+  return completer.future;
 }
