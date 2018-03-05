@@ -11,9 +11,11 @@ void main() => group('FileStats', () {
     });
 
     test('should contain the instance properties', () {
-      expect(data, contains('uid: 2000'));
-      expect(data, contains('gid: 1000'));
-      expect(data, contains('mode: 0755'));
+      expect(data, allOf(
+        contains('uid: 2000'),
+        contains('gid: 1000'),
+        contains('mode: 0755')
+      ));
     });
   });
 });

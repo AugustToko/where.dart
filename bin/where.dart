@@ -30,7 +30,7 @@ Future<String> get version async {
   var package = await Isolate.resolvePackageUri(Uri.parse('package:where/'));
 
   var uri = package.resolve(isNode ? '../../pubspec.yaml' : '../pubspec.yaml');
-  if (isNode) uri = Uri.parse(Uri.decodeFull(uri.toString()).replaceAll('\\', '/'));
+  if (isNode && platform.isWindows) uri = Uri.parse(Uri.decodeFull(uri.toString()).replaceAll('\\', '/'));
 
   Map pubspec = loadYaml(await fileSystem.file(uri.toFilePath(windows: platform.isWindows)).readAsString());
   return pubspec['version'].toString();

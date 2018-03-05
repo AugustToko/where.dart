@@ -40,7 +40,7 @@ Future<int> get processUid async {
 Future<FileStats> getFileStats(String file) async {
   if (platform.isWindows) throw new UnsupportedError('Not supported by the Windows platform.');
 
-  var args = platform.isMacOS ? ['-f', '%u:%g:%p', '-L'] : ['--dereference', '--format=%u:%g:%a'];
+  var args = platform.isMacOS ? const ['-f', '%u:%g:%p', '-L'] : const ['--dereference', '--format=%u:%g:%a'];
   var result = await processManager.run(<String>['stat']..addAll(args)..add(file));
   if (result.exitCode != 0) throw new io.ProcessException('stat', args);
 
