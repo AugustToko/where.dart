@@ -24,5 +24,5 @@ Future where(String command, {bool all = false, Object extensions = '', onError(
     throw new FinderException(command, finder, 'Command "$command" not found');
   }
 
-  return all ? list : list.first;
+  return all ? new Set<String>.from(list).toList() : list.first;
 }

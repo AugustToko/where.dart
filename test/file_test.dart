@@ -20,7 +20,7 @@ void main() {
 
       test('should set the `extensions` property to the value of the `PATHEXT` environment variable by default', () {
         var pathExt = platform.environment['PATHEXT'] ?? '';
-        var extensions = pathExt.isEmpty ? <String>[] : pathExt.split(delimiter);
+        var extensions = pathExt.isEmpty ? <String>[] : pathExt.split(delimiter).map((item) => item.toLowerCase());
         expect(new Finder().extensions, orderedEquals(extensions));
       });
 
