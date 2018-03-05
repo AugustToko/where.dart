@@ -28,7 +28,7 @@ The function returns a [`Future<String>`](https://api.dartlang.org/stable/dart-a
 ## Options
 The behavior of the `where()` function can be customized using the following optional named parameters.
 
-### bool **all** = `false`
+### bool **all**
 A value indicating whether to return all executables found, instead of just the first one.
 
 If you pass `true` as parameter value, the function will return a `Future<List<String>>` providing all paths found, instead of a `Future<String>`:
@@ -44,7 +44,7 @@ Future<Null> main() async {
 }
 ```
 
-### String | List&lt;String&gt; **extensions** = `""`
+### String | List&lt;String&gt; **extensions**
 The executable file extensions, provided as a string or a list of file extensions. Defaults to the list of extensions provided by the `PATHEXT` environment variable.
 
 ```dart
@@ -72,7 +72,7 @@ Future<Null> main() async {
 
 When an `onError` handler is provided, it is called with the command as argument, and its return value is used instead. This is preferable to throwing and then immediately catching the `FinderException`.
 
-### String | List&lt;String&gt; **path** = `""`
+### String | List&lt;String&gt; **path**
 The system path, provided as a string or a list of directories. Defaults to the list of paths provided by the `PATH` environment variable.
 
 ```dart
@@ -80,7 +80,7 @@ where('foobar', path: '/usr/local/bin:/usr/bin');
 where('foobar', path: ['/usr/local/bin', '/usr/bin']);
 ```
 
-### String **pathSeparator** = `""`
+### String **pathSeparator**
 The character used to separate paths in the system path. Defaults to the platform path separator (i.e. `";"` on Windows, `":"` on other platforms).
 
 ```dart
