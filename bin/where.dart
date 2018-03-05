@@ -26,13 +26,14 @@ final String usage = (new StringBuffer()
 
 /// The version number of this package.
 Future<String> get version async {
-  var path = const bool.fromEnvironment('node') ? '../../pubspec.yaml' : '../pubspec.yaml';
-  var uri = (await Isolate.resolvePackageUri(Uri.parse('package:where/'))).resolve(path);
+  var isNode = const bool.fromEnvironment('node');
+  var package = await Isolate.resolvePackageUri(Uri.parse('package:where/'));
 
-  print(uri);
-  print(uri.toFilePath(windows: platform.isWindows));
+  var uri = package.resolve(isNode ? '../../pubspec.yaml' : '../pubspec.yaml');
+  if (isNode) uri = Uri.parse(Uri.decodeFull(uri.toString()));
+
   Map pubspec = loadYaml(await fileSystem.file(uri.toFilePath(windows: platform.isWindows)).readAsString());
-  return pubspec['version'];
+  return pubspec['version'].toString();
 }
 
 /// Application entry point.
