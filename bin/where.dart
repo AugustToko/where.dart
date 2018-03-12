@@ -53,7 +53,7 @@ Future main(List<String> args) async {
       return;
     }
 
-    if (results.rest.isEmpty) throw new ArgParserException('A command must be provided.');
+    if (results.rest.isEmpty) throw new ArgParserException('A command must be provided');
   }
 
   on ArgParserException {

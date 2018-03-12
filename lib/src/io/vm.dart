@@ -7,7 +7,7 @@ import 'package:process/process.dart';
 import 'package:where/src/core.dart';
 
 /// The command line arguments.
-List<String> get arguments => throw new UnsupportedError('Not supported by the Dart VM.');
+List<String> get arguments => throw new UnsupportedError('Not supported by the Dart VM');
 
 /// The global exit code for the process.
 int get exitCode => io.exitCode;
@@ -38,7 +38,7 @@ Future<int> get processUid async {
 
 /// Returns the statistics of the specified [file].
 Future<FileStats> getFileStats(String file) async {
-  if (platform.isWindows) throw new UnsupportedError('Not supported by the Windows platform.');
+  if (platform.isWindows) throw new UnsupportedError('Not supported by the Windows platform');
 
   var args = platform.isMacOS ? const ['-f', '%u:%g:%p', '-L'] : const ['--dereference', '--format=%u:%g:%a'];
   var result = await processManager.run(<String>['stat']..addAll(args)..add(file));
