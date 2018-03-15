@@ -17,11 +17,11 @@ dependencies:
   file: ^2.3.7
   nodejs_interop: ^0.9.0
   platform: ^2.1.2
-  process: ^2.0.7
+  process: ^2.0.8
   yaml: ^2.1.13
 
 dev_dependencies:
   coverage: ^0.10.0
   grinder: ^0.8.1
   node_preamble: ^1.4.0
-  test: ^0.12.30
+  test: ^0.12.32
