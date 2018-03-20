@@ -8,7 +8,7 @@ import 'package:process/process.dart';
 import 'core.dart';
 
 /// The command line arguments.
-List<String> get arguments => [];
+List<String> get arguments => const [];
 
 /// The global exit code for the process.
 int get exitCode => 0;
@@ -24,10 +24,10 @@ const Platform platform = null;
 const ProcessManager processManager = null;
 
 /// The numeric group identity of the process.
-Future<int> get processGid => Future.value(-1);
+Future<int> get processGid => new Future.value(-1);
 
 /// The numeric user identity of the process.
-Future<int> get processUid => Future.value(-1);
+Future<int> get processUid => new Future.value(-1);
 
 /// Returns the statistics of the specified [file].
 Future<FileStats> getFileStats(String file) => null;
