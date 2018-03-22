@@ -25,7 +25,7 @@ void main() {
       });
 
       test('should split the extension list using the path separator', () {
-        var extensions = const ['.EXE', '.CMD', '.BAT'];
+        var extensions = ['.EXE', '.CMD', '.BAT'];
         expect(new Finder(extensions: extensions.join(delimiter)).extensions, orderedEquals(['.exe', '.cmd', '.bat']));
       });
 

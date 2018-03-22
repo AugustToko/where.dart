@@ -8,7 +8,7 @@ import 'package:process/process.dart';
 import 'core.dart';
 
 /// The command line arguments.
-List<String> get arguments => const [];
+List<String> get arguments => [];
 
 /// The global exit code for the process.
 int get exitCode => 0;
