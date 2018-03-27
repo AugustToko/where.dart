@@ -10,11 +10,11 @@ final String _environment = Platform.environment['DART_ENV'] ?? const String.fro
 final bool _debug = _environment == 'development' || _environment == 'test';
 
 /// Starts the build system.
-Future main(List<String> args) => grind(args);
+Future<void> main(List<String> args) => grind(args);
 
 /// Builds the project.
 @DefaultTask('Build the project')
-Future build() async {
+Future<void> build() async {
   var executable = joinFile(binDir, ['where.js']);
   var args = ['-Dnode=true']..addAll(_debug ? [] : ['--trust-primitives', '--trust-type-annotations']);
   Dart2js.compile(joinFile(binDir, ['where.dart']), extraArgs: args, minify: !_debug, outFile: executable);
@@ -54,7 +54,7 @@ void lint() => Analyzer.analyze(existingSourceDirs);
 
 /// Runs all the test suites.
 @Task('Run the tests')
-Future test() async {
+Future<void> test() async {
   await Future.wait([
     Dart.runAsync('test/all.dart', vmArgs: ['--enable-vm-service', '--pause-isolates-on-exit']),
     Pub.runAsync('coverage', script: 'collect_coverage', arguments: ['--out=var/coverage.json', '--resume-isolates', '--wait-paused'])

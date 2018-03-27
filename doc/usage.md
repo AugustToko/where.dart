@@ -10,7 +10,7 @@ This package provides a single function, `where()`, allowing to locate a command
 import 'dart:async';
 import 'package:where/where.dart';
 
-Future<Null> main() async {
+Future<void> main() async {
   try {
     // `path` is the absolute path to the executable.
     var path = await where('foobar');
@@ -37,7 +37,7 @@ If you pass `true` as parameter value, the function will return a `Future<List<S
 import 'dart:async';
 import 'package:where/where.dart';
 
-Future<Null> main() async {
+Future<void> main() async {
   var paths = await where('foobar', all: true);
   print('The command "foobar" was found at these locations:');
   for (var path in paths) print(path);
@@ -63,7 +63,7 @@ By default, when the specified command cannot be located, a `FinderException` is
 import 'dart:async';
 import 'package:where/where.dart';
 
-Future<Null> main() async {
+Future<void> main() async {
   var path = await where('foobar', onError: (command) => '');
   if (path.isEmpty) print('The command "foobar" was not found');
   else print('The command "foobar" is located at: $path');

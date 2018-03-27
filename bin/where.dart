@@ -37,7 +37,7 @@ Future<String> get version async {
 }
 
 /// Application entry point.
-Future main(List<String> args) async {
+Future<void> main(List<String> args) async {
   // Parse the command line arguments.
   ArgResults results;
 
@@ -45,12 +45,12 @@ Future main(List<String> args) async {
     results = _parser.parse(const bool.fromEnvironment('node') ? arguments : args);
     if (results['help']) {
       print(usage);
-      return;
+      return null;
     }
 
     if (results['version']) {
       print(await version);
-      return;
+      return null;
     }
 
     if (results.rest.isEmpty) throw new ArgParserException('A command must be provided');
@@ -59,7 +59,7 @@ Future main(List<String> args) async {
   on ArgParserException {
     print(usage);
     exitCode = 64;
-    return;
+    return null;
   }
 
   // Run the program.
