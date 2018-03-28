@@ -29,7 +29,7 @@ Future<void> build() async {
 void clean() {
   defaultClean();
   delete(joinFile(binDir, ['where.js']));
-  ['doc/api', 'web'].map(getDir).forEach(delete);
+  ['.dart_tool/build', 'doc/api', webDir.path].map(getDir).forEach(delete);
   new FileSet.fromDir(getDir('var'), pattern: '*.{info,json}').files.forEach(delete);
 }
 
