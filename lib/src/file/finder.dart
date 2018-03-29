@@ -72,7 +72,7 @@ class Finder {
     if (perms & execByOwner != 0) return fileStats.uid == userId;
 
     // Root.
-    return perms & (execByOwner | execByGroup) != 0 ? userId == 0 : false;
+    return (perms & (execByOwner | execByGroup) != 0) && userId == 0;
   }
 
   /// Finds the instances of a [command] in the specified [directory].
