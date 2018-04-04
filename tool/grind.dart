@@ -16,7 +16,7 @@ Future<void> main(List<String> args) => grind(args);
 @DefaultTask('Build the project')
 Future<void> build() async {
   var executable = joinFile(binDir, ['where.js']);
-  var args = ['-Dnode=true', '--categories=Server']..addAll(_debug ? [] : ['--trust-type-annotations']);
+  var args = ['-Dnode=true', '--categories=Server']..addAll(_debug ? [] : ['--fast-startup', '--trust-type-annotations']);
   Dart2js.compile(joinFile(binDir, ['where.dart']), extraArgs: args, minify: !_debug, outFile: executable);
 
   await executable.writeAsString('#!/usr/bin/env node\n${getPreamble(minified: !_debug)}\n${await executable.readAsString()}');
