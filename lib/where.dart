@@ -2,3 +2,4 @@
 library where;
 
 export 'src/file.dart';
+export 'src/io.dart' show arguments, exitCode, fileSystem, platform;

@@ -1,5 +1,6 @@
 import 'package:test/test.dart';
 import 'package:where/src/file.dart';
+import 'package:where/src/io.dart';
 
 /// Tests the features of the `where` library.
 void main() {
