@@ -1,7 +1,6 @@
 import 'package:test/test.dart';
-import 'package:where/src/io.dart'
-  if (dart.library.io) 'package:where/src/io/vm.dart'
-  if (node) 'package:where/src/io/node.dart';
+import 'package:where/src/io/vm.dart'
+  if (dart.library.js) 'package:where/src/io/node.dart';
 
 /// Tests the features of the `where.io` library.
 void main() => group('getFileStats()', () {

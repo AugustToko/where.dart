@@ -20,6 +20,10 @@ dependencies:
   process: ^2.0.9
   yaml: ^2.1.13
 
+dependency_overrides:
+  nodejs_interop:
+    path: ../nodejs-interop.dart
+
 dev_dependencies:
   coverage: ^0.10.0
   grinder: ^0.8.1
