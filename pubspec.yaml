@@ -1,5 +1,5 @@
 name: where
-version: 4.0.0
+version: 4.0.1
 
 author: Cédric Belin <cedric@belin.io>
 description: Find the instances of an executable in the system path.
