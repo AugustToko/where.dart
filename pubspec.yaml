@@ -14,10 +14,10 @@ executables:
 
 dependencies:
   args: ^1.4.2
-  file: ^3.0.0
+  file: ^5.0.0
   nodejs_interop: ^0.10.0
   platform: ^2.1.2
-  process: ^2.0.9
+  process: ^3.0.1
   yaml: ^2.1.13
 
 dependency_overrides:
