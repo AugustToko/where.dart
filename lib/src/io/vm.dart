@@ -26,14 +26,14 @@ const ProcessManager processManager = const LocalProcessManager();
 Future<int> get processGid async {
   if (platform.isWindows) return -1;
   var result = await processManager.run(<String>['id', '-g']);
-  return result.exitCode != 0 ? -1 : int.parse(result.stdout.trim(), radix: 10, onError: (_) => -1);
+  return result.exitCode != 0 ? -1 : int.tryParse(result.stdout.trim(), radix: 10) ?? -1;
 }
 
 /// The numeric user identity of the process.
 Future<int> get processUid async {
   if (platform.isWindows) return -1;
   var result = await processManager.run(<String>['id', '-u']);
-  return result.exitCode != 0 ? -1 : int.parse(result.stdout.trim(), radix: 10, onError: (_) => -1);
+  return result.exitCode != 0 ? -1 : int.tryParse(result.stdout.trim(), radix: 10) ?? -1;
 }
 
 /// Returns the statistics of the specified [file].
@@ -48,8 +48,8 @@ Future<FileStats> getFileStats(String file) async {
   if (parts.length != 3) throw new io.ProcessException('stat', args);
 
   return new FileStats(
-    uid: int.parse(parts.first, radix: 10, onError: (_) => -1),
-    gid: int.parse(parts[1], radix: 10, onError: (_) => -1),
-    mode: int.parse(parts.last, radix: 8, onError: (_) => 0)
+    uid: int.tryParse(parts.first, radix: 10) ?? -1,
+    gid: int.tryParse(parts[1], radix: 10) ?? -1,
+    mode: int.tryParse(parts.last, radix: 8) ?? 0
   );
 }
