@@ -13,7 +13,7 @@ executables:
   where: where
 
 dependencies:
-  args: ^1.4.2
+  args: ^1.4.3
   file: ^5.0.0
   nodejs_interop: ^0.10.0
   platform: ^2.1.2
@@ -27,5 +27,5 @@ dependency_overrides:
 dev_dependencies:
   coverage: ^0.11.0
   grinder: ^0.8.1
-  node_preamble: ^1.4.0
-  test: ^0.12.34
+  node_preamble: ^1.4.1
+  test: ^0.12.35
