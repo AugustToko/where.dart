@@ -29,6 +29,7 @@ For example:
 
 ```shell
 where --all dart
+# /usr/bin/dart
 ```
 
 ### Node.js support
