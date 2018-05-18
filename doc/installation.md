@@ -5,16 +5,16 @@ Before installing **Where.dart**, you need to make sure you have the [Dart SDK](
 and [Pub](https://www.dartlang.org/tools/pub), the Dart package manager, up and running.
 
 !!! warning
-    Where.dart requires Dart >= **2.0.0-dev**.
+    Where.dart requires Dart >= **2.0.0**.
 
 You can verify if you're already good to go with the following commands:
 
 ```shell
 dart --version
-# Dart VM version: 2.0.0-dev.46.0 (Unknown timestamp) on "linux_x64"
+# Dart VM version: 2.0.0-dev.55.0 (Unknown timestamp) on "linux_x64"
 
 pub --version
-# Pub 2.0.0-dev.46.0
+# Pub 2.0.0-dev.55.0
 ```
 
 !!! info
