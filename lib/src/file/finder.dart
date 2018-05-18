@@ -49,7 +49,7 @@ class Finder {
   /// Gets a value indicating whether the specified [file] is executable.
   Future<bool> isExecutable(String file) async {
     var type = await fileSystem.type(file);
-    if (type != FileSystemEntityType.FILE && type != FileSystemEntityType.LINK) return false;
+    if (type != FileSystemEntityType.file && type != FileSystemEntityType.link) return false;
     return isWindows ? _checkFileExtension(file) : _checkFilePermissions(await getFileStats(file));
   }
 
