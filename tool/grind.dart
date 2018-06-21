@@ -21,7 +21,7 @@ Future<void> build() async {
 
   await executable.writeAsString('#!/usr/bin/env node\n${getPreamble(minified: !_debug)}\n${await executable.readAsString()}');
   if (!Platform.isWindows) run('chmod', arguments: ['+x', executable.path]);
-  new FileSet.fromDir(binDir, pattern: '*.{deps,map}').files.forEach(delete);
+  FileSet.fromDir(binDir, pattern: '*.{deps,map}').files.forEach(delete);
 }
 
 /// Deletes all generated files and reset any saved state.
@@ -30,7 +30,7 @@ void clean() {
   defaultClean();
   delete(joinFile(binDir, ['where.js']));
   ['.dart_tool/build', 'doc/api', webDir.path].map(getDir).forEach(delete);
-  new FileSet.fromDir(getDir('var'), pattern: '*.{info,json}').files.forEach(delete);
+  FileSet.fromDir(getDir('var'), pattern: '*.{info,json}').files.forEach(delete);
 }
 
 /// Uploads the code coverage report.

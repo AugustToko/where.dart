@@ -7,14 +7,14 @@ import 'package:where/where.dart';
 import 'package:yaml/yaml.dart';
 
 /// The command line argument parser.
-final ArgParser _parser = new ArgParser()
+final ArgParser _parser = ArgParser()
   ..addFlag('all', abbr: 'a', help: 'list all instances of executables found (instead of just the first one)', negatable: false)
   ..addFlag('silent', abbr: 's', help: 'silence the output, just return the exit code (0 if any executable is found, otherwise 1)', negatable: false)
   ..addFlag('help', abbr: 'h', help: 'output usage information', negatable: false)
   ..addFlag('version', abbr: 'v', help: 'output the version number', negatable: false);
 
 /// The usage information.
-final String usage = (new StringBuffer()
+final String usage = (StringBuffer()
   ..writeln('Find the instances of an executable in the system path.')
   ..writeln()
   ..writeln('Usage:')
@@ -53,7 +53,7 @@ Future<void> main(List<String> args) async {
       return null;
     }
 
-    if (results.rest.isEmpty) throw new ArgParserException('A command must be provided');
+    if (results.rest.isEmpty) throw ArgParserException('A command must be provided');
   }
 
   on ArgParserException {

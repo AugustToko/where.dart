@@ -11,7 +11,7 @@ part of where.file;
 /// - [extensions]: A string, or a list of strings, specifying the executable file extensions. Defaults to the `PATHEXT` environment variable.
 /// - [pathSeparator]: The character used to separate paths in the system path. Defaults to the platform path separator.
 Future where(String command, {bool all = false, Object extensions = '', onError(String command), Object path = '', String pathSeparator = ''}) async {
-  var finder = new Finder(extensions: extensions, path: path, pathSeparator: pathSeparator);
+  var finder = Finder(extensions: extensions, path: path, pathSeparator: pathSeparator);
   var list = <String>[];
 
   await for (var executable in finder.find(command)) {
@@ -21,8 +21,8 @@ Future where(String command, {bool all = false, Object extensions = '', onError(
 
   if (list.isEmpty) {
     if (onError != null) return onError(command);
-    throw new FinderException(command, finder, 'Command "$command" not found');
+    throw FinderException(command, finder, 'Command "$command" not found');
   }
 
-  return all ? new Set<String>.from(list).toList() : list.first;
+  return all ? Set<String>.from(list).toList() : list.first;
 }

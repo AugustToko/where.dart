@@ -23,7 +23,7 @@ class Finder {
     }
 
     this.extensions.addAll(extensions.map((extension) => extension.toLowerCase()));
-    this.path.addAll(path.map((directory) => directory.replaceAll(new RegExp(r'^"+|"+$'), '')));
+    this.path.addAll(path.map((directory) => directory.replaceAll(RegExp(r'^"+|"+$'), '')));
   }
 
   /// The list of executable file extensions.
@@ -104,7 +104,7 @@ class FinderException implements IOException {
   /// Returns a string representation of this object.
   @override
   String toString() {
-    var buffer = new StringBuffer('FinderException("$command"');
+    var buffer = StringBuffer('FinderException("$command"');
     if (finder.path.isNotEmpty) buffer.write(', finder: "${finder.path.join(finder.pathSeparator)}"');
     if (message.isNotEmpty) buffer.write(', message: "$message"');
     buffer.write(')');
