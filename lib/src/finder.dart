@@ -27,10 +27,10 @@ class Finder {
   }
 
   /// The list of executable file extensions.
-  final List<String> extensions = [];
+  final List<String> extensions = <String>[];
 
   /// The list of system paths.
-  final List<String> path = [];
+  final List<String> path = <String>[];
 
   /// The character used to separate paths in the system path.
   String pathSeparator;
