@@ -1,4 +1,4 @@
-part of where.file;
+part of where;
 
 /// Finds the instances of an executable in the system path.
 class Finder {
@@ -8,17 +8,17 @@ class Finder {
   /// - [path]: A string, or a list of strings, specifying the system path. Defaults to the `PATH` environment variable.
   /// - [pathSeparator]: The character used to separate paths in the system path. Defaults to the platform path separator.
   Finder({extensions = '', path = '', this.pathSeparator = ''}) {
-    if (pathSeparator.isEmpty) pathSeparator = isWindows ? ';' : ':';
+    if (pathSeparator.isEmpty) pathSeparator = Platform.isWindows ? ';' : ':';
 
     if (path is! List<String>) path = path.toString().split(pathSeparator)..retainWhere((item) => item.isNotEmpty);
     if (path.isEmpty) {
-      var pathEnv = platform.environment['PATH'] ?? '';
+      var pathEnv = Platform.environment['PATH'] ?? '';
       if (pathEnv.isNotEmpty) path = pathEnv.split(pathSeparator);
     }
 
     if (extensions is! List<String>) extensions = extensions.toString().split(pathSeparator)..retainWhere((item) => item.isNotEmpty);
-    if (extensions.isEmpty && isWindows) {
-      var pathExt = platform.environment['PATHEXT'] ?? '';
+    if (extensions.isEmpty && Platform.isWindows) {
+      var pathExt = Platform.environment['PATHEXT'] ?? '';
       extensions = pathExt.isNotEmpty ? pathExt.split(pathSeparator) : ['.exe', '.cmd', '.bat', '.com'];
     }
 
@@ -28,12 +28,6 @@ class Finder {
 
   /// The list of executable file extensions.
   final List<String> extensions = [];
-
-  /// Value indicating whether the current platform is Windows.
-  static bool get isWindows {
-    if (platform.isWindows) return true;
-    return platform.environment['OSTYPE'] == 'cygwin' || platform.environment['OSTYPE'] == 'msys';
-  }
 
   /// The list of system paths.
   final List<String> path = [];
@@ -48,14 +42,14 @@ class Finder {
 
   /// Gets a value indicating whether the specified [file] is executable.
   Future<bool> isExecutable(String file) async {
-    var type = await fileSystem.type(file);
+    var type = FileSystemEntity.typeSync(file);
     if (type != FileSystemEntityType.file && type != FileSystemEntityType.link) return false;
-    return isWindows ? _checkFileExtension(file) : _checkFilePermissions(await getFileStats(file));
+    return Platform.isWindows ? _checkFileExtension(file) : _checkFilePermissions(await FileStats.stat(file));
   }
 
   /// Checks that the specified [file] is executable according to the executable file extensions.
   bool _checkFileExtension(String file) =>
-    extensions.contains(fileSystem.path.extension(file).toLowerCase()) || extensions.contains(file.toLowerCase());
+    extensions.contains(p.extension(file).toLowerCase()) || extensions.contains(file.toLowerCase());
 
   /// Checks that the file referenced by the specified [fileStats] is executable according to its permissions.
   Future<bool> _checkFilePermissions(FileStats fileStats) async {
@@ -65,11 +59,11 @@ class Finder {
 
     // Group.
     var execByGroup = int.parse('010', radix: 8);
-    if (perms & execByGroup != 0) return fileStats.gid == await processGid;
+    if (perms & execByGroup != 0) return fileStats.gid == await _getProcessId('g');
 
     // Owner.
     var execByOwner = int.parse('100', radix: 8);
-    var userId = await processUid;
+    var userId = await _getProcessId('u');
     if (perms & execByOwner != 0) return fileStats.uid == userId;
 
     // Root.
@@ -78,11 +72,17 @@ class Finder {
 
   /// Finds the instances of a [command] in the specified [directory].
   Stream<String> _findExecutables(String directory, String command) async* {
-    final path = fileSystem.path;
     for (var extension in ['']..addAll(extensions)) {
-      var resolvedPath = path.canonicalize('${path.join(directory, command)}${extension.toLowerCase()}');
+      var resolvedPath = p.canonicalize('${p.join(directory, command)}${extension.toLowerCase()}');
       if (await isExecutable(resolvedPath)) yield resolvedPath;
     }
+  }
+
+  /// Gets a numeric identity of the process.
+  Future<int> _getProcessId(String identity) async {
+    if (Platform.isWindows) return -1;
+    var result = await Process.run('id', ['-$identity']);
+    return result.exitCode != 0 ? -1 : int.tryParse(result.stdout.trim(), radix: 10) ?? -1;
   }
 }
 

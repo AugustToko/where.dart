@@ -1,6 +1,7 @@
 #!/usr/bin/env dart
 
 import 'dart:async';
+import 'dart:io';
 import 'dart:isolate';
 import 'package:args/args.dart';
 import 'package:where/where.dart';
@@ -8,32 +9,24 @@ import 'package:yaml/yaml.dart';
 
 /// The command line argument parser.
 final ArgParser _parser = ArgParser()
-  ..addFlag('all', abbr: 'a', help: 'list all instances of executables found (instead of just the first one)', negatable: false)
-  ..addFlag('silent', abbr: 's', help: 'silence the output, just return the exit code (0 if any executable is found, otherwise 1)', negatable: false)
-  ..addFlag('help', abbr: 'h', help: 'output usage information', negatable: false)
-  ..addFlag('version', abbr: 'v', help: 'output the version number', negatable: false);
+  ..addFlag('all', abbr: 'a', help: 'List all instances of executables found (instead of just the first one).', negatable: false)
+  ..addFlag('silent', abbr: 's', help: 'Silence the output, just return the exit code (0 if any executable is found, otherwise 1).', negatable: false)
+  ..addFlag('help', abbr: 'h', help: 'Output usage information.', negatable: false)
+  ..addFlag('version', abbr: 'v', help: 'Output the version number.', negatable: false);
 
 /// The usage information.
 final String usage = (StringBuffer()
-  ..writeln('Find the instances of an executable in the system path.')
-  ..writeln()
-  ..writeln('Usage:')
-  ..writeln('where [options] <command>')
-  ..writeln()
+  ..writeln('Find the instances of an executable in the system path.')..writeln()
+  ..writeln('Usage: where [options] <command>')..writeln()
   ..writeln('Options:')
   ..write(_parser.usage))
   .toString();
 
 /// The version number of this package.
 Future<String> get version async {
-  var isNode = const bool.fromEnvironment('node');
   var package = await Isolate.resolvePackageUri(Uri.parse('package:where/'));
-
-  var uri = package.resolve(isNode ? '../../pubspec.yaml' : '../pubspec.yaml');
-  if (isNode && platform.isWindows) uri = Uri.parse(Uri.decodeFull(uri.toString()).replaceAll('\\', '/'));
-
-  Map pubspec = loadYaml(await fileSystem.file(uri.toFilePath(windows: platform.isWindows)).readAsString());
-  return pubspec['version'].toString();
+  var pubspec = loadYaml(await File(package.resolve('../pubspec.yaml').toFilePath()).readAsString());
+  return pubspec['version'];
 }
 
 /// Application entry point.
@@ -42,7 +35,7 @@ Future<void> main(List<String> args) async {
   ArgResults results;
 
   try {
-    results = _parser.parse(const bool.fromEnvironment('node') ? arguments : args);
+    results = _parser.parse(args);
     if (results['help']) {
       print(usage);
       return null;

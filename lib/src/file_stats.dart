@@ -1,6 +1,7 @@
 part of where;
 
 /// Provides statistics about a file system entity.
+@visibleForTesting
 class FileStats {
 
   /// Creates a new file stats.

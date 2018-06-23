@@ -1,7 +1,9 @@
 # Changelog
 
-## Version [5.0.0](https://github.com/cedx/where.dart/compare/v4.0.0...v5.0.0)
-- Breaking change: moved the `getFileStats()` function to the `FileStats.stat()` method.
+## Version [4.1.0](https://github.com/cedx/where.dart/compare/v4.0.0...v4.1.0)
+- Dropped support of [Node.js](https://nodejs.org) platform.
+- Raised the [Dart SDK](https://www.dartlang.org/tools/sdk) constraint.
+- Using optional `const` and `new`.
 - Updated the package dependencies.
 
 ## Version [4.0.0](https://github.com/cedx/where.dart/compare/v3.0.0...v4.0.0)

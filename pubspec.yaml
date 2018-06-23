@@ -1,5 +1,5 @@
 name: where
-version: 5.0.0
+version: 4.1.0
 
 author: Cédric Belin <cedric@belin.io>
 description: Find the instances of an executable in the system path.
@@ -14,6 +14,7 @@ executables:
 
 dependencies:
   args: ^1.4.3
+  meta: ^1.1.5
   path: ^1.6.1
   yaml: ^2.1.14
 
