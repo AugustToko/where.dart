@@ -5,7 +5,7 @@
 - [Pub package](https://pub.dartlang.org/packages/where)
 
 ## Testing
-- [Continuous integration](https://travis-ci.org/cedx/where.dart)
+- [Continuous integration](https://travis-ci.com/cedx/where.dart)
 - [Code coverage](https://coveralls.io/github/cedx/where.dart)
 
 ## Other implementations
