@@ -1,7 +1,7 @@
 # Changelog
 
-## Version [4.0.1](https://github.com/cedx/where.dart/compare/v4.0.0...v4.0.1)
-- Fixed the regressions introduced by the latest [Dart SDK](https://www.dartlang.org/tools/sdk) changes.
+## Version [5.0.0](https://github.com/cedx/where.dart/compare/v4.0.0...v5.0.0)
+- Breaking change: moved the `getFileStats()` function to the `FileStats.stat()` method.
 - Updated the package dependencies.
 
 ## Version [4.0.0](https://github.com/cedx/where.dart/compare/v3.0.0...v4.0.0)
