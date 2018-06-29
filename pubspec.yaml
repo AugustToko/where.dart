@@ -7,7 +7,7 @@ documentation: https://dev.belin.io/where.dart/api
 homepage: https://dev.belin.io/where.dart
 
 environment:
-  sdk: '>=2.0.0-dev.64 <2.0.0'
+  sdk: '>=2.0.0-dev.65 <2.0.0'
 
 executables:
   where: where
@@ -21,4 +21,4 @@ dependencies:
 dev_dependencies:
   coverage: ^0.12.1
   grinder: ^0.8.2
-  test: ^1.0.0
+  test: ^1.2.0
