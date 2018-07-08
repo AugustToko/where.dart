@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:where/where.dart';
 
+/// Finds the instances of an executable. 
 Future<void> main() async {
   try {
     // `path` is the absolute path to the executable.
