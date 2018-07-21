@@ -1,5 +1,10 @@
 # Changelog
 
+## Version [4.2.0](https://github.com/cedx/where.dart/compare/v4.1.0...v4.2.0)
+- Added an example code.
+- Raised the [Dart SDK](https://www.dartlang.org/tools/sdk) constraint.
+- Updated the package dependencies.
+
 ## Version [4.1.0](https://github.com/cedx/where.dart/compare/v4.0.0...v4.1.0)
 - Dropped support of [Node.js](https://nodejs.org) platform.
 - Raised the [Dart SDK](https://www.dartlang.org/tools/sdk) constraint.
