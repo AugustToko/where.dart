@@ -2,7 +2,7 @@ name: where
 version: 4.2.0
 
 author: Cédric Belin <cedric@belin.io>
-description: Find the instances of an executable in the system path.
+description: Find the instances of an executable in the system path. Like the `which` Linux command.
 documentation: https://dev.belin.io/where.dart/api
 homepage: https://dev.belin.io/where.dart
 
