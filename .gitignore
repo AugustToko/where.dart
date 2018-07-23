@@ -8,4 +8,4 @@
 /**/.DS_Store
 /.packages
 /pubspec.lock
-/lib/*.g.dart
+/lib/**/*.g.dart

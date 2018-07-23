@@ -4,6 +4,7 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:isolate';
 import 'package:where/where.dart';
+import 'package:where/src/cli.dart';
 import 'package:yaml/yaml.dart';
 
 /// The usage information.
