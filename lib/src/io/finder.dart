@@ -1,4 +1,4 @@
-part of where;
+part of where.io;
 
 /// Finds the instances of an executable in the system path.
 class Finder {

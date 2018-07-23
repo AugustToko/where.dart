@@ -1,4 +1,4 @@
-part of where;
+part of where.io;
 
 /// Provides statistics about a file system entity.
 @visibleForTesting
