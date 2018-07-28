@@ -3,9 +3,9 @@
 import 'dart:async';
 import 'dart:io';
 import 'dart:isolate';
+import 'package:pubspec_parse/pubspec_parse.dart';
 import 'package:where/where.dart';
 import 'package:where/src/cli.dart';
-import 'package:yaml/yaml.dart';
 
 /// The usage information.
 final String usage = (StringBuffer()
@@ -17,9 +17,9 @@ final String usage = (StringBuffer()
 
 /// The version number of this package.
 Future<String> get version async {
-  var package = await Isolate.resolvePackageUri(Uri.parse('package:where/'));
-  var pubspec = loadYaml(await File(package.resolve('../pubspec.yaml').toFilePath()).readAsString());
-  return pubspec['version'];
+  var fileUri = (await Isolate.resolvePackageUri(Uri.parse('package:where/'))).resolve('../pubspec.yaml');
+  var pubspec = Pubspec.parse(await File(fileUri.toFilePath()).readAsString(), sourceUrl: fileUri);
+  return pubspec.version.toString();
 }
 
 /// Application entry point.
