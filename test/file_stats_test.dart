@@ -5,23 +5,23 @@ import 'package:where/where.dart';
 void main() => group('FileStats', () {
   group('stat()', () {
     test('should return a numeric identity greater than or equal to 0 for the file owner', () async {
-      var fileStats = await FileStats.stat('test/file_stats_test.dart');
+      final fileStats = await FileStats.stat('test/file_stats_test.dart');
       expect(fileStats.uid, greaterThanOrEqualTo(0));
     });
 
     test('should return a numeric identity greater than or equal to 0 for the file group', () async {
-      var fileStats = await FileStats.stat('test/file_stats_test.dart');
+      final fileStats = await FileStats.stat('test/file_stats_test.dart');
       expect(fileStats.gid, greaterThanOrEqualTo(0));
     });
 
     test('should return a mode greater than 0 for the file permissions', () async {
-      var fileStats = await FileStats.stat('test/file_stats_test.dart');
+      final fileStats = await FileStats.stat('test/file_stats_test.dart');
       expect(fileStats.mode, greaterThanOrEqualTo(0));
     });
   }, testOn: 'posix');
 
   group('.toString()', () {
-    var data = FileStats(uid: 2000, gid: 1000, mode: int.parse('755', radix: 8)).toString();
+    final data = FileStats(uid: 2000, gid: 1000, mode: int.parse('755', radix: 8)).toString();
 
     test('should start with the class name', () {
       expect(data, contains('FileStats {'));

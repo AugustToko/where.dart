@@ -11,10 +11,10 @@ part of where.io;
 /// - [extensions]: A string, or a list of strings, specifying the executable file extensions. Defaults to the `PATHEXT` environment variable.
 /// - [pathSeparator]: The character used to separate paths in the system path. Defaults to the platform path separator.
 Future where(String command, {bool all = false, Object extensions = '', onError(String command), Object path = '', String pathSeparator = ''}) async {
-  var finder = Finder(extensions: extensions, path: path, pathSeparator: pathSeparator);
-  var list = <String>[];
+  final finder = Finder(extensions: extensions, path: path, pathSeparator: pathSeparator);
+  final list = <String>[];
 
-  await for (var executable in finder.find(command)) {
+  await for (final executable in finder.find(command)) {
     if (!all) return executable;
     list.add(executable);
   }

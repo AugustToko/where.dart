@@ -11,7 +11,7 @@ import 'package:where/where.dart';
 Future<void> main() async {
   try {
     // `path` is the absolute path to the executable.
-    var path = await where('foobar');
+    final path = await where('foobar');
     print('The command "foobar" is located at: $path');
   }
 
@@ -36,9 +36,9 @@ import 'dart:async';
 import 'package:where/where.dart';
 
 Future<void> main() async {
-  var paths = await where('foobar', all: true);
+  final paths = await where('foobar', all: true);
   print('The command "foobar" was found at these locations:');
-  for (var path in paths) print(path);
+  for (final path in paths) print(path);
 }
 ```
 
@@ -62,7 +62,7 @@ import 'dart:async';
 import 'package:where/where.dart';
 
 Future<void> main() async {
-  var path = await where('foobar', onError: (command) => '');
+  final path = await where('foobar', onError: (command) => '');
   if (path.isEmpty) print('The command "foobar" was not found');
   else print('The command "foobar" is located at: $path');
 }

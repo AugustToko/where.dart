@@ -17,8 +17,8 @@ final String usage = (StringBuffer()
 
 /// The version number of this package.
 Future<String> get version async {
-  var fileUri = (await Isolate.resolvePackageUri(Uri.parse('package:where/'))).resolve('../pubspec.yaml');
-  var pubspec = Pubspec.parse(await File(fileUri.toFilePath()).readAsString(), sourceUrl: fileUri);
+  final fileUri = (await Isolate.resolvePackageUri(Uri.parse('package:where/'))).resolve('../pubspec.yaml');
+  final pubspec = Pubspec.parse(await File(fileUri.toFilePath()).readAsString(), sourceUrl: fileUri);
   return pubspec.version.toString();
 }
 

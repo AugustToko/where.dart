@@ -20,11 +20,11 @@ class FileStats {
   static Future<FileStats> stat(String file) async {
     if (Platform.isWindows) throw UnsupportedError('Not supported by the Windows platform');
 
-    var args = Platform.isMacOS ? ['-f', '%u:%g:%p', '-L'] : ['--dereference', '--format=%u:%g:%a'];
-    var result = await Process.run('stat', args..add(file));
+    final args = Platform.isMacOS ? ['-f', '%u:%g:%p', '-L'] : ['--dereference', '--format=%u:%g:%a'];
+    final result = await Process.run('stat', args..add(file));
     if (result.exitCode != 0) throw ProcessException('stat', args);
 
-    List<String> parts = result.stdout.trim().split(':');
+    final parts = result.stdout.trim().split(':');
     if (parts.length != 3) throw ProcessException('stat', args);
 
     return FileStats(

@@ -12,13 +12,13 @@ class Finder {
 
     if (path is! List<String>) path = path.toString().split(pathSeparator)..retainWhere((item) => item.isNotEmpty);
     if (path.isEmpty) {
-      var pathEnv = Platform.environment['PATH'] ?? '';
+      final pathEnv = Platform.environment['PATH'] ?? '';
       if (pathEnv.isNotEmpty) path = pathEnv.split(pathSeparator);
     }
 
     if (extensions is! List<String>) extensions = extensions.toString().split(pathSeparator)..retainWhere((item) => item.isNotEmpty);
     if (extensions.isEmpty && Platform.isWindows) {
-      var pathExt = Platform.environment['PATHEXT'] ?? '';
+      final pathExt = Platform.environment['PATHEXT'] ?? '';
       extensions = pathExt.isNotEmpty ? pathExt.split(pathSeparator) : ['.exe', '.cmd', '.bat', '.com'];
     }
 
@@ -37,12 +37,12 @@ class Finder {
 
   /// Finds the instances of the specified [command] in the system path.
   Stream<String> find(String command) async* {
-    for (var directory in path) yield* _findExecutables(directory, command);
+    for (final directory in path) yield* _findExecutables(directory, command);
   }
 
   /// Gets a value indicating whether the specified [file] is executable.
   Future<bool> isExecutable(String file) async {
-    var type = FileSystemEntity.typeSync(file);
+    final type = FileSystemEntity.typeSync(file);
     if (type != FileSystemEntityType.file && type != FileSystemEntityType.link) return false;
     return Platform.isWindows ? _checkFileExtension(file) : _checkFilePermissions(await FileStats.stat(file));
   }
@@ -54,16 +54,16 @@ class Finder {
   /// Checks that the file referenced by the specified [fileStats] is executable according to its permissions.
   Future<bool> _checkFilePermissions(FileStats fileStats) async {
     // Others.
-    var perms = fileStats.mode;
+    final perms = fileStats.mode;
     if (perms & int.parse('001', radix: 8) != 0) return true;
 
     // Group.
-    var execByGroup = int.parse('010', radix: 8);
+    final execByGroup = int.parse('010', radix: 8);
     if (perms & execByGroup != 0) return fileStats.gid == await _getProcessId('g');
 
     // Owner.
-    var execByOwner = int.parse('100', radix: 8);
-    var userId = await _getProcessId('u');
+    final execByOwner = int.parse('100', radix: 8);
+    final userId = await _getProcessId('u');
     if (perms & execByOwner != 0) return fileStats.uid == userId;
 
     // Root.
@@ -72,8 +72,8 @@ class Finder {
 
   /// Finds the instances of a [command] in the specified [directory].
   Stream<String> _findExecutables(String directory, String command) async* {
-    for (var extension in ['']..addAll(extensions)) {
-      var resolvedPath = p.canonicalize('${p.join(directory, command)}${extension.toLowerCase()}');
+    for (final extension in ['']..addAll(extensions)) {
+      final resolvedPath = p.canonicalize('${p.join(directory, command)}${extension.toLowerCase()}');
       if (await isExecutable(resolvedPath)) yield resolvedPath;
     }
   }
@@ -81,7 +81,7 @@ class Finder {
   /// Gets a numeric identity of the process.
   Future<int> _getProcessId(String identity) async {
     if (Platform.isWindows) return -1;
-    var result = await Process.run('id', ['-$identity']);
+    final result = await Process.run('id', ['-$identity']);
     return result.exitCode != 0 ? -1 : int.tryParse(result.stdout.trim(), radix: 10) ?? -1;
   }
 }
@@ -104,7 +104,7 @@ class FinderException implements IOException {
   /// Returns a string representation of this object.
   @override
   String toString() {
-    var buffer = StringBuffer('FinderException("$command"');
+    final buffer = StringBuffer('FinderException("$command"');
     if (finder.path.isNotEmpty) buffer.write(', finder: "${finder.path.join(finder.pathSeparator)}"');
     if (message.isNotEmpty) buffer.write(', message: "$message"');
     buffer.write(')');
