@@ -7,7 +7,9 @@ class Finder {
   /// - [extensions]: A string, or a list of strings, specifying the executable file extensions. Defaults to the `PATHEXT` environment variable.
   /// - [path]: A string, or a list of strings, specifying the system path. Defaults to the `PATH` environment variable.
   /// - [pathSeparator]: The character used to separate paths in the system path. Defaults to the platform path separator.
-  Finder({extensions = '', path = '', String pathSeparator}): pathSeparator = pathSeparator ?? (Platform.isWindows ? ';' : ':') {
+  Finder({extensions = '', path = '', this.pathSeparator = ''}) {
+    if (pathSeparator.isEmpty) pathSeparator = Platform.isWindows ? ';' : ':';
+
     if (path is! List<String>) path = path.toString().split(pathSeparator)..retainWhere((item) => item.isNotEmpty);
     if (path.isEmpty) {
       final pathEnv = Platform.environment['PATH'] ?? '';
@@ -31,7 +33,7 @@ class Finder {
   final List<String> path = <String>[];
 
   /// The character used to separate paths in the system path.
-  final String pathSeparator;
+  String pathSeparator;
 
   /// Finds the instances of the specified [command] in the system path.
   Stream<String> find(String command) async* {
