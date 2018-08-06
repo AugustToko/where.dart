@@ -6,7 +6,7 @@ Future<void> main(List<String> args) => grind(args);
 
 /// Builds the project.
 @DefaultTask('Build the project')
-void build() => Pub.run('build_runner', arguments: ['build']);
+void build() => Pub.run('build_runner', arguments: ['build', '--delete-conflicting-outputs']);
 
 /// Deletes all generated files and reset any saved state.
 @Task('Delete the generated files')
