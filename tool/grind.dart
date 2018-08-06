@@ -35,6 +35,14 @@ void fix() => DartFmt.format(existingSourceDirs, lineLength: 200);
 @Task('Perform the static analysis')
 void lint() => Analyzer.analyze(existingSourceDirs);
 
+/// Publishes the package to the Pub repository.
+@Task('Publish the package to Pub')
+@Depends(clean)
+void publish() {
+  build();
+  run('pub', arguments: ['publish']);
+}
+
 /// Runs all the test suites.
 @Task('Run the tests')
 @Depends(build)
