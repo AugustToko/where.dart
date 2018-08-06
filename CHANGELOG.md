@@ -1,5 +1,8 @@
 # Changelog
 
+## Version [4.3.1](https://github.com/cedx/where.dart/compare/v4.3.0...v4.3.1)
+- Fixed a packaging issue.
+
 ## Version [4.3.0](https://github.com/cedx/where.dart/compare/v4.2.0...v4.3.0)
 - Added the `Options` class, used by the command line interface.
 - Raised the [Dart SDK](https://www.dartlang.org/tools/sdk) constraint.
