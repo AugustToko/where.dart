@@ -1,5 +1,5 @@
 name: where
-version: 4.4.0
+version: 4.3.0
 
 author: Cédric Belin <cedric@belin.io>
 description: Find the instances of an executable in the system path. Like the `which` Linux command.
@@ -13,13 +13,13 @@ executables:
   where: where
 
 dependencies:
-  build_cli_annotations: ^0.1.2
+  build_cli_annotations: ^1.0.0
   meta: ^1.1.6
   path: ^1.6.2
   pubspec_parse: ^0.1.2
 
 dev_dependencies:
-  build_cli: ^0.2.5
+  build_cli: ^1.0.0
   build_runner: ^0.10.0
   build_test: ^0.10.3
   coverage: ^0.12.2
