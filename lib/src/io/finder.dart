@@ -1,4 +1,4 @@
-part of where.io;
+part of '../io.dart';
 
 /// Finds the instances of an executable in the system path.
 class Finder {

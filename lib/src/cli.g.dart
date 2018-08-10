@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of where.cli;
+part of 'cli.dart';
 
 // **************************************************************************
 // CliGenerator

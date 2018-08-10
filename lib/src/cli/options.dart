@@ -1,4 +1,4 @@
-part of where.cli;
+part of '../cli.dart';
 
 /// The parsed command line arguments.
 @CliOptions()

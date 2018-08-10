@@ -1,4 +1,4 @@
-part of where.io;
+part of '../io.dart';
 
 /// Provides statistics about a file system entity.
 @visibleForTesting

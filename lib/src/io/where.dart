@@ -1,4 +1,4 @@
-part of where.io;
+part of '../io.dart';
 
 /// Finds the first instance of a [command] in the system path.
 /// An [all] value indicates whether to return a [List] of all executables found, instead of just the first one.
