@@ -1,5 +1,5 @@
 path: blob/master
-source: bin/where.dart
+source: lib/src/cli/options.dart
 
 # Command line interface
 From a command prompt, install the `where` executable:
