@@ -4,6 +4,7 @@ language: dart
 notifications: {email: false}
 sudo: false
 
+install: pub get
 before_script: pub global activate coveralls
 script: pub run grinder test
 after_success: pub global run coveralls var/lcov.info
