@@ -1,6 +1,7 @@
 analyzer:
   exclude:
   - lib/**.g.dart
+  - lib/src/version.dart
 
 linter:
   rules:
