@@ -16,7 +16,7 @@ void clean() {
 }
 
 @Task('Uploads the results of the code coverage')
-void coverage() => Pub.run('coveralls', arguments: ['var/lcov.info']);
+void coverage() => Pub.global.run('coveralls', arguments: ['var/lcov.info']);
 
 @Task('Builds the documentation')
 Future<void> doc() async {
