@@ -1,5 +1,0 @@
-targets:
-  $default:
-    builders:
-      build_version:
-        enabled: true
