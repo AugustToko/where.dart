@@ -1,5 +1,8 @@
 # Changelog
 
+## Version [4.4.0](https://github.com/cedx/where.dart/compare/v4.3.1...v4.4.0)
+- Updated the package dependencies.
+
 ## Version [4.3.1](https://github.com/cedx/where.dart/compare/v4.3.0...v4.3.1)
 - Fixed a packaging issue.
 
