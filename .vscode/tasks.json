@@ -3,6 +3,7 @@
   "tasks": [
     {
       "command": "grind build",
+      "group": {"isDefault": true, "kind": "build"},
       "label": "grinder : build",
       "problemMatcher": [],
       "type": "shell"
@@ -33,7 +34,6 @@
     },
     {
       "command": "grind test",
-      "group": {"isDefault": true, "kind": "build"},
       "label": "grinder : test",
       "problemMatcher": [],
       "type": "shell"
