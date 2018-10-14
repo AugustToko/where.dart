@@ -31,22 +31,21 @@ class FileStat implements io.FileStat {
   /// Completes with a [FileStat] object containing the data returned by `stat()`.
   /// If the call fails, completes the future with a [FileStat] object with [type] set to `FileSystemEntityType.notFound` and the other fields invalid.
   static Future<FileStat> stat(String path) async {
-    var gid = -1;
-    var uid = -1;
+    final stats = await io.FileStat.stat(path);
+    if (io.Platform.isWindows) return FileStat._fromStats(stats);
 
-    if (!io.Platform.isWindows) {
-      final args = io.Platform.isMacOS ? ['-f', '%u:%g', '-L'] : ['--dereference', '--format=%u:%g'];
-      final result = await io.Process.run('stat', args..add(path));
-      if (result.exitCode != 0) return FileStat._internal(io.FileSystemEntityType.notFound);
+    final args = io.Platform.isMacOS ? ['-f', '%u:%g', '-L'] : ['--dereference', '--format=%u:%g'];
+    final result = await io.Process.run('stat', args..add(path));
+    if (result.exitCode != 0) return FileStat._fromStats(stats);
 
-      final parts = result.stdout.trim().split(':');
-      if (parts.length != 2) return FileStat._internal(io.FileSystemEntityType.notFound);
+    final parts = result.stdout.trim().split(':');
+    if (parts.length != 2) return FileStat._fromStats(stats);
 
-      uid = int.tryParse(parts.first, radix: 10) ?? -1;
-      gid = int.tryParse(parts.last, radix: 10) ?? -1;
-    }
-
-    return FileStat._fromStats(await io.FileStat.stat(path), gid: gid, uid: uid);
+    return FileStat._fromStats(
+      await io.FileStat.stat(path),
+      gid: int.tryParse(parts.last, radix: 10) ?? -1,
+      uid: int.tryParse(parts.first, radix: 10) ?? -1
+    );
   }
 
   /// Synchronously calls the operating system's `stat()` function on the specified [path].
@@ -54,22 +53,21 @@ class FileStat implements io.FileStat {
   /// Returns a [FileStat] object containing the data returned by `stat()`.
   /// If the call fails, returns a [FileStat] object with [type] set to `FileSystemEntityType.notFound` and the other fields invalid.
   static FileStat statSync(String path) { // ignore: prefer_constructors_over_static_methods
-    var gid = -1;
-    var uid = -1;
+    final stats = io.FileStat.statSync(path);
+    if (io.Platform.isWindows) return FileStat._fromStats(stats);
 
-    if (!io.Platform.isWindows) {
-      final args = io.Platform.isMacOS ? ['-f', '%u:%g', '-L'] : ['--dereference', '--format=%u:%g'];
-      final result = io.Process.runSync('stat', args..add(path));
-      if (result.exitCode != 0) return FileStat._internal(io.FileSystemEntityType.notFound);
+    final args = io.Platform.isMacOS ? ['-f', '%u:%g', '-L'] : ['--dereference', '--format=%u:%g'];
+    final result = io.Process.runSync('stat', args..add(path));
+    if (result.exitCode != 0) return FileStat._fromStats(stats);
 
-      final parts = result.stdout.trim().split(':');
-      if (parts.length != 2) return FileStat._internal(io.FileSystemEntityType.notFound);
+    final parts = result.stdout.trim().split(':');
+    if (parts.length != 2) return FileStat._fromStats(stats);
 
-      uid = int.tryParse(parts.first, radix: 10) ?? -1;
-      gid = int.tryParse(parts.last, radix: 10) ?? -1;
-    }
-
-    return FileStat._fromStats(io.FileStat.statSync(path), gid: gid, uid: uid);
+    return FileStat._fromStats(
+      io.FileStat.statSync(path),
+      gid: int.tryParse(parts.last, radix: 10) ?? -1,
+      uid: int.tryParse(parts.first, radix: 10) ?? -1
+    );
   }
 
   /// The time of the last access to the data of the file system entity.
@@ -82,7 +80,7 @@ class FileStat implements io.FileStat {
   @override
   final DateTime changed;
 
-  /// The numeric identity of the file's group.
+  /// The numeric identity of the file's group, or `-1` if this information is not available.
   final int gid;
 
   /// The time of the last change to the data of the file system object.
@@ -102,7 +100,7 @@ class FileStat implements io.FileStat {
   @override
   final io.FileSystemEntityType type;
 
-  /// The numeric identity of the file's owner.
+  /// The numeric identity of the file's owner, or `-1` if this information is not available.
   final int uid;
 
   /// Returns the [mode] value as a human-readable string, in the format `"rwxrwxrwx"`,
