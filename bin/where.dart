@@ -23,12 +23,12 @@ Future<void> main(List<String> args) async {
     options = parseOptions(args);
     if (options.help) {
       print(usage);
-      return null;
+      return;
     }
 
     if (options.version) {
       print(packageVersion);
-      return null;
+      return;
     }
 
     if (options.rest.isEmpty) throw const FormatException('A command must be provided.');
@@ -37,7 +37,7 @@ Future<void> main(List<String> args) async {
   on FormatException {
     print(usage);
     exitCode = 64;
-    return null;
+    return;
   }
 
   // Run the program.
