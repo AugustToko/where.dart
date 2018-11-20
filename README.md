@@ -10,7 +10,7 @@ Find the instances of an executable in the system path, implemented in [Dart](ht
 ## Development
 - [Git repository](https://git.belin.io/cedx/where.dart)
 - [Pub package](https://pub.dartlang.org/packages/where)
-- [Submit an issue](https://git.belin.io/cedx/where.dart/issues)
+- [Submit an issue](https://github.com/cedx/where.dart/issues)
 
 ## License
 [Where.dart](https://dev.belin.io/where.dart) is distributed under the MIT License.

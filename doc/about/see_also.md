@@ -3,7 +3,7 @@
 ## Development
 - [API reference](https://dev.belin.io/where.dart/api)
 - [Pub package](https://pub.dartlang.org/packages/where)
-- [Submit an issue](https://git.belin.io/cedx/where.dart/issues)
+- [Submit an issue](https://github.com/cedx/where.dart/issues)
 
 ## Testing
 - [Continuous integration](https://travis-ci.com/cedx/where.dart)
