@@ -5,7 +5,6 @@ source: lib/src/io/where.dart
 This package provides a single function, `where()`, allowing to locate a command in the system path:
 
 ```dart
-import 'dart:async';
 import 'package:where/where.dart';
 
 Future<void> main() async {
@@ -32,7 +31,6 @@ A value indicating whether to return all executables found, instead of just the 
 If you pass `true` as parameter value, the function will return a `Future<List<String>>` providing all paths found, instead of a `Future<String>`:
 
 ```dart
-import 'dart:async';
 import 'package:where/where.dart';
 
 Future<void> main() async {
@@ -58,7 +56,6 @@ where('foobar', extensions: ['.foo', '.exe', '.cmd']);
 By default, when the specified command cannot be located, a `FinderException` is thrown. You can disable this exception by providing your own error handler:
 
 ```dart
-import 'dart:async';
 import 'package:where/where.dart';
 
 Future<void> main() async {
