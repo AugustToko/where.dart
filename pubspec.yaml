@@ -13,7 +13,7 @@ executables:
   where: where
 
 dependencies:
-  build_cli_annotations: ^1.0.0
+  build_cli_annotations: ^1.0.1
   path: ^1.6.2
 
 dev_dependencies:
