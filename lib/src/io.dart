@@ -1,7 +1,6 @@
 /// Provides the I/O support.
 library where.io;
 
-import 'dart:async';
 import 'dart:io' as io;
 import 'package:path/path.dart' as p;
 

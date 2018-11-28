@@ -1,6 +1,5 @@
 #!/usr/bin/env dart
 
-import 'dart:async';
 import 'dart:io';
 import 'package:where/where.dart';
 import 'package:where/src/cli.dart';

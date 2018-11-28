@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:where/where.dart';
 
 /// Finds the instances of an executable. 
