@@ -2,7 +2,6 @@ dart: [stable]
 dist: trusty
 language: dart
 notifications: {email: false}
-sudo: false
 
 install: pub get
 before_script: pub global activate coveralls
