@@ -10,7 +10,7 @@ environment:
   sdk: '>=2.1.0 <3.0.0'
 
 executables:
-  where: where
+  where: main
 
 dependencies:
   build_cli_annotations: ^1.0.1
