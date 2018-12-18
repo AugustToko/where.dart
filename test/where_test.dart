@@ -64,12 +64,12 @@ void main() => group('where()', () {
 
   test('should return the value of the `onError` handler', () async {
     final executable = await where('executable', all: false, onError: (_) => 'foo', path: 'test/fixtures');
-    if (!Platform.isWindows) expect(executable, equals('foo'));
+    if (!Platform.isWindows) expect(executable, 'foo');
 
     final executables = await where('executable.sh', all: true, onError: (_) => ['foo'], path: 'test/fixtures');
     if (Platform.isWindows) {
       expect(executables, allOf(isList, hasLength(1)));
-      expect(executables.first, equals('foo'));
+      expect(executables.first, 'foo');
     }
   });
 });

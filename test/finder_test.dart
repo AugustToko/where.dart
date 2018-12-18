@@ -30,24 +30,24 @@ void main() => group('Finder', () {
     });
 
     test('should set the `pathSeparator` property to the value of the platform path separator by default', () {
-      expect(Finder().pathSeparator, equals(delimiter));
+      expect(Finder().pathSeparator, delimiter);
     });
 
     test('should properly set the path separator', () {
-      expect(Finder(pathSeparator: '#').pathSeparator, equals('#'));
+      expect(Finder(pathSeparator: '#').pathSeparator, '#');
     });
   });
 
   group('.find()', () {
     test('should return the path of the `executable.cmd` file on Windows', () async {
       final executables = await Finder(path: 'test/fixtures').find('executable').toList();
-      expect(executables.length, equals(Platform.isWindows ? 1 : 0));
+      expect(executables.length, Platform.isWindows ? 1 : 0);
       if (Platform.isWindows) expect(executables.first, endsWith(r'\test\fixtures\executable.cmd'));
     });
 
     test('should return the path of the `executable.sh` file on POSIX', () async {
       final executables = await Finder(path: 'test/fixtures').find('executable.sh').toList();
-      expect(executables.length, equals(Platform.isWindows ? 0 : 1));
+      expect(executables.length, Platform.isWindows ? 0 : 1);
       if (!Platform.isWindows) expect(executables.first, endsWith('/test/fixtures/executable.sh'));
     });
   });
@@ -58,11 +58,11 @@ void main() => group('Finder', () {
     });
 
     test('should return `false` for a POSIX executable, when test is run on Windows', () async {
-      expect(await Finder().isExecutable('test/fixtures/executable.sh'), isNot(equals(Platform.isWindows)));
+      expect(await Finder().isExecutable('test/fixtures/executable.sh'), isNot(Platform.isWindows));
     });
 
     test('should return `false` for a Windows executable, when test is run on POSIX', () async {
-      expect(await Finder().isExecutable('test/fixtures/executable.cmd'), equals(Platform.isWindows));
+      expect(await Finder().isExecutable('test/fixtures/executable.cmd'), Platform.isWindows);
     });
   });
 });
