@@ -8,7 +8,7 @@ class Finder {
   /// - [path]: A string, or a list of strings, specifying the system path. Defaults to the `PATH` environment variable.
   /// - [pathSeparator]: The character used to separate paths in the system path. Defaults to the platform path separator.
   Finder({extensions = '', path = '', this.pathSeparator = ''}) {
-    if (pathSeparator.isEmpty) pathSeparator = io.Platform.isWindows ? ';' : ':';
+    if (pathSeparator.isEmpty) pathSeparator = isWindows ? ';' : ':';
 
     if (path is! List<String>) path = path.toString().split(pathSeparator)..retainWhere((item) => item.isNotEmpty);
     if (path.isEmpty) {
@@ -17,7 +17,7 @@ class Finder {
     }
 
     if (extensions is! List<String>) extensions = extensions.toString().split(pathSeparator)..retainWhere((item) => item.isNotEmpty);
-    if (extensions.isEmpty && io.Platform.isWindows) {
+    if (extensions.isEmpty && isWindows) {
       final pathExt = io.Platform.environment['PATHEXT'] ?? '';
       extensions = pathExt.isNotEmpty ? pathExt.split(pathSeparator) : ['.exe', '.cmd', '.bat', '.com'];
     }
@@ -28,6 +28,12 @@ class Finder {
 
   /// The list of executable file extensions.
   final List<String> extensions = <String>[];
+
+  /// Value indicating whether the current platform is Windows.
+  static bool get isWindows {
+    if (io.Platform.isWindows) return true;
+    return io.Platform.environment['OSTYPE'] == 'cygwin' || io.Platform.environment['OSTYPE'] == 'msys';
+  }
 
   /// The list of system paths.
   final List<String> path = <String>[];
@@ -44,7 +50,7 @@ class Finder {
   Future<bool> isExecutable(String file) async {
     final type = io.FileSystemEntity.typeSync(file);
     if (type != io.FileSystemEntityType.file && type != io.FileSystemEntityType.link) return false;
-    return io.Platform.isWindows ? _checkFileExtension(file) : _checkFilePermissions(await FileStat.stat(file));
+    return isWindows ? _checkFileExtension(file) : _checkFilePermissions(await FileStat.stat(file));
   }
 
   /// Checks that the specified [file] is executable according to the executable file extensions.
@@ -80,7 +86,7 @@ class Finder {
 
   /// Gets a numeric identity of the process.
   Future<int> _getProcessId(String identity) async {
-    if (io.Platform.isWindows) return -1;
+    if (isWindows) return -1;
     final result = await io.Process.run('id', ['-$identity']);
     return result.exitCode != 0 ? -1 : int.tryParse(result.stdout.trim(), radix: 10) ?? -1;
   }

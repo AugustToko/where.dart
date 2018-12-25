@@ -32,7 +32,7 @@ class FileStat implements io.FileStat {
   /// If the call fails, completes the future with a [FileStat] object with [type] set to `FileSystemEntityType.notFound` and the other fields invalid.
   static Future<FileStat> stat(String path) async {
     final stats = await io.FileStat.stat(path);
-    if (io.Platform.isWindows) return FileStat._fromStats(stats);
+    if (Finder.isWindows) return FileStat._fromStats(stats);
 
     final args = io.Platform.isMacOS ? ['-f', '%u:%g', '-L'] : ['--dereference', '--format=%u:%g'];
     final result = await io.Process.run('stat', args..add(path));
@@ -54,7 +54,7 @@ class FileStat implements io.FileStat {
   /// If the call fails, returns a [FileStat] object with [type] set to `FileSystemEntityType.notFound` and the other fields invalid.
   static FileStat statSync(String path) { // ignore: prefer_constructors_over_static_methods
     final stats = io.FileStat.statSync(path);
-    if (io.Platform.isWindows) return FileStat._fromStats(stats);
+    if (Finder.isWindows) return FileStat._fromStats(stats);
 
     final args = io.Platform.isMacOS ? ['-f', '%u:%g', '-L'] : ['--dereference', '--format=%u:%g'];
     final result = io.Process.runSync('stat', args..add(path));
