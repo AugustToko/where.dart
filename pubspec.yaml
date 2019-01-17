@@ -5,6 +5,8 @@ author: Cédric Belin <cedric@belin.io>
 description: Find the instances of an executable in the system path. Like the `which` Linux command.
 documentation: https://dev.belin.io/where.dart/api
 homepage: https://dev.belin.io/where.dart
+issue_tracker: https://github.com/cedx/where.dart/issues
+repository: https://github.com/cedx/where.dart
 
 environment:
   sdk: '>=2.1.0 <3.0.0'
