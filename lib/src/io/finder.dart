@@ -22,8 +22,8 @@ class Finder {
       extensions = pathExt.isNotEmpty ? pathExt.split(pathSeparator) : ['.exe', '.cmd', '.bat', '.com'];
     }
 
-    this.extensions.addAll(extensions.map((extension) => extension.toLowerCase()).cast<String>());
-    this.path.addAll(path.map((directory) => directory.replaceAll(RegExp(r'^"+|"+$'), '')).cast<String>());
+    this.extensions.addAll(List<String>.from(extensions.map((extension) => extension.toLowerCase())));
+    this.path.addAll(List<String>.from(path.map((directory) => directory.replaceAll(RegExp(r'^"+|"+$'), ''))));
   }
 
   /// The list of executable file extensions.
