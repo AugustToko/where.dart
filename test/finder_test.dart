@@ -1,3 +1,4 @@
+@TestOn('vm')
 import 'dart:io';
 import 'package:test/test.dart';
 import 'package:where/where.dart';
