@@ -14,7 +14,7 @@ void build() => Pub.run('build_runner', arguments: ['build', '--delete-conflicti
 void clean() {
   defaultClean();
   ['.dart_tool/build', 'doc/api', webDir.path].map(getDir).forEach(delete);
-  FileSet.fromDir(getDir('var'), pattern: '!.*', recurse: true).files.forEach(delete);
+  FileSet.fromDir(getDir('var'), pattern: '*.{info,json}', recurse: true).files.forEach(delete);
 }
 
 @Task('Uploads the results of the code coverage')
@@ -71,9 +71,9 @@ Future<Uri> _profileTest(File testFile) async {
   final completer = Completer<Uri>();
 
   final process = await Process.start('dart', ['--enable-vm-service', '--pause-isolates-on-exit', testFile.path]);
-  process.stderr.transform(utf8.decoder).listen((data) => print(data.trim()));
+  process.stderr.transform(utf8.decoder).listen((data) => print(data.trimRight()));
   process.stdout.transform(utf8.decoder).listen((data) {
-    print(data.trim());
+    print(data.trimRight());
     if (++counter == 1) {
       final match = RegExp(r'^Observatory listening on (.*)').firstMatch(data);
       final uri = match != null ? match[1].trim() : 'http://127.0.0.1:8181/';
