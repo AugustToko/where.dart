@@ -37,26 +37,10 @@ void lint() => Analyzer.analyze(existingSourceDirs);
 
 @Task('Runs the test suites')
 Future<void> test() async {
-  final testProcess = await Process.start('dart', ['--enable-vm-service', '--pause-isolates-on-exit', 'test/all.dart']);
-  final uriCompleter = Completer<Uri>();
-
-  var counter = 0;
-  testProcess.stdout.transform(utf8.decoder).listen((data) {
-    final output = data.trim();
-    print(output);
-
-    if (++counter == 1) {
-      final match = RegExp(r'^Observatory listening on (.*)$').firstMatch(output);
-      final uri = match != null ? match[1] : 'http://127.0.0.1:8181/';
-      uriCompleter.complete(Uri.parse(uri));
-    }
-  });
-
-  final uri = await uriCompleter.future;
   await Pub.runAsync('coverage', script: 'collect_coverage', arguments: [
     '--out=var/coverage.json',
     '--resume-isolates',
-    '--uri=$uri',
+    '--uri=${await _profileTest(getFile('test/all.dart'))}',
     '--wait-paused'
   ]);
 
@@ -79,3 +63,24 @@ void upgrade() {
 
 @Task('Watches for file changes')
 void watch() => Pub.run('build_runner', arguments: ['watch', '--delete-conflicting-outputs']);
+
+/// Profiles the execution of the specified test file.
+/// Returns the URI of the Observatory profiler.
+Future<Uri> _profileTest(File testFile) async {
+  final completer = Completer<Uri>();
+  final process = await Process.start('dart', ['--enable-vm-service', '--pause-isolates-on-exit', testFile.path]);
+
+  var counter = 0;
+  process.stdout.transform(utf8.decoder).listen((data) {
+    final output = data.trim();
+    print(output);
+
+    if (++counter == 1) {
+      final match = RegExp(r'^Observatory listening on (.*)$').firstMatch(output);
+      final uri = match != null ? match[1] : 'http://127.0.0.1:8181/';
+      completer.complete(Uri.parse(uri));
+    }
+  });
+
+  return completer.future;
+}
