@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:grinder/grinder.dart';
-import 'package:test/test.dart';
+import 'package:pedantic/pedantic.dart';
 
 /// Starts the build system.
 Future<void> main(List<String> args) => grind(args);
@@ -67,20 +67,20 @@ void watch() => Pub.run('build_runner', arguments: ['watch', '--delete-conflicti
 /// Profiles the execution of the specified test file.
 /// Returns the URI that Observatory is listening on.
 Future<Uri> _profileTest(File testFile) async {
-  final completer = Completer<Uri>();
-  final process = await Process.start('dart', ['--enable-vm-service', '--pause-isolates-on-exit', testFile.path]);
-
   var counter = 0;
-  process.stdout.transform(utf8.decoder).listen((data) {
-    final output = data.trim();
-    print(output);
+  final completer = Completer<Uri>();
 
+  final process = await Process.start('dart', ['--enable-vm-service', '--pause-isolates-on-exit', testFile.path]);
+  process.stderr.transform(utf8.decoder).listen((data) => print(data.trim()));
+  process.stdout.transform(utf8.decoder).listen((data) {
+    print(data.trim());
     if (++counter == 1) {
-      final match = RegExp(r'^Observatory listening on (.*)$').firstMatch(output);
-      final uri = match != null ? match[1] : 'http://127.0.0.1:8181/';
+      final match = RegExp(r'^Observatory listening on (.*)').firstMatch(data);
+      final uri = match != null ? match[1].trim() : 'http://127.0.0.1:8181/';
       completer.complete(Uri.parse(uri));
     }
   });
 
+  unawaited(process.exitCode.then((code) => exitCode = code));
   return completer.future;
 }
