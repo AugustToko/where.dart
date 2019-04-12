@@ -65,7 +65,7 @@ void upgrade() {
 void watch() => Pub.run('build_runner', arguments: ['watch', '--delete-conflicting-outputs']);
 
 /// Profiles the execution of the specified test file.
-/// Returns the URI of the Observatory profiler.
+/// Returns the URI that Observatory is listening on.
 Future<Uri> _profileTest(File testFile) async {
   final completer = Completer<Uri>();
   final process = await Process.start('dart', ['--enable-vm-service', '--pause-isolates-on-exit', testFile.path]);
