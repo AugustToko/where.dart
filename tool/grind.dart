@@ -1,4 +1,8 @@
+import 'dart:async';
+import 'dart:convert';
+import 'dart:io';
 import 'package:grinder/grinder.dart';
+import 'package:test/test.dart';
 
 /// Starts the build system.
 Future<void> main(List<String> args) => grind(args);
@@ -33,13 +37,36 @@ void lint() => Analyzer.analyze(existingSourceDirs);
 
 @Task('Runs the test suites')
 Future<void> test() async {
-  await Future.wait([
-    Dart.runAsync('test/all.dart', vmArgs: ['--enable-vm-service', '--pause-isolates-on-exit']),
-    Pub.runAsync('coverage', script: 'collect_coverage', arguments: ['--out=var/coverage.json', '--resume-isolates', '--wait-paused'])
+  final testProcess = await Process.start('dart', ['--enable-vm-service', '--pause-isolates-on-exit', 'test/all.dart']);
+  final uriCompleter = Completer<Uri>();
+
+  var counter = 0;
+  testProcess.stdout.transform(utf8.decoder).listen((data) {
+    final output = data.trim();
+    print(output);
+
+    if (++counter == 1) {
+      final match = RegExp(r'^Observatory listening on (.*)$').firstMatch(output);
+      final uri = match != null ? match[1] : 'http://127.0.0.1:8181/';
+      uriCompleter.complete(Uri.parse(uri));
+    }
+  });
+
+  final uri = await uriCompleter.future;
+  await Pub.runAsync('coverage', script: 'collect_coverage', arguments: [
+    '--out=var/coverage.json',
+    '--resume-isolates',
+    '--uri=$uri',
+    '--wait-paused'
   ]);
 
-  final args = ['--in=var/coverage.json', '--lcov', '--out=var/lcov.info', '--packages=.packages', '--report-on=${libDir.path}'];
-  return Pub.runAsync('coverage', script: 'format_coverage', arguments: args);
+  return Pub.runAsync('coverage', script: 'format_coverage', arguments: [
+    '--in=var/coverage.json',
+    '--lcov',
+    '--out=var/lcov.info',
+    '--packages=.packages',
+    '--report-on=${libDir.path}'
+  ]);
 }
 
 @Task('Upgrades the project to the latest revision')
