@@ -2,13 +2,11 @@
 
 .* text
 *.dart text
-*.js text
+*.http text
 *.md text
 *.txt text
 *.yaml text
 *.yml text
 
 *.ico binary
-*.jpg binary
-*.pdf binary
 *.png binary
