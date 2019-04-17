@@ -3,7 +3,9 @@ dist: xenial
 language: dart
 notifications: {email: false}
 
-install: pub get
-before_script: pub global activate coveralls
+install:
+  - pub global activate coveralls
+  - pub get
+
 script: pub run grinder test
 after_success: pub global run coveralls var/lcov.info
