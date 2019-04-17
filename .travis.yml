@@ -8,4 +8,4 @@ install:
   - pub get
 
 script: pub run grinder test
-after_success: pub global run coveralls var/lcov.info
+after_success: pub run grinder coverage
