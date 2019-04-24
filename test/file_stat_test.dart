@@ -1,4 +1,3 @@
-@TestOn('vm')
 import 'dart:io' hide FileStat;
 import 'package:test/test.dart';
 import 'package:where/where.dart';

@@ -1,5 +1,3 @@
-@TestOn('vm')
-import 'package:test/test.dart';
 import 'file_stat_test.dart' as file_stat_test;
 import 'finder_test.dart' as finder_test;
 import 'where_test.dart' as where_test;
