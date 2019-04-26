@@ -106,14 +106,4 @@ class FinderException implements io.IOException {
 
   /// A message describing the error.
   final String message;
-
-  /// Returns a string representation of this object.
-  @override
-  String toString() {
-    final buffer = StringBuffer('FinderException("$command"');
-    if (finder.path.isNotEmpty) buffer.write(', finder: "${finder.path.join(finder.pathSeparator)}"');
-    if (message.isNotEmpty) buffer.write(', message: "$message"');
-    buffer.write(')');
-    return buffer.toString();
-  }
 }

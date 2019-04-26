@@ -125,8 +125,4 @@ class FileStat implements io.FileStat {
 
     return result.join();
   }
-
-  /// Returns a string representation of this object.
-  @override
-  String toString() => 'FileStat("${modeString()}")';
 }
