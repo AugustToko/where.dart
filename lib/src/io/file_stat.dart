@@ -110,19 +110,15 @@ class FileStat implements io.FileStat {
   /// Extra permission bits may be represented by prepending `"(suid)"`, `"(guid)"`, and/or `"(sticky)"` to the mode string.
   @override
   String modeString() {
-    const codes = <String>['---', '--x', '-w-', '-wx', 'r--', 'r-x', 'rw-', 'rwx'];
+    const codes = ['---', '--x', '-w-', '-wx', 'r--', 'r-x', 'rw-', 'rwx'];
     final permissions = mode & 0xFFF;
-
-    final result = <String>[];
-    if ((permissions & 0x800) != 0) result.add('(suid) ');
-    if ((permissions & 0x400) != 0) result.add('(guid) ');
-    if ((permissions & 0x200) != 0) result.add('(sticky) ');
-
-    result
-      ..add(codes[(permissions >> 6) & 0x7])
-      ..add(codes[(permissions >> 3) & 0x7])
-      ..add(codes[permissions & 0x7]);
-
-    return result.join();
+    return [
+      if ((permissions & 0x800) != 0) '(suid) ',
+      if ((permissions & 0x400) != 0) '(guid) ',
+      if ((permissions & 0x200) != 0) '(sticky) ',
+      codes[(permissions >> 6) & 0x7],
+      codes[(permissions >> 3) & 0x7],
+      codes[permissions & 0x7]
+    ].join();
   }
 }

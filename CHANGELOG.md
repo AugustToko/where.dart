@@ -2,6 +2,7 @@
 
 ## Version [6.3.0](https://github.com/cedx/where.dart/compare/v6.2.0...v6.3.0)
 - Raised the [Dart SDK](https://www.dartlang.org/tools/sdk) constraint.
+- Using new language features: collection if and spread operator.
 - Updated the package dependencies.
 
 ## Version [6.2.0](https://github.com/cedx/where.dart/compare/v6.1.0...v6.2.0)
