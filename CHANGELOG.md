@@ -1,12 +1,12 @@
 # Changelog
 
 ## Version [6.3.0](https://github.com/cedx/where.dart/compare/v6.2.0...v6.3.0)
-- Raised the [Dart SDK](https://www.dartlang.org/tools/sdk) constraint.
+- Raised the [Dart SDK](https://dart.dev/tools/sdk) constraint.
 - Using new language features: collection if and spread operator.
 - Updated the package dependencies.
 
 ## Version [6.2.0](https://github.com/cedx/where.dart/compare/v6.1.0...v6.2.0)
-- Raised the [Dart SDK](https://www.dartlang.org/tools/sdk) constraint.
+- Raised the [Dart SDK](https://dart.dev/tools/sdk) constraint.
 - Updated the package dependencies.
 
 ## Version [6.1.0](https://github.com/cedx/where.dart/compare/v6.0.0...v6.1.0)
@@ -14,7 +14,7 @@
 - Updated the URL of the Git repository.
 
 ## Version [6.0.0](https://github.com/cedx/where.dart/compare/v5.1.0...v6.0.0)
-- Raised the [Dart SDK](https://www.dartlang.org/tools/sdk) constraint.
+- Raised the [Dart SDK](https://dart.dev/tools/sdk) constraint.
 - Updated the package dependencies.
 
 ## Version [5.1.0](https://github.com/cedx/where.dart/compare/v5.0.0...v5.1.0)
@@ -33,22 +33,22 @@
 
 ## Version [4.3.0](https://github.com/cedx/where.dart/compare/v4.2.0...v4.3.0)
 - Added the `Options` class, used by the command line interface.
-- Raised the [Dart SDK](https://www.dartlang.org/tools/sdk) constraint.
+- Raised the [Dart SDK](https://dart.dev/tools/sdk) constraint.
 - Updated the package dependencies.
 
 ## Version [4.2.0](https://github.com/cedx/where.dart/compare/v4.1.0...v4.2.0)
 - Added an example code.
-- Raised the [Dart SDK](https://www.dartlang.org/tools/sdk) constraint.
+- Raised the [Dart SDK](https://dart.dev/tools/sdk) constraint.
 - Updated the package dependencies.
 
 ## Version [4.1.0](https://github.com/cedx/where.dart/compare/v4.0.0...v4.1.0)
 - Dropped support of [Node.js](https://nodejs.org) platform.
-- Raised the [Dart SDK](https://www.dartlang.org/tools/sdk) constraint.
+- Raised the [Dart SDK](https://dart.dev/tools/sdk) constraint.
 - Using optional `const` and `new`.
 - Updated the package dependencies.
 
 ## Version [4.0.0](https://github.com/cedx/where.dart/compare/v3.0.0...v4.0.0)
-- Breaking change: starting to use and support the [Dart 2 SDK](https://www.dartlang.org/tools/sdk).
+- Breaking change: starting to use and support the [Dart 2 SDK](https://dart.dev/tools/sdk).
 - Added a user guide based on [MkDocs](http://www.mkdocs.org).
 - Added the `FinderException` class.
 - Updated the package dependencies.

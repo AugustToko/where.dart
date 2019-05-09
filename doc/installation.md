@@ -1,8 +1,8 @@
 # Installation
 
 ## Requirements
-Before installing **Where.dart**, you need to make sure you have the [Dart SDK](https://www.dartlang.org/tools/sdk)
-and [Pub](https://www.dartlang.org/tools/pub), the Dart package manager, up and running.
+Before installing **Where.dart**, you need to make sure you have the [Dart SDK](https://dart.dev/tools/sdk)
+and [Pub](https://dart.dev/tools/pub/cmd), the Dart package manager, up and running.
 
 !!! warning
     Where.dart requires Dart >= **2.2.0**.
@@ -39,7 +39,7 @@ pub get
 ```
 
 ### 3. Import it
-Now in your [Dart](https://www.dartlang.org) code, you can use:
+Now in your [Dart](https://dart.dev) code, you can use:
 
 ```dart
 import 'package:where/where.dart';
