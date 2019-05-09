@@ -57,7 +57,7 @@ class FileStat implements io.FileStat {
     if (Finder.isWindows) return FileStat._fromStats(stats);
 
     final args = io.Platform.isMacOS ? ['-f', '%u:%g', '-L'] : ['--dereference', '--format=%u:%g'];
-    final result = io.Process.runSync('stat', args..add(path));
+    final result = io.Process.runSync('stat', [...args, path]);
     if (result.exitCode != 0) return FileStat._fromStats(stats);
 
     final parts = result.stdout.trim().split(':');
