@@ -39,10 +39,8 @@ class FileStat implements io.FileStat {
     if (result.exitCode != 0) return FileStat._fromStats(stats);
 
     final parts = result.stdout.trim().split(':');
-    if (parts.length != 2) return FileStat._fromStats(stats);
-
-    return FileStat._fromStats(
-      await io.FileStat.stat(path),
+    return parts.length != 2 ? FileStat._fromStats(stats) : FileStat._fromStats(
+      stats,
       gid: int.tryParse(parts.last, radix: 10) ?? -1,
       uid: int.tryParse(parts.first, radix: 10) ?? -1
     );
@@ -61,10 +59,8 @@ class FileStat implements io.FileStat {
     if (result.exitCode != 0) return FileStat._fromStats(stats);
 
     final parts = result.stdout.trim().split(':');
-    if (parts.length != 2) return FileStat._fromStats(stats);
-
-    return FileStat._fromStats(
-      io.FileStat.statSync(path),
+    return parts.length != 2 ? FileStat._fromStats(stats) : FileStat._fromStats(
+      stats,
       gid: int.tryParse(parts.last, radix: 10) ?? -1,
       uid: int.tryParse(parts.first, radix: 10) ?? -1
     );
