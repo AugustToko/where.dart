@@ -1,5 +1,8 @@
 # Changelog
 
+## Version [6.3.1](https://github.com/cedx/where.dart/compare/v6.3.0...v6.3.1)
+- Fixed the [issue #5](https://github.com/cedx/where.dart/issues/5): the `FileStat` class does too many I/O calls.
+
 ## Version [6.3.0](https://github.com/cedx/where.dart/compare/v6.2.0...v6.3.0)
 - Raised the [Dart SDK](https://dart.dev/tools/sdk) constraint.
 - Using new language features: collection if and spread operator.
