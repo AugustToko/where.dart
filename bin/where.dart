@@ -4,14 +4,6 @@ import 'package:where/where.dart';
 import 'package:where/src/cli.dart';
 import 'package:where/src/version.dart';
 
-/// The usage information.
-final String usage = (StringBuffer()
-  ..writeln('Find the instances of an executable in the system path.')..writeln()
-  ..writeln('Usage: where [options] <command>')..writeln()
-  ..writeln('Options:')
-  ..write(argParser.usage))
-  .toString();
-
 /// Application entry point.
 Future<void> main(List<String> args) async {
   // Parse the command line arguments.
