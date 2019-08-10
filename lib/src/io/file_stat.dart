@@ -5,15 +5,13 @@ part of '../io.dart';
 class FileStat implements io.FileStat {
 
   /// Creates new file stats from the specified native [stats].
-  factory FileStat._fromStats(io.FileStat stats, {int gid = -1, int uid = -1}) => FileStat._internal(stats.type,
-    accessed: stats.accessed,
-    changed: stats.changed,
-    gid: gid,
-    mode: stats.mode,
-    modified: stats.modified,
-    size: stats.size,
-    uid: uid
-  );
+  FileStat._fromStats(io.FileStat stats, {this.gid = -1, this.uid = -1}):
+    accessed = stats.accessed,
+    changed = stats.changed,
+    mode = stats.mode,
+    modified = stats.modified,
+    size = stats.size,
+    type = stats.type;
 
   /// Creates new file stats.
   FileStat._internal(this.type, {
