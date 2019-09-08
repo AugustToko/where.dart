@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:test/test.dart';
 import 'package:where/where.dart';
 
-/// Tests the features of the `where` function.
+/// Tests the features of the [Finder] class.
 void main() => group('Finder', () {
   final delimiter = Finder.isWindows ? ';' : ':';
 

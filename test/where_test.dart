@@ -1,7 +1,7 @@
 import 'package:test/test.dart';
 import 'package:where/where.dart';
 
-/// Tests the features of the `where` function.
+/// Tests the features of the [where] function.
 void main() => group('where()', () {
   test('should return the path of the `executable.cmd` file on Windows', () async {
     try {

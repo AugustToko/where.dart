@@ -2,7 +2,7 @@ import 'dart:io' hide FileStat;
 import 'package:test/test.dart';
 import 'package:where/where.dart';
 
-/// Tests the features of the `FileStat` class.
+/// Tests the features of the [FileStat] class.
 void main() => group('FileStat', () {
   group('.modeString()', () {
     test('should return the file mode as a human-readable string', () async {
