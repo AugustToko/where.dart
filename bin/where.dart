@@ -1,4 +1,6 @@
 #!/usr/bin/env dart
+
+// ignore_for_file: avoid_print
 import 'dart:io';
 import 'package:where/where.dart';
 import 'package:where/src/cli.dart';
