@@ -6,7 +6,7 @@
 - [Submit an issue](https://github.com/cedx/where.dart/issues)
 
 ## Testing
-- [Continuous integration](https://travis-ci.com/cedx/where.dart)
+- [Continuous integration](https://github.com/cedx/where.dart/actions)
 - [Code coverage](https://coveralls.io/github/cedx/where.dart)
 
 ## Other implementations
