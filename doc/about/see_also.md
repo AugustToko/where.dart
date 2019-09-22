@@ -10,5 +10,5 @@
 - [Code coverage](https://coveralls.io/github/cedx/where.dart)
 
 ## Other implementations
-- Node.js: [Which for JS](https://dev.belin.io/which.js)
+- JavaScript: [Which for JS](https://dev.belin.io/which.js)
 - PHP: [Which for PHP](https://dev.belin.io/which.php)
