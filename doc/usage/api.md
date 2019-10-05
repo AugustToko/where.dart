@@ -20,7 +20,7 @@ Future<void> main() async {
 }
 ```
 
-The function returns a [`Future<String>`](https://api.dartlang.org/stable/dart-async/Future-class.html) that completes with the absolute path of the first instance of the executables found. If the command could not be located, the future completes with a `FinderException`.
+The function returns a [`Future<String>`](https://api.dart.dev/stable/dart-async/Future-class.html) that completes with the absolute path of the first instance of the executables found. If the command could not be located, the future completes with a `FinderException`.
 
 ## Options
 The behavior of the `where()` function can be customized using the following optional named parameters.
