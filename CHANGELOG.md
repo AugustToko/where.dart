@@ -1,5 +1,9 @@
 # Changelog
 
+## Version [6.5.0](https://github.com/cedx/where.dart/compare/v6.4.0...v6.5.0)
+- Raised the [Dart SDK](https://dart.dev/tools/sdk) constraint.
+- Updated the package dependencies.
+
 ## Version [6.4.0](https://github.com/cedx/where.dart/compare/v6.3.0...v6.4.0)
 - Fixed the [issue #5](https://github.com/cedx/where.dart/issues/5): the `FileStat` class does too many I/O calls.
 - Raised the [Dart SDK](https://dart.dev/tools/sdk) constraint.
