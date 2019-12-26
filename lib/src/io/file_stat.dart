@@ -13,17 +13,6 @@ class FileStat implements io.FileStat {
     size = stats.size,
     type = stats.type;
 
-  /// Creates new file stats.
-  FileStat._internal(this.type, {
-    this.accessed,
-    this.changed,
-    this.gid = -1,
-    this.mode = 0,
-    this.modified,
-    this.size = -1,
-    this.uid = -1
-  });
-
   /// Calls the operating system's `stat()` function on the specified [path].
   ///
   /// Completes with a [FileStat] object containing the data returned by `stat()`.
