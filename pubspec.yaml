@@ -2,7 +2,6 @@ name: where
 version: 6.5.0
 
 description: Find the instances of an executable in the system path. Like the `which` Linux command.
-documentation: https://dev.belin.io/where.dart/api
 homepage: https://dev.belin.io/where.dart
 issue_tracker: https://github.com/cedx/where.dart/issues
 repository: https://github.com/cedx/where.dart
@@ -24,4 +23,4 @@ dev_dependencies:
   build_version: ^2.0.1
   coverage: ^0.13.3
   grinder: ^0.8.3
-  test: ^1.9.4
+  test: ^1.11.0
