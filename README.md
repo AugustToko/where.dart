@@ -5,7 +5,7 @@ Find the instances of an executable in the system path, implemented in [Dart](ht
 
 ## Documentation
 - [User guide](https://dev.belin.io/where.dart)
-- [API reference](https://dev.belin.io/where.dart/api)
+- [API reference](https://pub.dev/documentation/where)
 
 ## Development
 - [Git repository](https://github.com/cedx/where.dart)
