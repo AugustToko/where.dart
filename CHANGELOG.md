@@ -1,5 +1,9 @@
 # Changelog
 
+## Version [6.6.0](https://github.com/cedx/where.dart/compare/v6.5.0...v6.6.0)
+- Raised the [Dart SDK](https://dart.dev/tools/sdk) constraint.
+- Updated the package dependencies.
+
 ## Version [6.5.0](https://github.com/cedx/where.dart/compare/v6.4.0...v6.5.0)
 - Raised the [Dart SDK](https://dart.dev/tools/sdk) constraint.
 - Updated the package dependencies.
