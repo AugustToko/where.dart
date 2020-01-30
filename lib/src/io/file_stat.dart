@@ -18,6 +18,8 @@ class FileStat implements io.FileStat {
   /// Completes with a [FileStat] object containing the data returned by `stat()`.
   /// If the call fails, completes the future with a [FileStat] object with [type] set to `FileSystemEntityType.notFound` and the other fields invalid.
   static Future<FileStat> stat(String path) async {
+    assert(path.isNotEmpty);
+
     final stats = await io.FileStat.stat(path);
     if (Finder.isWindows) return FileStat._fromStats(stats);
 
@@ -38,6 +40,8 @@ class FileStat implements io.FileStat {
   /// Returns a [FileStat] object containing the data returned by `stat()`.
   /// If the call fails, returns a [FileStat] object with [type] set to `FileSystemEntityType.notFound` and the other fields invalid.
   static FileStat statSync(String path) { // ignore: prefer_constructors_over_static_methods
+    assert(path.isNotEmpty);
+
     final stats = io.FileStat.statSync(path);
     if (Finder.isWindows) return FileStat._fromStats(stats);
 
