@@ -13,13 +13,13 @@ class Finder {
   {
     if (pathSeparator.isEmpty) pathSeparator = isWindows ? ';' : ':';
 
-    if (path is! List<String>) path = path.toString().split(pathSeparator)..retainWhere((item) => item.isNotEmpty);
+    if (path is! List) path = path.toString().split(pathSeparator)..retainWhere((item) => item.isNotEmpty);
     if (path.isEmpty) {
       final pathEnv = io.Platform.environment['PATH'] ?? '';
       if (pathEnv.isNotEmpty) path = pathEnv.split(pathSeparator);
     }
 
-    if (extensions is! List<String>) extensions = extensions.toString().split(pathSeparator)..retainWhere((item) => item.isNotEmpty);
+    if (extensions is! List) extensions = extensions.toString().split(pathSeparator)..retainWhere((item) => item.isNotEmpty);
     if (extensions.isEmpty && isWindows) {
       final pathExt = io.Platform.environment['PATHEXT'] ?? '';
       extensions = pathExt.isNotEmpty ? pathExt.split(pathSeparator) : ['.exe', '.cmd', '.bat', '.com'];
