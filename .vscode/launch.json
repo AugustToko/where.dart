@@ -5,14 +5,14 @@
       "name": "Executable",
       "type": "dart",
       "request": "launch",
-      "program": "bin/where.dart",
+      "program": "${workspaceFolder}/bin/where.dart",
       "args": ["dart"]
     },
     {
       "name": "Tests",
       "type": "dart",
       "request": "launch",
-      "program": "test/",
+      "program": "${workspaceFolder}/test/",
       "enableAsserts": true
     }
   ]
