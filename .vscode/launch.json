@@ -2,11 +2,18 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "enableAsserts": true,
-      "name": "Tests",
-      "program": "test/",
+      "name": "Dart",
+      "type": "dart",
       "request": "launch",
-      "type": "dart"
+      "program": "bin/where.dart",
+      "args": ["dart"]
+    },
+    {
+      "name": "Tests",
+      "type": "dart",
+      "request": "launch",
+      "program": "test/",
+      "enableAsserts": true
     }
   ]
 }
