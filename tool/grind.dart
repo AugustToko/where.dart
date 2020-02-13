@@ -1,6 +1,5 @@
 import 'dart:async';
-import 'dart:io';
-import 'package:grinder/grinder.dart' hide ProcessException;
+import 'package:grinder/grinder.dart';
 
 /// Starts the build system.
 Future<void> main(List<String> args) => grind(args);
