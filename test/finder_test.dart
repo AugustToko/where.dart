@@ -42,13 +42,13 @@ void main() => group('Finder', () {
     test('should return the path of the `executable.cmd` file on Windows', () async {
       final executables = await Finder(path: 'test/fixtures').find('executable').toList();
       expect(executables.length, Finder.isWindows ? 1 : 0);
-      if (Finder.isWindows) expect(executables.first, endsWith(r'\test\fixtures\executable.cmd'));
+      if (Finder.isWindows) expect(executables.first.path, endsWith(r'\test\fixtures\executable.cmd'));
     });
 
     test('should return the path of the `executable.sh` file on POSIX', () async {
       final executables = await Finder(path: 'test/fixtures').find('executable.sh').toList();
       expect(executables.length, Finder.isWindows ? 0 : 1);
-      if (!Finder.isWindows) expect(executables.first, endsWith('/test/fixtures/executable.sh'));
+      if (!Finder.isWindows) expect(executables.first.path, endsWith('/test/fixtures/executable.sh'));
     });
   });
 

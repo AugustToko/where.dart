@@ -17,8 +17,8 @@ Future where(String command, {bool all = false, extensions = '', Function(String
   final list = <String>[];
 
   await for (final executable in finder.find(command)) {
-    if (!all) return executable;
-    list.add(executable);
+    if (!all) return executable.path;
+    list.add(executable.path);
   }
 
   if (list.isEmpty) {

@@ -45,7 +45,7 @@ class Finder {
   String pathSeparator;
 
   /// Finds the instances of the specified [command] in the system path.
-  Stream<String> find(String command) async* {
+  Stream<io.File> find(String command) async* {
     for (final directory in path) yield* _findExecutables(directory, command);
   }
 
@@ -81,13 +81,13 @@ class Finder {
   }
 
   /// Finds the instances of a [command] in the specified [directory].
-  Stream<String> _findExecutables(String directory, String command) async* {
+  Stream<io.File> _findExecutables(String directory, String command) async* {
     assert(directory.isNotEmpty);
     assert(command.isNotEmpty);
 
     for (final extension in ['', ...extensions]) {
       final resolvedPath = p.canonicalize('${p.join(directory, command)}${extension.toLowerCase()}');
-      if (await isExecutable(resolvedPath)) yield resolvedPath;
+      if (await isExecutable(resolvedPath)) yield io.File(resolvedPath);
     }
   }
 
