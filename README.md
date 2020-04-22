@@ -4,13 +4,13 @@
 Find the instances of an executable in the system path, implemented in [Dart](https://dart.dev).
 
 ## Documentation
-- [User guide](https://dev.belin.io/where.dart)
+- [User guide](https://docs.belin.io/where.dart)
 - [API reference](https://pub.dev/documentation/where)
 
 ## Development
-- [Git repository](https://github.com/cedx/where.dart)
+- [Git repository](https://git.belin.io/cedx/where.dart)
 - [Pub package](https://pub.dev/packages/where)
-- [Submit an issue](https://github.com/cedx/where.dart/issues)
+- [Submit an issue](https://git.belin.io/cedx/where.dart/issues)
 
 ## License
-[Where.dart](https://dev.belin.io/where.dart) is distributed under the MIT License.
+[Where.dart](https://docs.belin.io/where.dart) is distributed under the MIT License.

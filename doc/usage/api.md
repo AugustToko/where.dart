@@ -1,5 +1,7 @@
-path: blob/master
+---
+path: src/branch/master
 source: lib/src/io/where.dart
+---
 
 # Application programming interface
 This package provides a single function, `where()`, allowing to locate a command in the system path:
