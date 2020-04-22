@@ -1,5 +1,7 @@
 site_name: Where.dart
-site_description: Find the instances of an executable in the system path, implemented in Dart.
+site_description: >
+  Find the instances of an executable in the system path, implemented in Dart.
+  Like the `which` Linux command.
 site_author: Cédric Belin - cedric@belin.io
 site_url: https://docs.belin.io/where.dart
 
