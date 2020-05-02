@@ -1,2 +1,2 @@
 #!/usr/bin/env pwsh
-& dart "$PSScriptRoot/where.dart" $args
+dart "$PSScriptRoot/where.dart" $args
