@@ -2,6 +2,5 @@
 Set-StrictMode -Version Latest
 Set-Location (Split-Path $PSScriptRoot)
 
-dartdoc --output=doc/api
-Copy-Item doc/img/favicon.ico doc/api
+dartdoc --favicon=doc/img/favicon.ico
 mkdocs build --config-file=etc/mkdocs.yaml
