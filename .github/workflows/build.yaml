@@ -21,7 +21,7 @@ jobs:
           pub global activate coveralls
           pub get
       - name: Run tests
-          pub run test --coverage=var
+        run: pub run test --coverage=var
       - name: Collect code coverage
         env:
           COVERALLS_REPO_TOKEN: ${{secrets.GITHUB_TOKEN}}
