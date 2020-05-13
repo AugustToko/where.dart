@@ -1,7 +1,7 @@
 # See also
 
 ## Development
-- [API reference](https://pub.dev/documentation/where)
+- [API reference](https://api.belin.io/where.dart)
 - [Pub package](https://pub.dev/packages/where)
 - [Submit an issue](https://git.belin.io/cedx/where.dart/issues)
 
