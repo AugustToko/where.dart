@@ -51,8 +51,8 @@ where("foobar", extensions: [".foo", ".exe", ".cmd"]);
 ```
 
 !!! tip
-		The `extensions` option is only meaningful on the Windows platform,
-		where the executability of a file is determined from its extension.
+	The `extensions` option is only meaningful on the Windows platform,
+	where the executability of a file is determined from its extension.
 
 ### dynamic **onError**(String command)
 By default, when the specified command cannot be located, a `FinderException` is thrown. You can disable this exception by providing your own error handler:
