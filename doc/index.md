@@ -6,14 +6,14 @@ Find the instances of an executable in the system path, in [Dart](https://dart.d
 ## Quick start
 Append the following line to your project's `pubspec.yaml` file:
 
-```yaml
+``` yaml
 dependencies:
-  where: *
+	where: *
 ```
 
 Install the latest version of **Where.dart** with [Pub](https://dart.dev/tools/pub):
 
-```shell
+``` shell
 pub get
 ```
 

@@ -6,16 +6,16 @@ source: lib/src/cli/options.dart
 # Command line interface
 From a command prompt, install the `where` executable:
 
-```shell
+``` shell
 pub global activate where
 ```
 
 !!! tip
-    Consider adding the [`pub global`](https://dart.dev/tools/pub/cmd/pub-global) executables directory to your system path.
+	Consider adding the [`pub global`](https://dart.dev/tools/pub/cmd/pub-global) executables directory to your system path.
 
 Then use it to find the instances of an executable command:
 
-```shell
+``` shell
 $ where --help
 
 Find the instances of an executable in the system path.
@@ -31,7 +31,7 @@ Options:
 
 For example:
 
-```shell
+``` shell
 where --all dart
 # /usr/bin/dart
 ```

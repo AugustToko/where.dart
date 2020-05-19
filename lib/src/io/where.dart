@@ -1,4 +1,4 @@
-part of '../io.dart';
+part of "../io.dart";
 
 /// Finds the first instance of a [command] in the system path.
 /// An [all] value indicates whether to return a [List] of all executables found, instead of just the first one.
@@ -10,21 +10,21 @@ part of '../io.dart';
 /// - [path]: A string, or a list of strings, specifying the system path. Defaults to the `PATH` environment variable.
 /// - [extensions]: A string, or a list of strings, specifying the executable file extensions. Defaults to the `PATHEXT` environment variable.
 /// - [pathSeparator]: The character used to separate paths in the system path. Defaults to the platform path separator.
-Future where(String command, {bool all = false, extensions = '', Function(String command) onError, path = '', String pathSeparator = ''}) async {
-  assert(command.isNotEmpty);
+Future where(String command, {bool all = false, extensions = "", Function(String command) onError, path = "", String pathSeparator = ""}) async {
+	assert(command.isNotEmpty);
 
-  final finder = Finder(extensions: extensions, path: path, pathSeparator: pathSeparator);
-  final list = <String>[];
+	final finder = Finder(extensions: extensions, path: path, pathSeparator: pathSeparator);
+	final list = <String>[];
 
-  await for (final executable in finder.find(command)) {
-    if (!all) return executable.path;
-    list.add(executable.path);
-  }
+	await for (final executable in finder.find(command)) {
+		if (!all) return executable.path;
+		list.add(executable.path);
+	}
 
-  if (list.isEmpty) {
-    if (onError != null) return onError(command);
-    throw FinderException(command, finder, 'Command "$command" not found');
-  }
+	if (list.isEmpty) {
+		if (onError != null) return onError(command);
+		throw FinderException(command, finder, "Command '$command' not found");
+	}
 
-  return Set<String>.from(list).toList();
+	return Set<String>.from(list).toList();
 }
