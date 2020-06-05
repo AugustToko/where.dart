@@ -7,11 +7,8 @@ class Finder {
 	/// - [extensions]: A string, or a list of strings, specifying the executable file extensions. Defaults to the `PATHEXT` environment variable.
 	/// - [path]: A string, or a list of strings, specifying the system path. Defaults to the `PATH` environment variable.
 	/// - [pathSeparator]: The character used to separate paths in the system path. Defaults to the platform path separator.
-	Finder({extensions = "", path = "", this.pathSeparator = ""}):
-		assert(extensions is String || extensions is List<String>),
-		assert(path is String || path is List<String>)
-	{
-		if (pathSeparator.isEmpty) pathSeparator = isWindows ? ";" : ":";
+	Finder({List<String> extensions, List<String> path, String pathSeparator}) {
+		this.pathSeparator = pathSeparator ?? (isWindows ? ";" : ":");
 
 		if (path is! List) path = path.toString().split(pathSeparator)..retainWhere((item) => item.isNotEmpty);
 		if (path.isEmpty) {

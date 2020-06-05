@@ -28,7 +28,7 @@ Future<void> main(List<String> args) async {
 	try {
 		var executables = await where(options.rest.first, all: options.all);
 		if (!options.silent) {
-			if (executables is! List<String>) executables = <String>[executables];
+			if (executables is String) executables = <String>[executables];
 			executables.forEach(print);
 		}
 	}
