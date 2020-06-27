@@ -33,12 +33,13 @@ Future<void> main(List<String> args) async {
 		}
 	}
 
-	on FinderException {
+	on FinderException catch (e) {
+		if (!options.silent) print('No "${options.rest.first}" in (${e.finder.path.join(Finder.isWindows ? ";" : ":")}).');
 		exitCode = 1;
 	}
 
-	on Exception catch (err) {
-		print(err);
+	on Exception catch (e) {
+		print(e);
 		exitCode = 2;
 	}
 }
