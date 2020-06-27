@@ -9,11 +9,8 @@ part of "../io.dart";
 /// Optional parameters allow to customize the function behavior:
 /// - [path]: A string, or a list of strings, specifying the system path. Defaults to the `PATH` environment variable.
 /// - [extensions]: A string, or a list of strings, specifying the executable file extensions. Defaults to the `PATHEXT` environment variable.
-/// - [pathSeparator]: The character used to separate paths in the system path. Defaults to the platform path separator.
-Future where(String command, {bool all = false, extensions = "", Function(String command) onError, path = "", String pathSeparator = ""}) async {
-	assert(command.isNotEmpty);
-
-	final finder = Finder(extensions: extensions, path: path, pathSeparator: pathSeparator);
+Future where(String command, {bool all = false, extensions = "", Function(String command) onError, path = ""}) async {
+	final finder = Finder(extensions: extensions, path: path);
 	final list = <String>[];
 
 	await for (final executable in finder.find(command)) {

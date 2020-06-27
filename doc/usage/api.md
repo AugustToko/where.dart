@@ -76,11 +76,3 @@ The system path, provided as a string or a list of directories. Defaults to the 
 where("foobar", path: "/usr/local/bin:/usr/bin");
 where("foobar", path: ["/usr/local/bin", "/usr/bin"]);
 ```
-
-### String **pathSeparator**
-The character used to separate paths in the system path. Defaults to the platform path separator (i.e. `";"` on Windows, `":"` on other platforms).
-
-``` dart
-where("foobar", pathSeparator: "#");
-// For example: "/usr/local/bin#/usr/bin"
-```

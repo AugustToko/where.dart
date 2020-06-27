@@ -6,9 +6,8 @@ class Finder {
 	/// Creates a new finder from the following parameters:
 	/// - [extensions]: A string, or a list of strings, specifying the executable file extensions. Defaults to the `PATHEXT` environment variable.
 	/// - [path]: A string, or a list of strings, specifying the system path. Defaults to the `PATH` environment variable.
-	/// - [pathSeparator]: The character used to separate paths in the system path. Defaults to the platform path separator.
-	Finder({List<String> extensions, List<String> path, String pathSeparator}) {
-		this.pathSeparator = pathSeparator ?? (isWindows ? ";" : ":");
+	Finder({List<String> extensions, List<String> path}) {
+		final pathSeparator = isWindows ? ";" : ":";
 
 		if (path is! List) path = path.toString().split(pathSeparator)..retainWhere((item) => item.isNotEmpty);
 		if (path.isEmpty) {
@@ -38,9 +37,6 @@ class Finder {
 	/// The list of system paths.
 	final List<String> path = <String>[];
 
-	/// The character used to separate paths in the system path.
-	String pathSeparator;
-
 	/// Finds the instances of the specified [command] in the system path.
 	Stream<io.File> find(String command) async* {
 		for (final directory in path) yield* _findExecutables(directory, command);
@@ -48,7 +44,6 @@ class Finder {
 
 	/// Gets a value indicating whether the specified [file] is executable.
 	Future<bool> isExecutable(String file) async {
-		assert(file.isNotEmpty);
 		final type = io.FileSystemEntity.typeSync(file);
 		if (type != io.FileSystemEntityType.file && type != io.FileSystemEntityType.link) return false;
 		return isWindows ? _checkFileExtension(file) : _checkFilePermissions(await FileStat.stat(file));
@@ -79,9 +74,6 @@ class Finder {
 
 	/// Finds the instances of a [command] in the specified [directory].
 	Stream<io.File> _findExecutables(String directory, String command) async* {
-		assert(directory.isNotEmpty);
-		assert(command.isNotEmpty);
-
 		for (final extension in ["", ...extensions]) {
 			final resolvedPath = p.canonicalize("${p.join(directory, command)}${extension.toLowerCase()}");
 			if (await isExecutable(resolvedPath)) yield io.File(resolvedPath);
@@ -90,7 +82,6 @@ class Finder {
 
 	/// Gets a numeric [identity] of the process.
 	Future<int> _getProcessId(String identity) async {
-		assert(identity.isNotEmpty);
 		if (isWindows) return -1;
 		final result = await io.Process.run("id", ["-$identity"]);
 		return result.exitCode != 0 ? -1 : int.tryParse(result.stdout.trim(), radix: 10) ?? -1;
@@ -101,7 +92,8 @@ class Finder {
 class FinderException implements io.IOException {
 
 	/// Creates a new finder exception.
-	FinderException(this.command, this.finder, [this.message = ""]): assert(command.isNotEmpty);
+	FinderException(this.command, this.finder, [String message]):
+		message = message ?? "Command '$command' not found.";
 
 	/// The looked up command.
 	final String command;
