@@ -66,7 +66,7 @@ class Finder {
 	/// Finds the instances of a [command] in the specified [directory].
 	Stream<io.File> _findExecutables(String directory, String command) async* {
 		for (final extension in ["", if (isWindows) ...extensions]) {
-			final resolvedPath = p.canonicalize("${p.join(directory, command)}${extension.toLowerCase()}");
+			final resolvedPath = p.absolute("${p.join(directory, command)}${extension.toLowerCase()}");
 			if (await isExecutable(resolvedPath)) yield io.File(resolvedPath);
 		}
 	}
