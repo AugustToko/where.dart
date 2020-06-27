@@ -2,6 +2,8 @@
 
 ## Version [8.0.0](https://git.belin.io/cedx/where.dart/compare/v7.0.0...v8.0.0)
 - Breaking change: removed the `Finder.pathSeparator` property.
+- Breaking change: the `extensions` and `path` arguments don't accept strings anymore.
+- Replaced the build system based on [Grinder](https://pub.dev/packages/grinder) by [PowerShell](https://docs.microsoft.com/en-us/powershell) scripts.
 - Updated the package dependencies.
 
 ## Version [7.0.0](https://git.belin.io/cedx/where.dart/compare/v6.6.0...v6.7.0)

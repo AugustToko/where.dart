@@ -50,20 +50,16 @@ class Finder {
 
 	/// Checks that the file referenced by the specified [fileStats] is executable according to its permissions.
 	Future<bool> _checkFilePermissions(FileStat fileStats) async {
-		// Others.
 		final perms = fileStats.mode;
 		if (perms & int.parse("001", radix: 8) != 0) return true;
 
-		// Group.
 		final execByGroup = int.parse("010", radix: 8);
 		if (perms & execByGroup != 0) return fileStats.gid == await _getProcessId("g");
 
-		// Owner.
 		final execByOwner = int.parse("100", radix: 8);
 		final userId = await _getProcessId("u");
 		if (perms & execByOwner != 0) return fileStats.uid == userId;
 
-		// Root.
 		return (perms & (execByOwner | execByGroup) != 0) && userId == 0;
 	}
 

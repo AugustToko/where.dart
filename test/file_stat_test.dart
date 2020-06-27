@@ -20,12 +20,12 @@ void main() => group("FileStat", () {
 
 		test("should return a numeric identity greater than or equal to 0 for the file owner", () async {
 			final fileStats = await FileStat.stat("test/file_stat_test.dart");
-			expect(fileStats.uid, Platform.isWindows ? -1 : greaterThanOrEqualTo(0));
+			expect(fileStats.uid, Finder.isWindows ? -1 : greaterThanOrEqualTo(0));
 		});
 
 		test("should return a numeric identity greater than or equal to 0 for the file group", () async {
 			final fileStats = await FileStat.stat("test/file_stat_test.dart");
-			expect(fileStats.gid, Platform.isWindows ? -1 : greaterThanOrEqualTo(0));
+			expect(fileStats.gid, Finder.isWindows ? -1 : greaterThanOrEqualTo(0));
 		});
 	});
 
@@ -38,12 +38,12 @@ void main() => group("FileStat", () {
 
 		test("should return a numeric identity greater than or equal to 0 for the file owner", () {
 			final fileStats = FileStat.statSync("test/file_stat_test.dart");
-			expect(fileStats.uid, Platform.isWindows ? -1 : greaterThanOrEqualTo(0));
+			expect(fileStats.uid, Finder.isWindows ? -1 : greaterThanOrEqualTo(0));
 		});
 
 		test("should return a numeric identity greater than or equal to 0 for the file group", () {
 			final fileStats = FileStat.statSync("test/file_stat_test.dart");
-			expect(fileStats.gid, Platform.isWindows ? -1 : greaterThanOrEqualTo(0));
+			expect(fileStats.gid, Finder.isWindows ? -1 : greaterThanOrEqualTo(0));
 		});
 	});
 });
