@@ -7,9 +7,9 @@ part of "../io.dart";
 /// If a [onError] handler is provided, it is called with the [command] as argument, and its return value is used instead.
 ///
 /// Optional parameters allow to customize the function behavior:
-/// - [path]: A string, or a list of strings, specifying the system path. Defaults to the `PATH` environment variable.
-/// - [extensions]: A string, or a list of strings, specifying the executable file extensions. Defaults to the `PATHEXT` environment variable.
-Future where(String command, {bool all = false, extensions = "", Function(String command) onError, path = ""}) async {
+/// - [path]: A list of strings specifying the system path. Defaults to the `PATH` environment variable.
+/// - [extensions]: A list of strings specifying the executable file extensions. Defaults to the `PATHEXT` environment variable.
+Future where(String command, {bool all = false, List<String> extensions, Function(String command) onError, List<String> path}) async {
 	final finder = Finder(extensions: extensions, path: path);
 	final list = <String>[];
 

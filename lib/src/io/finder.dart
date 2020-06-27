@@ -4,42 +4,38 @@ part of "../io.dart";
 class Finder {
 
 	/// Creates a new finder from the following parameters:
-	/// - [extensions]: A string, or a list of strings, specifying the executable file extensions. Defaults to the `PATHEXT` environment variable.
-	/// - [path]: A string, or a list of strings, specifying the system path. Defaults to the `PATH` environment variable.
+	/// - [path]: A list of strings specifying the system path. Defaults to the `PATH` environment variable.
+	/// - [extensions]: A list of strings specifying the executable file extensions. Defaults to the `PATHEXT` environment variable.
 	Finder({List<String> extensions, List<String> path}) {
 		final pathSeparator = isWindows ? ";" : ":";
 
-		if (path is! List) path = path.toString().split(pathSeparator)..retainWhere((item) => item.isNotEmpty);
-		if (path.isEmpty) {
-			final pathEnv = io.Platform.environment["PATH"] ?? "";
-			if (pathEnv.isNotEmpty) path = pathEnv.split(pathSeparator);
-		}
-
-		if (extensions is! List) extensions = extensions.toString().split(pathSeparator)..retainWhere((item) => item.isNotEmpty);
-		if (extensions.isEmpty && isWindows) {
+		if (extensions == null) {
 			final pathExt = io.Platform.environment["PATHEXT"] ?? "";
 			extensions = pathExt.isNotEmpty ? pathExt.split(pathSeparator) : [".exe", ".cmd", ".bat", ".com"];
 		}
 
-		this.extensions.addAll(List<String>.from(extensions.map((extension) => extension.toLowerCase())));
-		this.path.addAll(List<String>.from(path.map((directory) => directory.replaceAll(RegExp(r'^"+|"+$'), ""))));
+		if (path == null) {
+			final pathEnv = io.Platform.environment["PATH"] ?? "";
+			if (pathEnv.isNotEmpty) path = pathEnv.split(pathSeparator);
+		}
+
+		this.extensions.addAll(extensions.map((extension) => extension.toLowerCase()));
+		this.path.addAll(path);
 	}
 
 	/// The list of executable file extensions.
-	final List<String> extensions = <String>[];
+	final List<String> extensions = [];
 
 	/// Value indicating whether the current platform is Windows.
-	static bool get isWindows {
-		if (io.Platform.isWindows) return true;
-		return io.Platform.environment["OSTYPE"] == "cygwin" || io.Platform.environment["OSTYPE"] == "msys";
-	}
+	static bool get isWindows =>
+		io.Platform.isWindows || io.Platform.environment["OSTYPE"] == "cygwin" || io.Platform.environment["OSTYPE"] == "msys";
 
 	/// The list of system paths.
-	final List<String> path = <String>[];
+	final List<String> path = [];
 
 	/// Finds the instances of the specified [command] in the system path.
 	Stream<io.File> find(String command) async* {
-		for (final directory in path) yield* _findExecutables(directory, command);
+		for (final directory in [if (isWindows) io.Directory.current.path, ...path]) yield* _findExecutables(directory, command);
 	}
 
 	/// Gets a value indicating whether the specified [file] is executable.
@@ -50,8 +46,7 @@ class Finder {
 	}
 
 	/// Checks that the specified [file] is executable according to the executable file extensions.
-	bool _checkFileExtension(String file) =>
-		extensions.contains(p.extension(file).toLowerCase()) || extensions.contains(file.toLowerCase());
+	bool _checkFileExtension(String file) => extensions.contains(p.extension(file).toLowerCase());
 
 	/// Checks that the file referenced by the specified [fileStats] is executable according to its permissions.
 	Future<bool> _checkFilePermissions(FileStat fileStats) async {
@@ -74,7 +69,7 @@ class Finder {
 
 	/// Finds the instances of a [command] in the specified [directory].
 	Stream<io.File> _findExecutables(String directory, String command) async* {
-		for (final extension in ["", ...extensions]) {
+		for (final extension in ["", if (isWindows) ...extensions]) {
 			final resolvedPath = p.canonicalize("${p.join(directory, command)}${extension.toLowerCase()}");
 			if (await isExecutable(resolvedPath)) yield io.File(resolvedPath);
 		}

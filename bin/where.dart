@@ -15,7 +15,7 @@ Future<void> main(List<String> args) async {
 		options = parseOptions(args);
 		if (options.help) return print(usage);
 		if (options.version) return print(packageVersion);
-		if (options.rest.isEmpty) throw const FormatException("A command must be provided.");
+		if (options.rest.isEmpty) throw const FormatException("You must provide the name of a command to find.");
 	}
 
 	on FormatException {
