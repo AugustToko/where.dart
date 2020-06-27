@@ -1,5 +1,9 @@
 # Changelog
 
+## Version [8.0.0](https://git.belin.io/cedx/where.dart/compare/v7.0.0...v8.0.0)
+- Breaking change: removed the `Finder.pathSeparator` property.
+- Updated the package dependencies.
+
 ## Version [7.0.0](https://git.belin.io/cedx/where.dart/compare/v6.6.0...v6.7.0)
 - Breaking change: the `Finder.find()` method now returns [`File`](https://api.dart.dev/stable/dart-io/File-class.html) instances instead of strings.
 - Updated the documentation.
