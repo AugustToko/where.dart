@@ -5,7 +5,7 @@ import "package:where/where.dart";
 void main() => group("where()", () {
 	test("should return the path of the `executable.cmd` file on Windows", () async {
 		try {
-			final executable = await where("executable", all: false, path: ["test/fixtures"]);
+			final executable = await where("executable", path: ["test/fixtures"]);
 			if (!Finder.isWindows) fail("Exception not thrown");
 			else expect(executable, allOf(const TypeMatcher<String>(), endsWith(r"\test\fixtures\executable.cmd")));
 		}
@@ -34,7 +34,7 @@ void main() => group("where()", () {
 
 	test("should return the path of the `executable.sh` file on POSIX", () async {
 		try {
-			final executable = await where("executable.sh", all: false, path: ["test/fixtures"]);
+			final executable = await where("executable.sh", path: ["test/fixtures"]);
 			if (Finder.isWindows) fail("Exception not thrown");
 			else expect(executable, allOf(const TypeMatcher<String>(), endsWith("/test/fixtures/executable.sh")));
 		}
@@ -62,7 +62,7 @@ void main() => group("where()", () {
 	});
 
 	test("should return the value of the `onError` handler", () async {
-		final executable = await where("executable", all: false, onError: (_) => "foo", path: ["test/fixtures"]);
+		final executable = await where("executable", onError: (_) => "foo", path: ["test/fixtures"]);
 		if (!Finder.isWindows) expect(executable, "foo");
 
 		final executables = await where("executable.sh", all: true, onError: (_) => ["foo"], path: ["test/fixtures"]);
