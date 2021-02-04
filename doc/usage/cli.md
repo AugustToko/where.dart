@@ -1,5 +1,5 @@
 ---
-path: src/branch/main
+path: blob/main
 source: lib/src/cli/options.dart
 ---
 

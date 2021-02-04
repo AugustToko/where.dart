@@ -3,13 +3,13 @@ site_description: >
   Find the instances of an executable in the system path, implemented in Dart.
   Like the `which` Linux command.
 site_author: Cédric Belin - cedric@belin.io
-site_url: https://docs.belin.io/where.dart
+site_url: https://cedx.github.io/where.dart
 
 docs_dir: ../doc
 site_dir: ../www
 
-repo_name: git.belin.io
-repo_url: https://git.belin.io/cedx/where.dart
+repo_name: github.com
+repo_url: https://github.com/cedx/where.dart
 edit_uri: ""
 
 copyright: Copyright &copy; 2017 - 2020 Cédric Belin
