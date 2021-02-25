@@ -3,6 +3,8 @@
 
 Find the instances of an executable in the system path, implemented in [Dart](https://dart.dev).
 
+> WARNING: this package is **abandoned** and no longer maintained.
+
 ## Documentation
 - [User guide](https://cedx.github.io/where.dart)
 - [API reference](https://pub.dev/documentation/where)

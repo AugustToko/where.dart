@@ -67,7 +67,7 @@ class Finder {
 	Stream<io.File> _findExecutables(String directory, String command) async* {
 		for (final extension in ["", if (isWindows) ...extensions]) {
 			final resolvedPath = p.absolute("${p.join(directory, command)}${extension.toLowerCase()}");
-			if (await isExecutable(resolvedPath)) yield io.File(resolvedPath);
+			if (await isExecutable(resolvedPath)) yield io.File(p.normalize(resolvedPath));
 		}
 	}
 

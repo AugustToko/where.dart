@@ -1,12 +1,7 @@
----
-path: blob/main
-source: lib/src/io/where.dart
----
-
 # Application programming interface
 This package provides a single function, `where()`, allowing to locate a command in the system path:
 
-``` dart
+```dart
 import "package:where/where.dart";
 
 Future<void> main() async {
@@ -22,7 +17,7 @@ Future<void> main() async {
 }
 ```
 
-The function returns a [`Future<String>`](https://api.dart.dev/stable/dart-async/Future-class.html) that completes with the absolute path of the first instance of the executables found. If the command could not be located, the future completes with a `FinderException`.
+The function returns a [Future<String>](https://api.dart.dev/stable/dart-async/Future-class.html) that completes with the absolute path of the first instance of the executables found. If the command could not be located, the future completes with a `FinderException`.
 
 ## Options
 The behavior of the `where()` function can be customized using the following optional named parameters.
@@ -32,7 +27,7 @@ A value indicating whether to return all executables found, instead of just the 
 
 If you pass `true` as parameter value, the function will return a `Future<List<String>>` providing all paths found, instead of a `Future<String>`:
 
-``` dart
+```dart
 import "package:where/where.dart";
 
 Future<void> main() async {
@@ -45,19 +40,17 @@ Future<void> main() async {
 ### String | List&lt;String&gt; **extensions**
 The executable file extensions, provided as a string or a list of file extensions. Defaults to the list of extensions provided by the `PATHEXT` environment variable.
 
-``` dart
+```dart
 where("foobar", extensions: ".FOO;.EXE;.CMD");
 where("foobar", extensions: [".foo", ".exe", ".cmd"]);
 ```
 
-!!! tip
-	The `extensions` option is only meaningful on the Windows platform,
-	where the executability of a file is determined from its extension.
+?> The `extensions` option is only meaningful on the Windows platform, where the executability of a file is determined from its extension.
 
 ### dynamic **onError**(String command)
 By default, when the specified command cannot be located, a `FinderException` is thrown. You can disable this exception by providing your own error handler:
 
-``` dart
+```dart
 import "package:where/where.dart";
 
 Future<void> main() async {
@@ -72,7 +65,7 @@ When an `onError` handler is provided, it is called with the command as argument
 ### String | List&lt;String&gt; **path**
 The system path, provided as a string or a list of directories. Defaults to the list of paths provided by the `PATH` environment variable.
 
-``` dart
+```dart
 where("foobar", path: "/usr/local/bin:/usr/bin");
 where("foobar", path: ["/usr/local/bin", "/usr/bin"]);
 ```
