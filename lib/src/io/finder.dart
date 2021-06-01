@@ -6,7 +6,7 @@ class Finder {
 	/// Creates a new finder from the following parameters:
 	/// - [path]: A list of strings specifying the system path. Defaults to the `PATH` environment variable.
 	/// - [extensions]: A list of strings specifying the executable file extensions. Defaults to the `PATHEXT` environment variable.
-	Finder({List<String> extensions, List<String> path}) {
+	Finder({List<String>? extensions, List<String>? path}) {
 		final pathSeparator = isWindows ? ";" : ":";
 
 		if (extensions == null) {
@@ -20,7 +20,7 @@ class Finder {
 		}
 
 		this.extensions.addAll(extensions.map((extension) => extension.toLowerCase()));
-		this.path.addAll(path);
+		this.path.addAll(path!);
 	}
 
 	/// The list of executable file extensions.
@@ -42,7 +42,7 @@ class Finder {
 	Future<bool> isExecutable(String file) async {
 		final type = io.FileSystemEntity.typeSync(file);
 		if (type != io.FileSystemEntityType.file && type != io.FileSystemEntityType.link) return false;
-		return isWindows ? _checkFileExtension(file) : _checkFilePermissions(await FileStat.stat(file));
+		return isWindows ? _checkFileExtension(file) : await _checkFilePermissions(await FileStat.stat(file));
 	}
 
 	/// Checks that the specified [file] is executable according to the executable file extensions.
@@ -83,7 +83,7 @@ class Finder {
 class FinderException implements io.IOException {
 
 	/// Creates a new finder exception.
-	FinderException(this.command, this.finder, [String message]):
+	FinderException(this.command, this.finder, [String? message]):
 		message = message ?? "Command '$command' not found.";
 
 	/// The looked up command.

@@ -9,7 +9,7 @@ part of "../io.dart";
 /// Optional parameters allow to customize the function behavior:
 /// - [path]: A list of strings specifying the system path. Defaults to the `PATH` environment variable.
 /// - [extensions]: A list of strings specifying the executable file extensions. Defaults to the `PATHEXT` environment variable.
-Future where(String command, {bool all = false, List<String> extensions, Function(String command) onError, List<String> path}) async {
+Future where(String command, {bool all = false, List<String>? extensions, Function(String command)? onError, List<String>? path}) async {
 	final finder = Finder(extensions: extensions, path: path);
 	final list = <String>[];
 
